@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -19,4 +19,13 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.FieldLabel {
+  margin-right: 0.2rem;
+  padding-right: 0.2rem;
+}
+
+.saveButton {
+  margin: 0.7rem;
 }
