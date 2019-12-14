@@ -10,16 +10,42 @@ const Header = (props) => {
       </nav>
   )
 };
+class Character {
+     id = 0;
+     name = "";
+     race = "";
+     class = "";
+     age = "";
+     customFields = [];
+     fromJSON(properties) {
+         this.name = properties[0].value;
+         this.race = properties[1].value;
+         this.class = properties[2].value;
+         this.age = properties[3].value;
+         console.log(this);
+     }
+}
 
+class Settlement  {
+    leader;
+
+}
 
 function save() {
     let fields = document.getElementsByClassName("InputFieldContainer");
+    let data = [];
     for (let field of fields) {
-        let label = field.childNodes[0].textContent;
+        let name = field.childNodes[0].textContent;
         let text = field.childNodes[1].value;
-        console.log(label + " : " + text);
+        let row = {property : name, value:text};
+        data.push(row);
     }
+    console.log(data);
+    console.log();
+    const character = new Character();
+    character.fromJSON(data);
 }
+
 
 
 const Field = (props) => {
@@ -27,7 +53,7 @@ const Field = (props) => {
     return (
         <div className="InputFieldContainer">
             <label id={id} className="FieldLabel">{props.label}</label>
-            <textarea defaultValue={props.text}></textarea>
+            <textarea defaultValue={props.text}/>
         </div>
     )
 };
