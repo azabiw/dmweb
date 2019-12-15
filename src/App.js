@@ -10,7 +10,7 @@ const Header = (props) => {
       </nav>
   )
 };
-class Character {
+class Character extends React.Component{
      id = 0;
      name = "";
      race = "";
@@ -24,10 +24,37 @@ class Character {
          this.age = properties[3].value;
          console.log(this);
      }
+     render() {
+         return (
+            <form id="inputForm">
+                <Field label={"Name"} text={""}/>
+                <Field label={"Race"} text={""}/>
+                <Field label={"Class"} text={""}/>
+                <Field label={"Age"} text={""}/>
+                <Button className="saveButton" variant="contained" color="primary" onClick={save}>
+                    Save
+                </Button>
+            </form>
+         )
+     }
 }
 
 class Settlement  {
+    #id = 0;
+    name = "Settlement";
     leader;
+    characters = [];
+    render() {
+         return (
+            <form id="inputForm">
+
+                <Field label={"Leader"} text={""}/>
+                <Button className="saveButton" variant="contained" color="primary" onClick={save}>
+                    Save
+                </Button>
+            </form>
+         )
+     }
 
 }
 
@@ -36,7 +63,7 @@ function save() {
     let data = [];
     for (let field of fields) {
         let name = field.childNodes[0].textContent;
-        let text = field.childNodes[1].value;
+        let text = field.childNodes[0].firstChild.value;
         let row = {property : name, value:text};
         data.push(row);
     }
@@ -52,8 +79,9 @@ const Field = (props) => {
     let id = props.label + "TextField";
     return (
         <div className="InputFieldContainer">
-            <label id={id} className="FieldLabel">{props.label}</label>
-            <textarea defaultValue={props.text}/>
+            <label id={id} className="FieldLabel">{props.label}
+                <textarea defaultValue={props.text}/>
+            </label>
         </div>
     )
 };
@@ -72,15 +100,7 @@ function App() {
   return (
     <div className="App">
         <Header/>
-        <form id="inputForm">
-            <Field label={"Name"} text={""}/>
-            <Field label={"Race"} text={""}/>
-            <Field label={"Class"} text={""}/>
-            <Field label={"Age"} text={""}/>
-            <Button className="saveButton" variant="contained" color="primary" onClick={save}>
-                Save
-            </Button>
-        </form>
+            <Character />
         <Footer/>
     </div>
   );
