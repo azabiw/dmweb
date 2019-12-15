@@ -10,24 +10,78 @@ const Header = (props) => {
       </nav>
   )
 };
+class Character extends React.Component{
+     id = 0;
+     name = "";
+     race = "";
+     class = "";
+     age = "";
+     customFields = [];
+     fromJSON(properties) {
+         this.name = properties[0].value;
+         this.race = properties[1].value;
+         this.class = properties[2].value;
+         this.age = properties[3].value;
+         console.log(this);
+     }
+     render() {
+         return (
+            <form id="inputForm">
+                <Field label={"Name"} text={""}/>
+                <Field label={"Race"} text={""}/>
+                <Field label={"Class"} text={""}/>
+                <Field label={"Age"} text={""}/>
+                <Button className="saveButton" variant="contained" color="primary" onClick={save}>
+                    Save
+                </Button>
+            </form>
+         )
+     }
+}
 
+class Settlement  {
+    #id = 0;
+    name = "Settlement";
+    leader;
+    characters = [];
+    render() {
+         return (
+            <form id="inputForm">
+
+                <Field label={"Leader"} text={""}/>
+                <Button className="saveButton" variant="contained" color="primary" onClick={save}>
+                    Save
+                </Button>
+            </form>
+         )
+     }
+
+}
 
 function save() {
     let fields = document.getElementsByClassName("InputFieldContainer");
+    let data = [];
     for (let field of fields) {
-        let label = field.childNodes[0].textContent;
-        let text = field.childNodes[1].value;
-        console.log(label + " : " + text);
+        let name = field.childNodes[0].textContent;
+        let text = field.childNodes[0].firstChild.value;
+        let row = {property : name, value:text};
+        data.push(row);
     }
+    console.log(data);
+    console.log();
+    const character = new Character();
+    character.fromJSON(data);
 }
+
 
 
 const Field = (props) => {
     let id = props.label + "TextField";
     return (
         <div className="InputFieldContainer">
-            <label id={id} className="FieldLabel">{props.label}</label>
-            <textarea defaultValue={props.text}></textarea>
+            <label id={id} className="FieldLabel">{props.label}
+                <textarea defaultValue={props.text}/>
+            </label>
         </div>
     )
 };
@@ -46,15 +100,7 @@ function App() {
   return (
     <div className="App">
         <Header/>
-        <form id="inputForm">
-            <Field label={"Name"} text={""}/>
-            <Field label={"Race"} text={""}/>
-            <Field label={"Class"} text={""}/>
-            <Field label={"Age"} text={""}/>
-            <Button className="saveButton" variant="contained" color="primary" onClick={save}>
-                Save
-            </Button>
-        </form>
+            <Character />
         <Footer/>
     </div>
   );
