@@ -17,6 +17,11 @@ class Character extends React.Component{
      class = "";
      age = "";
      customFields = [];
+     constructor(props){
+         super(props);
+         this.handleFieldChange = this.handleFieldChange.bind(this);
+         this.state = {customfields: []};
+     }
      fromJSON(properties) {
          this.name = properties[0].value;
          this.race = properties[1].value;
@@ -24,13 +29,17 @@ class Character extends React.Component{
          this.age = properties[3].value;
          console.log(this);
      }
+     handleFieldChange(input) {
+         this.setState({name : input});
+         console.log(this);
+     }
      render() {
          return (
             <form id="inputForm">
-                <Field label={"Name"} text={""}/>
-                <Field label={"Race"} text={""}/>
-                <Field label={"Class"} text={""}/>
-                <Field label={"Age"} text={""}/>
+                <Field label={"Name"} text={""} onInputChange={this.handleFieldChange}/>
+                <Field label={"Race"} text={""} onInputChange={this.handleFieldChange}/>
+                <Field label={"Class"} text={""} onInputChange={this.handleFieldChange}/>
+                <Field label={"Age"} text={""} onInputChange={this.handleFieldChange}/>
                 <Button className="saveButton" variant="contained" color="primary" onClick={save}>
                     Save
                 </Button>
@@ -75,16 +84,30 @@ function save() {
 
 
 
-const Field = (props) => {
-    let id = props.label + "TextField";
-    return (
-        <div className="InputFieldContainer">
-            <label id={id} className="FieldLabel">{props.label}
-                <textarea defaultValue={props.text}/>
-            </label>
-        </div>
-    )
-};
+class Field extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {value: ""};
+    }
+    handleChange(e) {
+        this.props.onInputChange(e.target.value);
+    }
+    render() {
+        let id = this.props.label + "TextField";
+        const value = this.props.value;
+        return (
+            <div className="InputFieldContainer">
+                <label id={id} className="FieldLabel">{this.props.label}
+                    <textarea defaultValue={this.props.text}  onChange={this.handleChange}
+                    />
+                </label>
+            </div>
+        )
+
+    }
+
+}
 
 
 const Footer = (props) => {
