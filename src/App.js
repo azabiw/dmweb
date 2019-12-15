@@ -12,14 +12,13 @@ const Header = (props) => {
 };
 class Character extends React.Component{
      id = 0;
-     name = "";
-     race = "";
-     class = "";
-     age = "";
-     customFields = [];
      constructor(props){
          super(props);
-         this.handleFieldChange = this.handleFieldChange.bind(this);
+         this.handleNameChange = this.handleNameChange.bind(this);
+         this.handleClassChange = this.handleClassChange.bind(this);
+         this.handleRaceChange = this.handleRaceChange.bind(this);
+         this.handleAgeChange = this.handleAgeChange.bind(this);
+
          this.state = {customfields: []};
      }
      fromJSON(properties) {
@@ -29,17 +28,31 @@ class Character extends React.Component{
          this.age = properties[3].value;
          console.log(this);
      }
-     handleFieldChange(input) {
+     //pohjana käytetty https://reactjs.org/docs/lifting-state-up.html
+     //TODO: tee järkevämpi ratkaisu
+     handleNameChange(input) {
          this.setState({name : input});
          console.log(this);
      }
+     handleClassChange(input) {
+         this.setState({class : input});
+         console.log(this);
+     }
+     handleRaceChange(input) {
+        this.setState({race : input});
+        console.log(this);
+    }
+     handleAgeChange(input) {
+        this.setState({age : input});
+        console.log(this);
+    }
      render() {
          return (
             <form id="inputForm">
-                <Field label={"Name"} text={""} onInputChange={this.handleFieldChange}/>
-                <Field label={"Race"} text={""} onInputChange={this.handleFieldChange}/>
-                <Field label={"Class"} text={""} onInputChange={this.handleFieldChange}/>
-                <Field label={"Age"} text={""} onInputChange={this.handleFieldChange}/>
+                <Field label={"Name"} text={""} onInputChange={this.handleNameChange}/>
+                <Field label={"Race"} text={""} onInputChange={this.handleRaceChange}/>
+                <Field label={"Class"} text={""} onInputChange={this.handleClassChange}/>
+                <Field label={"Age"} text={""} onInputChange={this.handleAgeChange}/>
                 <Button className="saveButton" variant="contained" color="primary" onClick={save}>
                     Save
                 </Button>
@@ -95,7 +108,6 @@ class Field extends React.Component {
     }
     render() {
         let id = this.props.label + "TextField";
-        const value = this.props.value;
         return (
             <div className="InputFieldContainer">
                 <label id={id} className="FieldLabel">{this.props.label}
