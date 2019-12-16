@@ -27,21 +27,17 @@ class Character extends React.Component{
          this.race = properties[1].value;
          this.class = properties[2].value;
          this.age = properties[3].value;
-         console.log(this);
      }
      //pohjana käytetty https://reactjs.org/docs/lifting-state-up.html
      //TODO: tee järkevämpi ratkaisu
      handleNameChange(input) {
          this.setState({name : input});
-         console.log(this);
      }
      handleClassChange(input) {
          this.setState({class : input});
-         console.log(this);
      }
      handleRaceChange(input) {
         this.setState({race : input});
-        console.log(this);
     }
      handleAgeChange(input) {
         this.setState({age : input});
@@ -96,10 +92,10 @@ function save() {
         let row = {propertyName : name, value:text};
         data.push(row);
     }
-    console.log(data);
     console.log();
     const character = new Character();
     character.fromJSON(data);
+    console.log(character);
 }
 
 //Yksittäinen elementti vasemmassa navigaatiovalikossa. Tekstin voi vaihtaa props.label
