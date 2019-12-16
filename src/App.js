@@ -64,17 +64,20 @@ class Character extends React.Component{
          )
      }
 }
-
-class Settlement  {
+class Settlement extends React.Component {
     #id = 0;
-    name = "Settlement";
+    name = "New Settlement";
     leader;
     characters = [];
     render() {
          return (
             <form id="inputForm">
-
-                <Field label={"Leader"} text={""}/>
+                <Field label={"Name"} text={""}/>
+                <select className="SettlementLeaderSelector">
+                    <option value="testi">Character 1</option>
+                    <option value="testi2">Character 2</option>
+                    <option value="testi">Character 3</option>
+                </select>
                 <Button className="saveButton" variant="contained" color="primary" onClick={save}>
                     Save
                 </Button>
@@ -167,6 +170,10 @@ function App() {
             </Grid>
             <Grid item xs={9}>
                 <Character />
+            </Grid>
+
+            <Grid item xs={9}>
+                <Settlement />
             </Grid>
             <Grid item xs={12}>
                 <Footer />

@@ -2,3 +2,5 @@ Projektissa lähteenä käytetyt linkit:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 https://reactjs.org/docs/react-component.html
 https://reactjs.org/blog/2015/09/02/new-react-developer-tools.html#installation
+https://www.w3schools.com/tags/tag_select.asp
+https://material.io/design/layout/responsive-layout-grid.html#columns-gutters-margins
