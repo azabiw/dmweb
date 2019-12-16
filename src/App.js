@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Button from '@material-ui/core/Button';
+import Grid from "@material-ui/core/Grid";
 
 
 const Header = (props) => {
@@ -19,7 +20,7 @@ class Character extends React.Component{
          this.handleRaceChange = this.handleRaceChange.bind(this);
          this.handleAgeChange = this.handleAgeChange.bind(this);
 
-         this.state = {customfields: []};
+         this.state = {customFields: []};
      }
      fromJSON(properties) {
          this.name = properties[0].value;
@@ -48,15 +49,18 @@ class Character extends React.Component{
     }
      render() {
          return (
-            <form id="inputForm">
-                <Field label={"Name"} text={""} onInputChange={this.handleNameChange}/>
-                <Field label={"Race"} text={""} onInputChange={this.handleRaceChange}/>
-                <Field label={"Class"} text={""} onInputChange={this.handleClassChange}/>
-                <Field label={"Age"} text={""} onInputChange={this.handleAgeChange}/>
-                <Button className="saveButton" variant="contained" color="primary" onClick={save}>
-                    Save
-                </Button>
-            </form>
+             <fieldset>
+                 <legend>Edit NPC</legend>
+                <form id="inputForm">
+                    <Field label={"Name"} text={""} onInputChange={this.handleNameChange}/>
+                    <Field label={"Race"} text={""} onInputChange={this.handleRaceChange}/>
+                    <Field label={"Class"} text={""} onInputChange={this.handleClassChange}/>
+                    <Field label={"Age"} text={""} onInputChange={this.handleAgeChange}/>
+                    <Button className="saveButton" variant="contained" color="primary" onClick={save}>
+                     Save
+                    </Button>
+                </form>
+             </fieldset>
          )
      }
 }
@@ -86,7 +90,7 @@ function save() {
     for (let field of fields) {
         let name = field.childNodes[0].textContent;
         let text = field.childNodes[0].firstChild.value;
-        let row = {property : name, value:text};
+        let row = {propertyName : name, value:text};
         data.push(row);
     }
     console.log(data);
@@ -95,8 +99,28 @@ function save() {
     character.fromJSON(data);
 }
 
+//Yksittäinen elementti vasemmassa navigaatiovalikossa. Tekstin voi vaihtaa props.label
+const ListElement = (props) => {
+    return (
+        <div>
+            <button>{props.label}</button>
+        </div>
+    )
+};
 
+//Tekee vasemman navigaatiolistan, josta voidaan valita yksittäisiä hahmoja.
+const LeftList = (props) => {
+    return (
+        <div className="LeftNavigation" id="leftList">
+            <ListElement  label={"Character 1"}/>
+            <ListElement  label={"Character 2"}/>
+            <ListElement  label={"Character 3"}/>
+            <Button variant="contained" color="primary">Add new Character</Button>
+        </div>
+    )
+}
 
+//tekstikenttä, joka siirtää arvonsa ylemmälle elementille.
 class Field extends React.Component {
     constructor(props) {
         super(props);
@@ -130,13 +154,24 @@ const Footer = (props) => {
   )
 };
 
-
+//Pääohjelma
 function App() {
   return (
     <div className="App">
-        <Header/>
-            <Character />
-        <Footer/>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Header/>
+            </Grid>
+            <Grid item xs={2}>
+                <LeftList/>
+            </Grid>
+            <Grid item xs={9}>
+                <Character />
+            </Grid>
+            <Grid item xs={12}>
+                <Footer />
+            </Grid>
+        </Grid>
     </div>
   );
 }
