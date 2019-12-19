@@ -5,3 +5,6 @@ https://reactjs.org/blog/2015/09/02/new-react-developer-tools.html#installation
 https://www.w3schools.com/tags/tag_select.asp
 https://material.io/design/layout/responsive-layout-grid.html#columns-gutters-margins
 https://react-redux.js.org/introduction/quick-start
+https://dev.to/nburgess/creating-a-react-app-with-react-router-and-an-express-backend-33l3
+https://daveceddia.com/create-react-app-express-backend/
+https://stackoverflow.com/questions/18008620/node-js-express-js-app-only-works-on-port-3000
