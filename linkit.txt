@@ -8,3 +8,8 @@ https://react-redux.js.org/introduction/quick-start
 https://dev.to/nburgess/creating-a-react-app-with-react-router-and-an-express-backend-33l3
 https://daveceddia.com/create-react-app-express-backend/
 https://stackoverflow.com/questions/18008620/node-js-express-js-app-only-works-on-port-3000
+https://expressjs.com/en/guide/writing-middleware.html
+https://expressjs.com/en/guide/database-integration.html
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+https://docs.mongodb.com/guides/server/insert/
