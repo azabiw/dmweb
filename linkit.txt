@@ -13,3 +13,4 @@ https://expressjs.com/en/guide/database-integration.html
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 https://docs.mongodb.com/guides/server/insert/
+https://docs.mongodb.com/manual/reference/connection-string/
