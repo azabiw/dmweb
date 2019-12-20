@@ -156,19 +156,21 @@ const Footer = (props) => {
 class Users extends React.Component {
     state = {users: []};
 
-    componentDidMount() {
-        fetch('/users')
-            .then(res => res.json())
-            .then(users => this.setState({ users }));
+    async componentDidMount() {
+
+        let response = await fetch('/users', {
+            credentials: "omit",
+            cache: "no-store",
+            method: "get"
+        });
+        let data = await response.json();
+        console.log(data);
     }
 
     render() {
         return (
             <div className="Users">
                 <h1>Users</h1>
-                {this.state.users.map(user =>
-                    <div key={user.id}>{user.username}</div>
-                )}
             </div>
         );
     }
