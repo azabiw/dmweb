@@ -15,3 +15,4 @@ https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 https://docs.mongodb.com/guides/server/insert/
 https://docs.mongodb.com/manual/reference/connection-string/
 https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
+https://stackoverflow.com/questions/50580673/typeerror-db-close-is-not-a-function

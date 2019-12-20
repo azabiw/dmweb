@@ -42,8 +42,8 @@ function insertToDB(data) {
     db.collection("dmweb").insertOne(data, function(err, res) {
       if (err) throw err;
       console.log("1 document inserted");
-      MongoClient.close();
     });
+    client.close();
   })
 
 
