@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 });
 function connectToDB() {
   let MongoClient = require('mongodb').MongoClient;
-
+  insertToDB();
   MongoClient.connect('mongodb://localhost:27017/dmweb', function (err, client) {
     if (err) throw err;
 
@@ -27,5 +27,25 @@ function connectToDB() {
       console.log(result);
     })
   })
+}
+
+function insertToDB(data) {
+  let MongoClient = require('mongodb').MongoClient;
+
+  MongoClient.connect('mongodb://localhost:27017/dmweb', function (err, client) {
+    if (err) throw err;
+
+    let db = client.db('dmweb');
+     data  = { "Name" : "Character name", "id" : "1000" }
+
+
+    db.collection("dmweb").insertOne(data, function(err, res) {
+      if (err) throw err;
+      console.log("1 document inserted");
+      MongoClient.close();
+    });
+  })
+
+
 }
 module.exports = router;
