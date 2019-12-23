@@ -15,10 +15,6 @@ class Character extends React.Component{
      id = 0;
      constructor(props){
          super(props);
-         this.handleNameChange = this.handleNameChange.bind(this);
-         this.handleClassChange = this.handleClassChange.bind(this);
-         this.handleRaceChange = this.handleRaceChange.bind(this);
-         this.handleAgeChange = this.handleAgeChange.bind(this);
 
          this.state = {customFields: []};
      }
@@ -28,30 +24,15 @@ class Character extends React.Component{
          this.class = properties[2].value;
          this.age = properties[3].value;
      }
-     //pohjana käytetty https://reactjs.org/docs/lifting-state-up.html
-     //TODO: tee järkevämpi ratkaisu
-     handleNameChange(input) {
-         this.setState({name : input});
-     }
-     handleClassChange(input) {
-         this.setState({class : input});
-     }
-     handleRaceChange(input) {
-        this.setState({race : input});
-    }
-     handleAgeChange(input) {
-        this.setState({age : input});
-        console.log(this);
-    }
      render() {
          return (
              <fieldset>
                  <legend>Edit NPC</legend>
                 <form id="inputForm">
-                    <Field label={"Name"} text={""} onInputChange={this.handleNameChange}/>
-                    <Field label={"Race"} text={""} onInputChange={this.handleRaceChange}/>
-                    <Field label={"Class"} text={""} onInputChange={this.handleClassChange}/>
-                    <Field label={"Age"} text={""} onInputChange={this.handleAgeChange}/>
+                    <Field label={"Name"} text={""}/>
+                    <Field label={"Race"} text={""}/>
+                    <Field label={"Class"} text={""}/>
+                    <Field label={"Age"} text={""}/>
                     <Button className="saveButton" variant="contained" color="primary" onClick={save}>
                      Save
                     </Button>
@@ -83,12 +64,16 @@ class Settlement extends React.Component {
 
 }
 
+//todo: virheenkäsittely
+//lähettää lomakkeen sisällön palvelimelle
 function save() {
     let fields = document.getElementsByClassName("InputFieldContainer");
     let data = [];
+    data.push({username: "testUser1"});
     for (let field of fields) {
+        console.log(field);
         let name = field.childNodes[0].textContent;
-        let text = field.childNodes[0].firstChild.value;
+        let text = field.childNodes[0].childNodes[1].value;
         let row = {propertyName : name, value:text};
         data.push(row);
     }
@@ -96,6 +81,25 @@ function save() {
     const character = new Character();
     character.fromJSON(data);
     console.log(character);
+    sendToServer(data);
+}
+
+async function sendToServer(data) {
+    const url = "/users";
+    console.log(data);
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 //Yksittäinen elementti vasemmassa navigaatiovalikossa. Tekstin voi vaihtaa props.label
@@ -123,18 +127,14 @@ const LeftList = (props) => {
 class Field extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {value: ""};
-    }
-    handleChange(e) {
-        this.props.onInputChange(e.target.value);
     }
     render() {
         let id = this.props.label + "TextField";
         return (
             <div className="InputFieldContainer">
                 <label id={id} className="FieldLabel">{this.props.label}
-                    <textarea defaultValue={this.props.text}  onChange={this.handleChange}
+                    <textarea defaultValue={this.props.text}
                     />
                 </label>
             </div>

@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 const url = 'mongodb://localhost:27017/dmweb'; //connection string to mongodb
 
 /* GET users listing. */
@@ -8,6 +7,16 @@ router.get('/', function(req, res, next) {
   //res.send('respond with a resource');
   let result = getDataFromDB();
   res.send(result);
+});
+
+//käsittelee post tapahtumat
+//Todo: virheenkäsittely
+router.post('/', function(req, res, next) {
+  const character = req.body;
+  let result = insertToDB(character)
+  console.log("insertion result: " + result);
+  console.log("body was: " + character);
+  res.send(201);
 });
 
 //TODO: muokkaa
@@ -26,8 +35,8 @@ function getDataFromDB() {
 }
 
 //TODO: implement ja virheenkäsittely
-//tallentaa annetun JSON -olion tietokantaan
-function saveToDB(data) {
+//muokkaa annettua  JSON -oliota tietokannassa
+function modifyInDB(data) {
 
 }
 
@@ -38,6 +47,7 @@ function removeFromDB (removable){
 
 //TODO: virheenkäsittely
 //data = character to inserted to mongoDB
+//palauttaa onnistuiko lisääminen
 function insertToDB(data) {
   let MongoClient = require('mongodb').MongoClient;
 
@@ -45,14 +55,15 @@ function insertToDB(data) {
     if (err) throw err;
 
     let db = client.db('dmweb');
-     data  = { "Name" : "Character name", "id" : "1000" }
+     data  = { "character" : data};
 
 
     db.collection("dmweb").insertOne(data, function(err, res) {
       if (err) throw err;
-      console.log("1 document inserted");
+      console.log("inserted");
     });
     client.close();
+    return true;
   })
 
 
