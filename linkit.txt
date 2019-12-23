@@ -17,4 +17,7 @@ https://docs.mongodb.com/manual/reference/connection-string/
 https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
 https://stackoverflow.com/questions/50580673/typeerror-db-close-is-not-a-function
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 https://devhints.io/js-fetch
+https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
