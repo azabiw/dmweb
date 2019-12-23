@@ -25,9 +25,9 @@ class Character extends React.Component{
                 <legend>Edit NPC</legend>
                 <form id="inputForm">
                     <Paper className={"inputFormPaper"}>
-                        <Grid container spacing={2} direction="column">
+                        <Grid container spacing={4} direction="column">
                             <Grid item xs={6}>
-                                <Grid container direction="row">
+                                <Grid container direction="row" spacing={2}>
                                     <Field label={"Name"} text={""}/>
                                     <Field label={"Race"} text={""}/>
                                     <Field label={"Class"} text={""}/>
@@ -35,13 +35,13 @@ class Character extends React.Component{
                                 </Grid>
                             </Grid>
                             <Grid item xs={6}>
-                                <Grid container direction="row">
+                                <Grid container direction="row" spacing={2}>
                                     <Field label={"role"} text={""}/>
                                     <Field label={"Short intro"} text={""}/>
                                 </Grid>
                             </Grid>
                             <Grid item xs={6}>
-                                <Grid container direction="row">
+                                <Grid container direction="row"  spacing={2}>
                                     <Field label={"Alignment"} text={""}/>
                                     <Field label={"Size"} text={""}/>
                                     <Field label={"Type"} text={""}/>

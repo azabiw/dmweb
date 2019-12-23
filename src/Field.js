@@ -10,10 +10,10 @@ class Field extends React.Component {
     render() {
         let id = this.props.label + "TextField";
         return (
-            <Grid item xs={3}>
+            <Grid className={"InputFieldGrid"} item xs={3}>
                 <div className="InputFieldContainer">
                     <label id={id} className="FieldLabel">{this.props.label}
-                        <textarea defaultValue={this.props.text}
+                        <textarea class="inputField" defaultValue={this.props.text}
                         />
                     </label>
                 </div>

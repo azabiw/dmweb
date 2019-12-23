@@ -50,4 +50,6 @@
   display: flex;
   flex-direction: column;
 }
-
+.inputFieldGrid {
+  margin: 2em;
+}
