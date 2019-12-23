@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import Field from "./Field";
 import "./utilities";
 import utilities from "./utilities";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 class Character extends React.Component{
     id = 0;
@@ -22,23 +24,36 @@ class Character extends React.Component{
             <fieldset>
                 <legend>Edit NPC</legend>
                 <form id="inputForm">
-                    <Field label={"Name"} text={""}/>
-                    <Field label={"Race"} text={""}/>
-                    <Field label={"Class"} text={""}/>
-                    <Field label={"Age"} text={""}/>
-                    <Field label={"role"} text={""}/>
-                    <Field label={"Short intro"} text={""}/>
-                    <Field label={"Alignment"} text={""}/>
-                    <Field label={"Size"} text={""}/>
-                    <Field label={"Type"} text={""}/>
-                    <Field label={"Sub Type"} text={""}/>
-                    <Field label={"Organization"} text={""}/>
-
-
-
-                    <Button className="saveButton" variant="contained" color="primary" onClick={utilities.save}>
-                        Save
-                    </Button>
+                    <Paper className={"inputFormPaper"}>
+                        <Grid container spacing={2} direction="column">
+                            <Grid item xs={6}>
+                                <Grid container direction="row">
+                                    <Field label={"Name"} text={""}/>
+                                    <Field label={"Race"} text={""}/>
+                                    <Field label={"Class"} text={""}/>
+                                    <Field label={"Age"} text={""}/>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Grid container direction="row">
+                                    <Field label={"role"} text={""}/>
+                                    <Field label={"Short intro"} text={""}/>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Grid container direction="row">
+                                    <Field label={"Alignment"} text={""}/>
+                                    <Field label={"Size"} text={""}/>
+                                    <Field label={"Type"} text={""}/>
+                                    <Field label={"Sub Type"} text={""}/>
+                                    <Field label={"Organization"} text={""}/>
+                                </Grid>
+                            </Grid>
+                            <Button className="saveButton" variant="contained" color="primary" onClick={utilities.save}>
+                                Save
+                            </Button>
+                        </Grid>
+                    </Paper>
                 </form>
             </fieldset>
         )

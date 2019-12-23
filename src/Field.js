@@ -1,4 +1,5 @@
 import React from "react";
+import Grid from "@material-ui/core/Grid";
 //tekstikenttä, joka siirtää arvonsa ylemmälle elementille.
 
 class Field extends React.Component {
@@ -9,12 +10,14 @@ class Field extends React.Component {
     render() {
         let id = this.props.label + "TextField";
         return (
-            <div className="InputFieldContainer">
-                <label id={id} className="FieldLabel">{this.props.label}
-                    <textarea defaultValue={this.props.text}
-                    />
-                </label>
-            </div>
+            <Grid item xs={3}>
+                <div className="InputFieldContainer">
+                    <label id={id} className="FieldLabel">{this.props.label}
+                        <textarea defaultValue={this.props.text}
+                        />
+                    </label>
+                </div>
+            </Grid>
         )
 
     }
