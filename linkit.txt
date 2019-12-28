@@ -21,3 +21,6 @@ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 https://devhints.io/js-fetch
 https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
+https://final-form.org/docs/react-final-form/getting-started
+https://final-form.org/docs/react-final-form/examples/simple
+https://reactjs.org/docs/jsx-in-depth.html#spread-attributes

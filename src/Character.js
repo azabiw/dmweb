@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import Field from "./Field";
 import "./utilities";
 import utilities from "./utilities";
 import Grid from "@material-ui/core/Grid";
@@ -9,6 +8,7 @@ import {ExpansionPanel, ExpansionPanelDetails} from "@material-ui/core";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import Typography from "@material-ui/core/Typography";
+import {Form, Field} from "react-final-form";
 class Character extends React.Component{
     id = 0;
     constructor(props){
@@ -26,112 +26,128 @@ class Character extends React.Component{
         return (
             <fieldset>
                 <legend>Edit NPC</legend>
-                <form id="inputForm">
-                    <Paper className={"inputFormPaper"}>
-                        <Grid container spacing={4} direction="column">
-                            <Grid item xs={6}>
-                                <Grid container direction="row" spacing={2}>
-                                    <Field label={"Name"} text={""}/>
-                                    <Field label={"Race"} text={""}/>
-                                    <Field label={"Class"} text={""}/>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid container direction="row" spacing={2}>
-                                    <Field label={"role"} text={""}/>
-                                    <Field label={"Short intro"} text={""}/>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Grid container direction="row"  spacing={2}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography >General</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <Field label={"Alignment"} text={""}/>
-                                            <Field label={"Size"} text={""}/>
-                                            <Field label={"Type"} text={""}/>
-                                            <Field label={"Sub Type"} text={""}/>
-                                            <Field label={"Organization"} text={""}/>
-                                            <Field label={"Age"} text={""}/>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Grid>
-                            </Grid>
+                <Form onSubmit={(formData) => {
+                    console.log(formData);
+                } }>
+                    {({handleSubmit}) => (
+                        <form onSubmit={handleSubmit} id="inputForm">
+                            <Paper className={"inputFormPaper"}>
+                                <Grid container spacing={4} direction="column">
+                                    <Grid item xs={6}>
+                                        <Grid container direction="row" spacing={2}>
+                                            <SimpleField name={"name"} label={"Name"}/>
+                                            <SimpleField name={"race"} label={"Race"} />
+                                            <SimpleField name={"characterClass"} label={"Class"} />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Grid container direction="row" spacing={2}>
+                                            <SimpleField name={"role"} label={"Role"} />
+                                            <SimpleField name={"intro"} label={"Short intro"} />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Grid container direction="row"  spacing={2}>
+                                            <ExpansionPanel>
+                                                <ExpansionPanelSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography >General</Typography>
+                                                </ExpansionPanelSummary>
+                                                <ExpansionPanelDetails>
+                                                    <SimpleField name={"alignment"} label={"Alignment"} />
+                                                    <SimpleField name={"size"} label={"Size"} />
+                                                    <SimpleField name={"type"} label={"Type"} />
+                                                    <SimpleField name={"subtype"} label={"Subtype"} />
+                                                    <SimpleField name={"organisation"} label={"Organisation"} />
+                                                    <SimpleField name={"age"} label={"Age"} />
+                                                </ExpansionPanelDetails>
+                                            </ExpansionPanel>
+                                        </Grid>
+                                    </Grid>
 
-                            <Grid item xs={6}>
-                                <Grid container direction="row"  spacing={2}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography >Defense</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <Field label={"AC"} text={""}/>
-                                            <Field label={"HP"} text={""}/>
-                                            <Field label={"Fort"} text={""}/>
-                                            <Field label={"Ref"} text={""}/>
-                                            <Field label={"Will"} text={""}/>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Grid>
-                            </Grid>
+                                    <Grid item xs={6}>
+                                        <Grid container direction="row"  spacing={2}>
+                                            <ExpansionPanel>
+                                                <ExpansionPanelSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography >Defense</Typography>
+                                                </ExpansionPanelSummary>
+                                                <ExpansionPanelDetails>
+                                                    <SimpleField label={"AC"} name={"ac"}/>
+                                                    <SimpleField name={"hp"} label={"HP"}/>
+                                                    <SimpleField name={"fort"}  label={"Fort"} />
+                                                    <SimpleField name={"ref"} label={"Ref"} />
+                                                    <SimpleField name={"will"} label={"Will"} />
+                                                </ExpansionPanelDetails>
+                                            </ExpansionPanel>
+                                        </Grid>
+                                    </Grid>
 
-                            <Grid item xs={6}>
-                                <Grid container direction="row"  spacing={2}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography >Offense</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <Field label={"Speed"} text={""}/>
-                                            <Field label={"Melee"} text={""}/>
-                                            <Field label={"Special attacks"} text={""}/>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Grid>
-                            </Grid>
+                                    <Grid item xs={6}>
+                                        <Grid container direction="row"  spacing={2}>
+                                            <ExpansionPanel>
+                                                <ExpansionPanelSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography >Offense</Typography>
+                                                </ExpansionPanelSummary>
+                                                <ExpansionPanelDetails>
+                                                    <SimpleField name={"speed"} label={"Speed"}/>
+                                                    <SimpleField name={"melee"} label={"Melee"}/>
+                                                    <SimpleField name={"specialattacks"} label={"Special attacks"}/>
+                                                </ExpansionPanelDetails>
+                                            </ExpansionPanel>
+                                        </Grid>
+                                    </Grid>
 
-                            <Grid item xs={6}>
-                                <Grid container direction="row"  spacing={2}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography >Tactics</Typography>
-                                        </ExpansionPanelSummary>
-                                        <ExpansionPanelDetails>
-                                            <Field label={"Before Combat"} text={""}/>
-                                            <Field label={"During Combat"} text={""}/>
-                                            <Field label={"Combat Gear"} text={""}/>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-                                </Grid>
-                            </Grid>
+                                    <Grid item xs={6}>
+                                        <Grid container direction="row"  spacing={2}>
+                                            <ExpansionPanel>
+                                                <ExpansionPanelSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography >Tactics</Typography>
+                                                </ExpansionPanelSummary>
+                                                <ExpansionPanelDetails>
+                                                    <SimpleField name={"beforeCombat"} label={"Before Combat"}/>
+                                                    <SimpleField name={"duringCombat"} label={"During Combat"} />
+                                                    <SimpleField name={"combatGear"} label={"Combat Gear"} />
+                                                </ExpansionPanelDetails>
+                                            </ExpansionPanel>
+                                        </Grid>
+                                    </Grid>
 
-                            <Button className="saveButton" variant="contained" color="primary" onClick={utilities.save}>
-                                Save
-                            </Button>
-                        </Grid>
-                    </Paper>
-                </form>
+                                    <Button type="submit" className="saveButton" variant="contained" color="primary">
+                                        Save
+                                    </Button>
+                                </Grid>
+                            </Paper>
+                        </form>
+                    )}
+                </Form>
+
             </fieldset>
         )
     }
+}
+
+const SimpleField = (props ) => {
+    return (
+        <div >
+            <label>{props.label}</label>
+            <Field name={props.name} component="input" type="text" placeholder={props.label} />
+        </div>
+    )
 }
 
 export default Character;

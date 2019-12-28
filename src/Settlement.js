@@ -1,8 +1,9 @@
 import React from "react";
-import Field from "./Field";
+//import Field from "./Field";
 import Button from "@material-ui/core/Button";
 import "./utilities";
 import utilities from "./utilities";
+import { Form, Field } from "react-final-form";
 class Settlement extends React.Component {
     #id = 0;
     name = "New Settlement";
@@ -10,19 +11,88 @@ class Settlement extends React.Component {
     characters = [];
     render() {
         return (
-            <form id="inputForm">
-                <Field label={"Name"} text={""}/>
-                <select className="SettlementLeaderSelector">
-                    <option value="testi">Character 1</option>
-                    <option value="testi2">Character 2</option>
-                    <option value="testi">Character 3</option>
-                </select>
-                <Button className="saveButton" variant="contained" color="primary" onClick={utilities.save}>
-                    Save
-                </Button>
-            </form>
+            <Form onSubmit={(formData) => {
+                console.log(formData);
+            } }>
+                {({handleSubmit}) => (
+                    <form onSubmit={handleSubmit}>
+                        <Field name="name">
+                            {props => (
+                                <div>
+                                    <label>Name</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+                        <Field name="leader">
+                            {props => (
+                                <div>
+                                    <label>Leader</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+                        <Field name="location">
+                            {props => (
+                                <div>
+                                    <label>Location</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+
+                        <Field name="features">
+                            {props => (
+                                <div>
+                                    <label>Notable features</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+
+                        <Field name="population">
+                            {props => (
+                                <div>
+                                    <label>Population and population structure</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+
+                        <Field name="security">
+                            {props => (
+                                <div>
+                                    <label>Level of security</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+
+                        <Field name="organisations">
+                            {props => (
+                                <div>
+                                    <label>Organisations</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+
+                        <Field name="interesting">
+                            {props => (
+                                <div>
+                                    <label>Interesting locations</label>
+                                    <input {...props.input} />
+                                </div>
+                            )}
+                        </Field>
+
+                        <button type="submit">Save</button>
+                    </form>
+                )}
+            </Form>
         )
     }
 
 }
+
 export default Settlement;
