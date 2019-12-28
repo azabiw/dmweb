@@ -70,34 +70,64 @@ class Users extends React.Component {
         );
     }
 }
-
-
+//vaihtaa editoria valinnan mukaan
+const Editor = (props) => {
+    if (props.selected === "character") {
+        return (
+            <Character  />
+        )
+    } else return <Settlement />
+};
 
 //Pääohjelma
-function App() {
-  return (
-    <div className="App">
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <Header/>
-            </Grid>
-            <Grid item xs={2}>
-                <LeftList/>
-            </Grid>
-            <Grid item xs={9}>
-                <Character />
-            </Grid>
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: "character",
+            characters: [],
+            settlements: []
+        }; //Valittu editori
+        this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii ChangeEditorissa
+    }
 
-            <Grid item xs={9}>
-                <Settlement />
-                <Users />
-            </Grid>
-            <Grid item xs={12}>
-                <Footer />
-            </Grid>
-        </Grid>
-    </div>
-  );
+    //käsittelee editorin vaihtamisen
+    changeEditor() {
+        if (this.state.selected === "character") {
+            this.setState( {selected : "settlement"} );
+        } else {
+            this.setState( {selected : "character"} );
+        }
+    }
+
+
+    render() {
+        return (
+            <div className="App">
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Header/>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <LeftList/>
+                    </Grid>
+                    <Grid item xs={9}>
+                        <Editor selected={this.state.selected} />
+                        <button onClick={this.changeEditor}>Change editor</button>
+                    </Grid>
+
+                    <Grid item xs={9}>
+                        <Settlement />
+                        <Users />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Footer />
+                    </Grid>
+                </Grid>
+            </div>
+        );
+
+    }
 }
 
 export default App;
