@@ -25,10 +25,6 @@ class Settlement extends React.Component {
                     <Field label={"Organisations"} text={""}/>
                     <Field label={"Interesting locations"} text={""}/>
                     <Field label={"Plot Hooks"} text={""}/>
-
-
-
-
                     <Button className="saveButton" variant="contained" color="primary" onClick={utilities.save}>
                         Save
                     </Button>
