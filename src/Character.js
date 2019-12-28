@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import "./utilities";
 import utilities from "./utilities";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -28,6 +27,8 @@ class Character extends React.Component{
                 <legend>Edit NPC</legend>
                 <Form onSubmit={(formData) => {
                     console.log(formData);
+                    let util = new utilities();
+                    util.sendToServer(formData);
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
@@ -145,9 +146,9 @@ const SimpleField = (props ) => {
     return (
         <div >
             <label>{props.label}</label>
-            <Field name={props.name} component="input" type="text" placeholder={props.label} />
+            <Field defaultValue={""} name={props.name} component="input" type="text" placeholder={props.label} />
         </div>
     )
-}
+};
 
 export default Character;
