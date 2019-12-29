@@ -53,16 +53,6 @@ const Footer = (props) => {
 class Users extends React.Component {
     state = {users: []};
 
-    async componentDidMount() {
-
-        let response = await fetch('/users', {
-            credentials: "omit",
-            cache: "no-store",
-            method: "get"
-        });
-        let data = await response.json();
-        console.log(data);
-    }
 
     render() {
         return (
@@ -109,6 +99,22 @@ class App extends React.Component {
         newCharacters.push(character);
         this.setState({characters: newCharacters});
         console.log("hahmo lisätty");
+    }
+
+    async componentDidMount() {
+
+        let response = await fetch('/users', {
+            credentials: "omit",
+            cache: "no-store",
+            method: "get"
+        });
+        let data = await response.json();
+        console.log(data);
+        let chars = []; //TODO: korjaa kun datarakenne korjattu
+        for (let i = 0; i < data.length; i++) {
+            chars.push(data[i]["character"]);
+        }
+        this.setState({characters : chars});
     }
 
     render() {

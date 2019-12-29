@@ -2,18 +2,34 @@ var express = require('express');
 var router = express.Router();
 const url = 'mongodb://localhost:27017/dmweb'; //connection string to mongodb
 
+
+//todo: korjaa
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   //res.send('respond with a resource');
-  let result = getDataFromDB();
-  res.send(result);
+ /* let result = getDataFromDB();
+  res.send(result);*/
+
+  let MongoClient = require('mongodb').MongoClient;
+  MongoClient.connect(url, function (err, client) {
+    if (err) throw err;
+
+    let db = client.db('dmweb');
+
+    db.collection('dmweb').find().toArray(function (err, result) {
+      if (err) throw err;
+      res.send(result);
+    })
+  })
+
+
 });
 
 //käsittelee post tapahtumat
 //Todo: virheenkäsittely
 router.post('/', function(req, res, next) {
   const character = req.body;
-  let result = insertToDB(character)
+  let result = insertToDB(character);
   console.log("insertion result: " + result);
   console.log("body was: " + character);
   res.send(201);
