@@ -28,11 +28,13 @@ const ListElement = (props) => {
 
 //Tekee vasemman navigaatiolistan, josta voidaan valita yksittäisiä hahmoja.
 const LeftList = (props) => {
+    const listItems = props.characters.map((char) =>
+        <li><button>{char.name}</button></li>
+    );
+
     return (
         <div className="LeftNavigation" id="leftList">
-            <ListElement  label={"Character 1"}/>
-            <ListElement  label={"Character 2"}/>
-            <ListElement  label={"Character 3"}/>
+            <ul>{listItems}</ul>
             <Button variant="contained" color="primary">Add new Character</Button>
         </div>
     )
@@ -74,7 +76,7 @@ class Users extends React.Component {
 const Editor = (props) => {
     if (props.selected === "character") {
         return (
-            <Character  />
+            <Character addCharacter={props.addCharacter} />
         )
     } else return <Settlement />
 };
@@ -89,6 +91,7 @@ class App extends React.Component {
             settlements: []
         }; //Valittu editori
         this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii ChangeEditorissa
+        this.addCharacter = this.addCharacter.bind(this);
     }
 
     //käsittelee editorin vaihtamisen
@@ -100,6 +103,13 @@ class App extends React.Component {
         }
     }
 
+    //Lisää annetun hahmon tietorakenteeseen
+    addCharacter(character) {
+        let newCharacters = this.state.characters;
+        newCharacters.push(character);
+        this.setState({characters: newCharacters});
+        console.log("hahmo lisätty");
+    }
 
     render() {
         return (
@@ -109,16 +119,11 @@ class App extends React.Component {
                         <Header/>
                     </Grid>
                     <Grid item xs={2}>
-                        <LeftList/>
+                        <LeftList characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Editor selected={this.state.selected} />
-                        <button onClick={this.changeEditor}>Change editor</button>
-                    </Grid>
-
-                    <Grid item xs={9}>
-                        <Settlement />
-                        <Users />
+                        <Editor addCharacter={this.addCharacter} selected={this.state.selected} />
+                        <button  onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>
                         <Footer />

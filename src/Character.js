@@ -29,6 +29,7 @@ class Character extends React.Component{
                     console.log(formData);
                     let util = new utilities();
                     util.sendToServer(formData);
+                    this.props.addCharacter(formData); //lisää hahmon pääohjelman tilaksi
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
