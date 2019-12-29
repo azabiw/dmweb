@@ -8,6 +8,7 @@ class utilities {
 
     async sendToServer(data) {
         const url = "/users";
+        data["user"] = "testi";
         console.log(data);
         try {
             const response = await fetch(url, {

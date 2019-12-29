@@ -78,7 +78,7 @@ const Editor = (props) => {
         return (
             <Character addCharacter={props.addCharacter} />
         )
-    } else return <Settlement />
+    } else return <Settlement characters={props.characters}/>
 };
 
 //Pääohjelma
@@ -122,7 +122,7 @@ class App extends React.Component {
                         <LeftList characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Editor addCharacter={this.addCharacter} selected={this.state.selected} />
+                        <Editor addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} />
                         <button  onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>

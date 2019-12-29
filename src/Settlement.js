@@ -9,7 +9,14 @@ class Settlement extends React.Component {
     name = "New Settlement";
     leader;
     characters = [];
+    constructor(props) {
+        super(props);
+
+    }
     render() {
+        const characterList = this.props.characters.map((character) =>
+            <option value={character.name}> {character.name} </option>
+        );
         return (
             <Form onSubmit={(formData) => {
                 console.log(formData);
@@ -24,13 +31,9 @@ class Settlement extends React.Component {
                                 </div>
                             )}
                         </Field>
-                        <Field name="leader">
-                            {props => (
-                                <div>
-                                    <label>Leader</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
+                        <label>Leader</label>
+                        <Field name="leader" component="select">
+                            {characterList}
                         </Field>
                         <Field name="location">
                             {props => (
