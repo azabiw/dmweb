@@ -47,7 +47,7 @@ const Footer = (props) => {
       <footer>
         Footer
       </footer>
-  )
+   )
 };
 
 class Users extends React.Component {

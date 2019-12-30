@@ -28,6 +28,7 @@ class Character extends React.Component{
                 <Form onSubmit={(formData) => {
                     console.log(formData);
                     let util = new utilities();
+                    if (formData.name === "") return;  //ei lisätä tyhjää hahmoa //todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
                     util.sendToServer(formData);
                     this.props.addCharacter(formData); //lisää hahmon pääohjelman tilaksi
                 } }>
