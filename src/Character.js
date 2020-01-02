@@ -8,6 +8,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import Typography from "@material-ui/core/Typography";
 import {Form, Field} from "react-final-form";
+import SimpleField from "./SimpleField";
 class Character extends React.Component{
     id = 0;
     constructor(props){
@@ -149,13 +150,5 @@ class Character extends React.Component{
     }
 }
 
-const SimpleField = (props ) => {
-    return (
-        <div >
-            <label>{props.label}</label>
-            <Field defaultValue={props.defaultText} name={props.name} component="input" type="text" placeholder={props.label} />
-        </div>
-    )
-};
 
 export default Character;

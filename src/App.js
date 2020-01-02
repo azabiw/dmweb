@@ -3,7 +3,6 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
 import Character from "./Character";
-import Field from "./Field";
 import "./utilities";
 import Settlement from "./Settlement";
 const Header = (props) => {
