@@ -37,7 +37,7 @@ const LeftList = (props) => {
     return (
         <div className="LeftNavigation" id="leftList">
             <ul>{listItems}</ul>
-            <Button variant="contained" color="primary">Add new Character</Button>
+            <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
         </div>
     )
 }
@@ -108,12 +108,15 @@ class App extends React.Component {
 
     editCharacter(characterName) {
         console.log("edit char clicked"+ characterName);
+        if(characterName === "") {
+            this.setState({editable: ""});
+            return;
+        }
         let characters = this.state.characters;
         let character;
         for (let char of characters) { //haetaan hahmoista lisättävä hahmo
             if (char.name === characterName) {
                 character = char;
-                console.log("char found");
                 break;
             }
         }
