@@ -26,10 +26,12 @@ const ListElement = (props) => {
     )
 };
 
+
+
 //Tekee vasemman navigaatiolistan, josta voidaan valita yksittäisiä hahmoja.
 const LeftList = (props) => {
     const listItems = props.characters.map((char) =>
-        <li><button>{char.name}</button></li>
+        <li><button onClick={(event => props.editCharacter(event.target.textContent))}>{char.name}</button></li>
     );
 
     return (
@@ -44,6 +46,7 @@ const LeftList = (props) => {
 
 const Footer = (props) => {
   return (
+
       <footer>
         Footer
       </footer>
@@ -66,7 +69,7 @@ class Users extends React.Component {
 const Editor = (props) => {
     if (props.selected === "character") {
         return (
-            <Character addCharacter={props.addCharacter} />
+            <Character defaultCharacter={props.editable} addCharacter={props.addCharacter} />
         )
     } else return <Settlement characters={props.characters}/>
 };
@@ -78,10 +81,12 @@ class App extends React.Component {
         this.state = {
             selected: "character",
             characters: [],
-            settlements: []
+            settlements: [],
+            editable: ""
         }; //Valittu editori
-        this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii ChangeEditorissa
+        this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii oikein
         this.addCharacter = this.addCharacter.bind(this);
+        this.editCharacter = this.editCharacter.bind(this);
     }
 
     //käsittelee editorin vaihtamisen
@@ -99,6 +104,21 @@ class App extends React.Component {
         newCharacters.push(character);
         this.setState({characters: newCharacters});
         console.log("hahmo lisätty");
+    }
+
+    editCharacter(characterName) {
+        console.log("edit char clicked"+ characterName);
+        let characters = this.state.characters;
+        let character;
+        for (let char of characters) { //haetaan hahmoista lisättävä hahmo
+            if (char.name === characterName) {
+                character = char;
+                console.log("char found");
+                break;
+            }
+        }
+        if (character != null) this.setState({editable: character});
+
     }
 
     async componentDidMount() {
@@ -125,10 +145,10 @@ class App extends React.Component {
                         <Header/>
                     </Grid>
                     <Grid item xs={2}>
-                        <LeftList characters={this.state.characters} />
+                        <LeftList editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Editor addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} />
+                        <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} />
                         <button  onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>
