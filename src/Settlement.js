@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import "./utilities";
 import utilities from "./utilities";
 import { Form, Field } from "react-final-form";
+import SimpleField from "./SimpleField";
 class Settlement extends React.Component {
     #id = 0;
     name = "New Settlement";
@@ -23,71 +24,20 @@ class Settlement extends React.Component {
             } }>
                 {({handleSubmit}) => (
                     <form onSubmit={handleSubmit}>
-                        <Field name="name">
-                            {props => (
-                                <div>
-                                    <label>Name</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
+                        <SimpleField name={"name"} label={"Name"}/>
                         <label>Leader</label>
                         <Field name="leader" component="select">
                             {characterList}
                         </Field>
-                        <Field name="location">
-                            {props => (
-                                <div>
-                                    <label>Location</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
+                        <SimpleField name={"location"} label={"Location"}/>
 
-                        <Field name="features">
-                            {props => (
-                                <div>
-                                    <label>Notable features</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
+                        <SimpleField name={"feature"} label={"Notable features"}/>
 
-                        <Field name="population">
-                            {props => (
-                                <div>
-                                    <label>Population and population structure</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
+                        <SimpleField name={"population"} label={"Population and structure"}/>
 
-                        <Field name="security">
-                            {props => (
-                                <div>
-                                    <label>Level of security</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
-
-                        <Field name="organisations">
-                            {props => (
-                                <div>
-                                    <label>Organisations</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
-
-                        <Field name="interesting">
-                            {props => (
-                                <div>
-                                    <label>Interesting locations</label>
-                                    <input {...props.input} />
-                                </div>
-                            )}
-                        </Field>
+                        <SimpleField name={"security"} label={"Level of security"}/>
+                        <SimpleField name={"organisations"} label={"Organisations"}/>
+                        <SimpleField name={"interesting"} label={"Interesting locations"}/>
 
                         <button type="submit">Save</button>
                     </form>
