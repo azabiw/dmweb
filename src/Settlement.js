@@ -1,19 +1,10 @@
 import React from "react";
 //import Field from "./Field";
 import Button from "@material-ui/core/Button";
-import "./utilities";
 import utilities from "./utilities";
 import { Form, Field } from "react-final-form";
 import SimpleField from "./SimpleField";
 class Settlement extends React.Component {
-    #id = 0;
-    name = "New Settlement";
-    leader;
-    characters = [];
-    constructor(props) {
-        super(props);
-
-    }
     render() {
         const characterList = this.props.characters.map((character) =>
             <option value={character.name}> {character.name} </option>
@@ -21,24 +12,26 @@ class Settlement extends React.Component {
         return (
             <Form onSubmit={(formData) => {
                 console.log(formData);
+                if (formData.name === "" || formData.name === null) return;
+                let util = new utilities();
+                formData["formType"] = "settlement";
+                utilities.sendToServer(formData);
             } }>
                 {({handleSubmit}) => (
                     <form onSubmit={handleSubmit}>
-                        <SimpleField name={"name"} label={"Name"}/>
-                        <label>Leader</label>
-                        <Field name="leader" component="select">
-                            {characterList}
-                        </Field>
-                        <SimpleField name={"location"} label={"Location"}/>
-
-                        <SimpleField name={"feature"} label={"Notable features"}/>
-
-                        <SimpleField name={"population"} label={"Population and structure"}/>
-
-                        <SimpleField name={"security"} label={"Level of security"}/>
-                        <SimpleField name={"organisations"} label={"Organisations"}/>
-                        <SimpleField name={"interesting"} label={"Interesting locations"}/>
-
+                        <SimpleField defaultValue={""} name={"name"} label={"Name"}/>
+                        <div>
+                            <label>Leader</label>
+                            <Field name="leader" component="select">
+                                {characterList}
+                            </Field>
+                        </div>
+                        <SimpleField defaultValue={""} name={"location"} label={"Location"}/>
+                        <SimpleField defaultValue={""} name={"feature"} label={"Notable features"}/>
+                        <SimpleField defaultValue={""} name={"population"} label={"Population and structure"}/>
+                        <SimpleField defaultValue={""} name={"security"} label={"Level of security"}/>
+                        <SimpleField defaultValue={""} name={"organisations"} label={"Organisations"}/>
+                        <SimpleField defaultValue={""} name={"interesting"} label={"Interesting locations"}/>
                         <button type="submit">Save</button>
                     </form>
                 )}

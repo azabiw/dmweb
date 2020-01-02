@@ -100,7 +100,17 @@ class App extends React.Component {
     //Lisää annetun hahmon tietorakenteeseen
     addCharacter(character) {
         let newCharacters = this.state.characters;
-        newCharacters.push(character);
+        if(this.state.editable !== "") {
+            for (let char of newCharacters) {
+                if (char.name === character.name) {
+                    char = character;
+                    console.log("old char edited ");
+                }
+            }
+        } else {
+            newCharacters.push(character);
+        }
+
         this.setState({characters: newCharacters});
         console.log("hahmo lisätty");
     }
