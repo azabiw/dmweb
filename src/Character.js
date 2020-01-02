@@ -107,6 +107,7 @@ class Character extends React.Component{
                                                     <Typography >Offense</Typography>
                                                 </ExpansionPanelSummary>
                                                 <ExpansionPanelDetails>
+                                                    <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "initiative")} name={"initiative"} label={"Initiative"}/>
                                                     <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "speed")} name={"speed"} label={"Speed"}/>
                                                     <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "melee")} name={"melee"} label={"Melee"}/>
                                                     <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "specialattacks")} name={"specialattacks"} label={"Special attacks"}/>
