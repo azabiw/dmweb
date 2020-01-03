@@ -5,7 +5,7 @@ const SimpleField = (props ) => {
     return (
         <div >
             <label>{props.label}</label>
-            <Field defaultValue={props.defaultText} name={props.name} component="input" type="text" placeholder={props.label} />
+            <Field id={props.id} defaultValue={props.defaultText} name={props.name} component="input" type="text" placeholder={props.label} />
         </div>
     )
 };

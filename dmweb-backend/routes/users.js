@@ -72,6 +72,7 @@ router.delete("/", function (req, res, next) {
   const character = req.body;
   const user = getHash(req.body.user);
   const charID = getHash(character.name);
+  console.log(character);
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     let dbo = db.db("dmweb");
