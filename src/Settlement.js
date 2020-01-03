@@ -14,8 +14,7 @@ class Settlement extends React.Component {
                 console.log(formData);
                 if (formData.name === "" || formData.name === null) return;
                 let util = new utilities();
-                formData["formType"] = "settlement";
-                utilities.sendToServer(formData);
+                util.sendToServer(formData,"post", "settlement");
             } }>
                 {({handleSubmit}) => (
                     <form onSubmit={handleSubmit}>

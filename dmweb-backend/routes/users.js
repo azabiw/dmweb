@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
       if (err) throw err;
       res.send(result);
     })
-  }) 
+  })
 
 
 });
@@ -25,8 +25,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   const character = req.body;
   const user = getHash(req.body.user);
+  const type = req.body.formType;
   console.log("username : " + user);
-  let result = insertToDB(character, user);
+  let result = insertToDB(character, user, type);
   console.log("insertion result: " + result);
   console.log("body was: " + character);
   res.send(201);
@@ -85,7 +86,7 @@ router.delete("/", function (req, res, next) {
 //TODO: virheenkäsittely
 //data = character to inserted to mongoDB
 //palauttaa onnistuiko lisääminen
-function insertToDB(data, username) {
+function insertToDB(data, username, type) {
   let MongoClient = require('mongodb').MongoClient;
   let charID = getHash(data.name);
   MongoClient.connect(url, function (err, client) {
@@ -94,7 +95,8 @@ function insertToDB(data, username) {
     let db = client.db('dmweb');
     data  = { "character" : data,
               "user" : username,
-              "charid": charID};
+              "charid": charID,
+              "type": type};
 
     db.collection("dmweb").insertOne(data, function(err, res) {
       if (err) throw err;

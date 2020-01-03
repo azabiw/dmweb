@@ -35,6 +35,7 @@ const LeftList = (props) => {
 
     return (
         <div className="LeftNavigation" id="leftList">
+            <h3>List of NPCs:</h3>
             <ul>{listItems}</ul>
             <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
         </div>
@@ -132,7 +133,11 @@ class App extends React.Component {
         console.log(data);
         let chars = []; //TODO: korjaa kun datarakenne korjattu
         for (let i = 0; i < data.length; i++) {
-            chars.push(data[i]["character"]);
+            let char = data[i]["character"];
+            if (data[i].type === "character") {
+                chars.push(char);
+            }
+
         }
         this.setState({characters : chars});
     }
@@ -149,7 +154,7 @@ class App extends React.Component {
                     </Grid>
                     <Grid item xs={9}>
                         <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} />
-                        <button  onClick={this.changeEditor}>Change editor</button>
+                        <button onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>
                         <Footer />
