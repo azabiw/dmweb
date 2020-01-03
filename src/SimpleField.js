@@ -1,6 +1,12 @@
 import {Field} from "react-final-form";
 import React from "react";
 
+/**
+ *
+ * @param props label, defaultText, name and id
+ * @returns {*}
+ * @constructor
+ */
 const SimpleField = (props ) => {
     return (
         <div >

@@ -69,7 +69,7 @@ class App extends React.Component {
         this.editCharacter = this.editCharacter.bind(this);
     }
 
-    /**
+    /** TODO tee järkevämmäksi
      * Handles changing editor.
      */
     changeEditor() {

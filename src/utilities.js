@@ -5,6 +5,13 @@
 class utilities {
 
     //todo: tee staattinen
+    /**
+     *
+     * @param data payload to send to server
+     * @param method HTTP method e.g post or get
+     * @param type formType e.g "settlement" or "character"
+     * @returns {Promise<void>}
+     */
     async sendToServer(data, method, type) {
         const url = "/users";
         data["user"] = "testi";
