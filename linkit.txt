@@ -26,3 +26,6 @@ https://final-form.org/docs/react-final-form/examples/simple
 https://reactjs.org/docs/jsx-in-depth.html#spread-attributes
 https://reactjs.org/docs/lists-and-keys.html
 https://mongodb.github.io/node-mongodb-native/3.4/api/Collection.html#findAndModify
+https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/#examples
+https://en.wikipedia.org/wiki/Representational_state_transfer
+https://www.w3schools.com/nodejs/nodejs_mongodb_update.asp

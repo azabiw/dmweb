@@ -46,7 +46,7 @@ class Character extends React.Component{
                                 <Grid container spacing={4} direction="column">
                                     <Grid item xs={6}>
                                         <Grid container direction="row" spacing={2}>
-                                            <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "name")} name={"name"} label={"Name"}/>
+                                            <SimpleField id={"name"} defaultText={this.getDefault(this.props.defaultCharacter, "name")} name={"name"} label={"Name"}/>
                                             <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "race")} name={"race"} label={"Race"} />
                                             <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "characterClass")} name={"characterClass"} label={"Class"} />
                                         </Grid>
@@ -141,6 +141,17 @@ class Character extends React.Component{
 
                                     <Button type="submit" className="saveButton" variant="contained" color="primary">
                                         Save
+                                    </Button>
+                                    <Button type="button" onClick={event => {
+                                        let util = new utilities();
+                                        let name = document.getElementById("name").value;
+                                        console.log(name);
+                                        let charToDelete = {
+                                            name: name
+                                        };
+                                        util.sendToServer(charToDelete,"DELETE");
+                                    }} className="deleteButton" variant="contained" color="secondary">
+                                        Remove
                                     </Button>
                                 </Grid>
                             </Paper>

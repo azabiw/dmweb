@@ -45,6 +45,8 @@ function getHash(text) {
 
 }
 
+
+//käsittelee patch metodin kutsun ja tietokannassa olevan hahmon muokkaamisen
 router.patch("/", function (req,res,next) {
   let MongoClient = require('mongodb').MongoClient;
   const character = req.body;
@@ -63,6 +65,27 @@ router.patch("/", function (req,res,next) {
     });
   });
 });
+
+//poistaa tietokannasta hahmon
+router.delete("/", function (req, res, next) {
+  let MongoClient = require('mongodb').MongoClient;
+  const character = req.body;
+  const user = getHash(req.body.user);
+  const charID = getHash(character.name);
+  console.log(character);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("dmweb");
+    let query = { user: user,
+      charid : charID};
+    dbo.collection("dmweb").findOneAndDelete(query,  function(err, res) {
+      if (err) throw err;
+      console.log("1 document removed");
+      db.close();
+    });
+  });
+});
+
 
 //TODO: virheenkäsittely
 //data = character to inserted to mongoDB
