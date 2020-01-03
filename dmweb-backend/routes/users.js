@@ -55,7 +55,7 @@ router.patch("/", function (req,res,next) {
     let dbo = db.db("dmweb");
     let query = { user: user,
     charid : charID};
-    let newvalues = { character: character };
+    let newvalues = { $set: { character: character }};
     dbo.collection("dmweb").updateOne(query, newvalues, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");
