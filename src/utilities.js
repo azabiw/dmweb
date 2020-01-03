@@ -6,13 +6,15 @@ import Character from "./Character";
 //lähettää lomakkeen sisällön palvelimelle
 class utilities {
 
-    async sendToServer(data) {
+    //todo: tee staattinen
+    async sendToServer(data, method) {
         const url = "/users";
         data["user"] = "testi";
+        if (method === null) method = "post";
         console.log(data);
         try {
             const response = await fetch(url, {
-                method: 'POST',
+                method: method,
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,6 +26,7 @@ class utilities {
             console.error('Error:', error);
         }
     }
+
     save() {
         let fields = document.getElementsByClassName("InputFieldContainer");
         let data = [];
