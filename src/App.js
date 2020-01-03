@@ -16,19 +16,24 @@ const Header = (props) => {
 
 /**
  *
- * @param props List of characters as array
+ * @param props List of characters and settlements as arrays
  * @returns {*} Navigation panel
  * @constructor
  */
 const LeftList = (props) => {
-    const listItems = props.characters.map((char) =>
+    const characterList = props.characters.map((char) =>
         <li><button onClick={(event => props.editCharacter(event.target.textContent))}>{char.name}</button></li>
+    );
+    const settlementList = props.settlements.map((settlement) =>
+        <li><button>{settlement.name}</button></li>
     );
 
     return (
         <div className="LeftNavigation" id="leftList">
             <h3>List of NPCs:</h3>
-            <ul>{listItems}</ul>
+            <ul>{characterList}</ul>
+            <h3>List of Settlements: </h3>
+            <ul>{settlementList}</ul>
             <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
         </div>
     )
@@ -160,7 +165,7 @@ class App extends React.Component {
                         <Header/>
                     </Grid>
                     <Grid item xs={2}>
-                        <LeftList editCharacter={this.editCharacter} characters={this.state.characters} />
+                        <LeftList settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
                         <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} />
