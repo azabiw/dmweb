@@ -52,18 +52,6 @@ const Footer = (props) => {
    )
 };
 
-class Users extends React.Component {
-    state = {users: []};
-
-
-    render() {
-        return (
-            <div className="Users">
-                <h1>Users</h1>
-            </div>
-        );
-    }
-}
 //vaihtaa editoria valinnan mukaan
 const Editor = (props) => {
     if (props.selected === "character") {

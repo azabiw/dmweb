@@ -36,39 +36,51 @@ router.post('/', function(req, res, next) {
   console.log("body was: " + character);
   res.send(201);
 });
+
+//palauttaa annetusta tekstistä MD5 tiivisteen.
+//käytetään käyttäjäkohtaisen datan tallentamiseen.
 function getHash(text) {
   let crypto = require('crypto');
   return crypto.createHash('md5').update(text).digest('hex');
 
 }
 
-
-//TODO: implement ja virheenkäsittely
-//muokkaa annettua  JSON -oliota tietokannassa
-function modifyInDB(data) {
-
-}
-
-//TODO: implement
-function removeFromDB (removable){
-
-}
+router.patch("/", function (req,res,next) {
+  let MongoClient = require('mongodb').MongoClient;
+  const character = req.body;
+  const user = getHash(req.body.user);
+  const charID = getHash(character.name);
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("dmweb");
+    let query = { user: user,
+    charid : charID};
+    let newvalues = { $set: { character: character }};
+    dbo.collection("dmweb").updateOne(query, newvalues, function(err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      db.close();
+    });
+  });
+});
 
 //TODO: virheenkäsittely
 //data = character to inserted to mongoDB
 //palauttaa onnistuiko lisääminen
 function insertToDB(data, username) {
   let MongoClient = require('mongodb').MongoClient;
-
-  MongoClient.connect('mongodb://localhost:27017/dmweb', function (err, client) {
+  let charID = getHash(data.name);
+  MongoClient.connect(url, function (err, client) {
     if (err) throw err;
 
     let db = client.db('dmweb');
     data  = { "character" : data,
-              "user" : username};
+              "user" : username,
+              "charid": charID};
 
     db.collection("dmweb").insertOne(data, function(err, res) {
       if (err) throw err;
+
       console.log("inserted");
     });
     client.close();
