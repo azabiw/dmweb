@@ -37,9 +37,7 @@ const LeftList = (props) => {
             <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
         </div>
     )
-}
-
-
+};
 
 const Footer = (props) => {
   return (

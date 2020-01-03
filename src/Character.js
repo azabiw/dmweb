@@ -48,12 +48,14 @@ class Character extends React.Component{
                                         <Grid container direction="row" spacing={2}>
                                             <SimpleField id={"name"} defaultText={this.getDefault(this.props.defaultCharacter, "name")} name={"name"} label={"Name"}/>
                                             <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "race")} name={"race"} label={"Race"} />
+                                            <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "gender")} name={"gender"} label={"Gender"} />
                                             <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "characterClass")} name={"characterClass"} label={"Class"} />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Grid container direction="row" spacing={2}>
                                             <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "role")} name={"role"} label={"Role"} />
+                                            <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "profession")} name={"profession"} label={"Profession"} />
                                             <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "intro")} name={"intro"} label={"Short intro"} />
                                         </Grid>
                                     </Grid>
@@ -74,6 +76,7 @@ class Character extends React.Component{
                                                     <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "subtype")} name={"subtype"} label={"Subtype"} />
                                                     <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "organisation")} name={"organisation"} label={"Organisation"} />
                                                     <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "age")} name={"age"} label={"Age"} />
+                                                    <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "cr")} name={"cr"} label={"Challenge rating (CR)"} />
                                                 </ExpansionPanelDetails>
                                             </ExpansionPanel>
                                         </Grid>
