@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
     let db = client.db('dmweb');
 
-    db.collection('dmweb').find().toArray(function (err, result) {
+    db.collection('dmweb').find({"user": "testi"}).toArray(function (err, result) {
       if (err) throw err;
       res.send(result);
     })
@@ -29,7 +29,8 @@ router.get('/', function(req, res, next) {
 //Todo: virheenkäsittely
 router.post('/', function(req, res, next) {
   const character = req.body;
-  let result = insertToDB(character);
+  const user = req.body.user;
+  let result = insertToDB(character, user);
   console.log("insertion result: " + result);
   console.log("body was: " + character);
   res.send(201);
@@ -64,15 +65,15 @@ function removeFromDB (removable){
 //TODO: virheenkäsittely
 //data = character to inserted to mongoDB
 //palauttaa onnistuiko lisääminen
-function insertToDB(data) {
+function insertToDB(data, username) {
   let MongoClient = require('mongodb').MongoClient;
 
   MongoClient.connect('mongodb://localhost:27017/dmweb', function (err, client) {
     if (err) throw err;
 
     let db = client.db('dmweb');
-     data  = { "character" : data};
-
+    data  = { "character" : data,
+              "user" : username};
 
     db.collection("dmweb").insertOne(data, function(err, res) {
       if (err) throw err;
