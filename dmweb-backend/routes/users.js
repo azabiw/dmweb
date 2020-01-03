@@ -6,21 +6,16 @@ const url = 'mongodb://localhost:27017/dmweb'; //connection string to mongodb
 //todo: korjaa
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  //res.send('respond with a resource');
- /* let result = getDataFromDB();
-  res.send(result);*/
-
   let MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(url, function (err, client) {
     if (err) throw err;
-
     let db = client.db('dmweb');
     let user = getHash("testi");
     db.collection('dmweb').find({"user": user}).toArray(function (err, result) {
       if (err) throw err;
       res.send(result);
     })
-  })
+  }) 
 
 
 });
