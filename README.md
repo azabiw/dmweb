@@ -1,3 +1,19 @@
+# DMWEB
+This is a work-in-progress project to make a simple web  program to help tabletop RPG game masters. 
+Currently it's not ready for use.    
+
+### Installation
+
+Install dependencies in both base directory and backend-directory with npm. 
+    
+   `npm install`
+
+
+Then start them both: 
+
+    `npm start`
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
