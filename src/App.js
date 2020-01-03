@@ -14,20 +14,12 @@ const Header = (props) => {
 };
 
 
-
-
-//Yksittäinen elementti vasemmassa navigaatiovalikossa. Tekstin voi vaihtaa props.label
-const ListElement = (props) => {
-    return (
-        <div>
-            <button>{props.label}</button>
-        </div>
-    )
-};
-
-
-
-//Tekee vasemman navigaatiolistan, josta voidaan valita yksittäisiä hahmoja.
+/**
+ *
+ * @param props List of characters as array
+ * @returns {*} Navigation panel
+ * @constructor
+ */
 const LeftList = (props) => {
     const listItems = props.characters.map((char) =>
         <li><button onClick={(event => props.editCharacter(event.target.textContent))}>{char.name}</button></li>
@@ -77,7 +69,9 @@ class App extends React.Component {
         this.editCharacter = this.editCharacter.bind(this);
     }
 
-    //käsittelee editorin vaihtamisen
+    /**
+     * Handles changing editor.
+     */
     changeEditor() {
         if (this.state.selected === "character") {
             this.setState( {selected : "settlement"} );
@@ -86,7 +80,10 @@ class App extends React.Component {
         }
     }
 
-    //Lisää annetun hahmon tietorakenteeseen
+    /**
+     * Adds given character to main app's state.
+     * @param character character to be added as app's state
+     */
     addCharacter(character) {
         let newCharacters = this.state.characters;
         if(this.state.editable !== "") {
@@ -122,6 +119,10 @@ class App extends React.Component {
 
     }
 
+    /**
+     * Fetches all user's data from server and saves them to corresponding states
+     * @returns {Promise<void>}
+     */
     async componentDidMount() {
 
         let response = await fetch('/users', {
@@ -131,15 +132,24 @@ class App extends React.Component {
         });
         let data = await response.json();
         console.log(data);
-        let chars = []; //TODO: korjaa kun datarakenne korjattu
+        let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
+        let settlements = [];
         for (let i = 0; i < data.length; i++) {
-            let char = data[i]["character"];
-            if (data[i].type === "character") {
-                chars.push(char);
+            let char = data[i]["character"]; //lisätään lomake vastavaan
+            switch (data[i].type) {
+                case "character":
+                    chars.push(char);
+                    break;
+                case "settlement":
+                    settlements.push(char);
+                    break;
+                default: return;
             }
 
         }
-        this.setState({characters : chars});
+        this.setState({characters : chars,
+                            settlements: settlements
+        });
     }
 
     render() {

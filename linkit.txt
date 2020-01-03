@@ -29,3 +29,4 @@ https://mongodb.github.io/node-mongodb-native/3.4/api/Collection.html#findAndMod
 https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/#examples
 https://en.wikipedia.org/wiki/Representational_state_transfer
 https://www.w3schools.com/nodejs/nodejs_mongodb_update.asp
+https://www.w3schools.com/js/js_switch.asp
