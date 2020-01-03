@@ -15,8 +15,8 @@ router.get('/', function(req, res, next) {
     if (err) throw err;
 
     let db = client.db('dmweb');
-
-    db.collection('dmweb').find({"user": "testi"}).toArray(function (err, result) {
+    let user = getHash("testi");
+    db.collection('dmweb').find({"user": user}).toArray(function (err, result) {
       if (err) throw err;
       res.send(result);
     })
@@ -29,27 +29,19 @@ router.get('/', function(req, res, next) {
 //Todo: virheenkäsittely
 router.post('/', function(req, res, next) {
   const character = req.body;
-  const user = req.body.user;
+  const user = getHash(req.body.user);
+  console.log("username : " + user);
   let result = insertToDB(character, user);
   console.log("insertion result: " + result);
   console.log("body was: " + character);
   res.send(201);
 });
+function getHash(text) {
+  let crypto = require('crypto');
+  return crypto.createHash('md5').update(text).digest('hex');
 
-//TODO: muokkaa
-function getDataFromDB() {
-  let MongoClient = require('mongodb').MongoClient;
-  MongoClient.connect(url, function (err, client) {
-    if (err) throw err;
-
-    let db = client.db('dmweb');
-
-    db.collection('dmweb').find().toArray(function (err, result) {
-      if (err) throw err;
-      return result;
-    })
-  })
 }
+
 
 //TODO: implement ja virheenkäsittely
 //muokkaa annettua  JSON -oliota tietokannassa
