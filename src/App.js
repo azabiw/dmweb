@@ -25,7 +25,7 @@ const LeftList = (props) => {
         <li><button onClick={(event => props.editCharacter(event.target.textContent))}>{char.name}</button></li>
     );
     const settlementList = props.settlements.map((settlement) =>
-        <li><button>{settlement.name}</button></li>
+        <li><button onClick={(event => props.editProperty(event.target.textContent, "settlements"))}>{settlement.name}</button></li>
     );
 
     return (
@@ -70,6 +70,7 @@ class App extends React.Component {
         this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii oikein
         this.addCharacter = this.addCharacter.bind(this);
         this.editCharacter = this.editCharacter.bind(this);
+        this.editProperty = this.editProperty.bind(this);
     }
 
     /** TODO: KORJAA
@@ -113,6 +114,24 @@ class App extends React.Component {
         console.log("hahmo lisätty");
     }
 
+    addProperty(property, type) {
+        let newProperties = this.state[type];
+        if(this.state.editable !== "") {
+            for (let prop of newProperties) {
+                if (prop.name === property.name) {
+                    prop = property;
+                    console.log("old property edited ");
+                }
+            }
+        } else {
+            newProperties.push(property);
+        }
+        let newState = {};
+        newState[type] = newProperties;
+        this.setState(newState);
+        console.log("lisätty" + property + "type: " + type);
+    }
+
     editProperty(name, formType ) {
         if(name === "") {
             this.setState({editable: ""});
@@ -138,7 +157,6 @@ class App extends React.Component {
     editCharacter(characterName) {
         console.log("edit char clicked: "+ characterName);
         this.changeEditor("character");
-
         this.editProperty(characterName, "characters");
     }
 
@@ -183,10 +201,10 @@ class App extends React.Component {
                         <Header/>
                     </Grid>
                     <Grid item xs={2}>
-                        <LeftList settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
+                        <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} />
+                        <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>
