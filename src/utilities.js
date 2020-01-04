@@ -14,15 +14,17 @@ class utilities {
      */
     async sendToServer(data, method, type) {
         const url = "/users";
-        data["user"] = "testi";
-        data["formType"] = type;
+        let body = {};
+        body["user"] = "testi";
+        body["formType"] = type;
+        body["data"] = data;
         if (method === null) method = "post";
         console.log("data: ");
         console.log(data);
         try {
             const response = await fetch(url, {
                 method: method,
-                body: JSON.stringify(data),
+                body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json'
                 }

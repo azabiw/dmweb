@@ -23,13 +23,13 @@ router.get('/', function(req, res, next) {
 //käsittelee post tapahtumat
 //Todo: virheenkäsittely
 router.post('/', function(req, res, next) {
-  const character = req.body;
+  const data = req.body.data;
   const user = getHash(req.body.user);
   const type = req.body.formType;
   console.log("username : " + user);
-  let result = insertToDB(character, user, type);
+  let result = insertToDB(data, user, type);
   console.log("insertion result: " + result);
-  console.log("body was: " + character);
+  console.log("body was: " + data);
   res.send(201);
 });
 
@@ -45,15 +45,15 @@ function getHash(text) {
 //käsittelee patch metodin kutsun ja tietokannassa olevan hahmon muokkaamisen
 router.patch("/", function (req,res,next) {
   let MongoClient = require('mongodb').MongoClient;
-  const character = req.body;
+  const data = req.body.data;
   const user = getHash(req.body.user);
-  const charID = getHash(character.name);
+  const charID = getHash(req.body.name);
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     let dbo = db.db("dmweb");
     let query = { user: user,
     charid : charID};
-    let newvalues = { $set: { character: character }};
+    let newvalues = { $set: { data: data }};
     dbo.collection("dmweb").updateOne(query, newvalues, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");
@@ -65,10 +65,10 @@ router.patch("/", function (req,res,next) {
 //poistaa tietokannasta hahmon
 router.delete("/", function (req, res, next) {
   let MongoClient = require('mongodb').MongoClient;
-  const character = req.body;
+  const data = req.body.data;
   const user = getHash(req.body.user);
-  const charID = getHash(character.name);
-  console.log(character);
+  const charID = getHash(data.name);
+  console.log(data);
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     let dbo = db.db("dmweb");
@@ -93,7 +93,7 @@ function insertToDB(data, username, type) {
     if (err) throw err;
 
     let db = client.db('dmweb');
-    data  = { "character" : data,
+    data  = { "data" : data,
               "user" : username,
               "charid": charID,
               "type": type};

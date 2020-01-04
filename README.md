@@ -4,13 +4,12 @@ Currently it's not ready for use.
 
 ### Installation
 
-Install dependencies in both base directory and backend-directory with npm. 
+Install dependencies in both base directory and backend-directory with npm. Server uses MongoDB and Express. 
     
    `npm install`
 
 
 Then start them both: 
-
     `npm start`
 
 

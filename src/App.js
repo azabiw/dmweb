@@ -138,7 +138,7 @@ class App extends React.Component {
         let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
         let settlements = [];
         for (let i = 0; i < data.length; i++) {
-            let char = data[i]["character"]; //lisätään lomake vastavaan
+            let char = data[i]["data"]; //lisätään lomake vastavaan listaan
             switch (data[i].type) {
                 case "character":
                     chars.push(char);

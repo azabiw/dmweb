@@ -30,3 +30,4 @@ https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/#ex
 https://en.wikipedia.org/wiki/Representational_state_transfer
 https://www.w3schools.com/nodejs/nodejs_mongodb_update.asp
 https://www.w3schools.com/js/js_switch.asp
+https://jwt.io/introduction/
