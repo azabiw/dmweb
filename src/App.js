@@ -72,15 +72,24 @@ class App extends React.Component {
         this.editCharacter = this.editCharacter.bind(this);
     }
 
-    /** TODO tee järkevämmäksi
-     * Handles changing editor.
+    /** TODO: KORJAA
+     *
+     * @param editor wanted editor
      */
-    changeEditor() {
-        if (this.state.selected === "character") {
-            this.setState( {selected : "settlement"} );
-        } else {
-            this.setState( {selected : "character"} );
+    changeEditor(editor) {
+        if ((editor !== null) && (typeof editor === "string")) {
+          if(this.state.selected !== editor) {
+                console.log("editor set to " + editor);
+                this.setState({selected: editor});
+            }
+        }  else {
+            if (this.state.selected === "character") {
+                this.setState( {selected : "settlement"} );
+            } else {
+                this.setState( {selected : "character"} );
+            }
         }
+
     }
 
     /**
@@ -104,22 +113,33 @@ class App extends React.Component {
         console.log("hahmo lisätty");
     }
 
-    editCharacter(characterName) {
-        console.log("edit char clicked"+ characterName);
-        if(characterName === "") {
+    editProperty(name, formType ) {
+        if(name === "") {
             this.setState({editable: ""});
             return;
         }
-        let characters = this.state.characters;
-        let character;
-        for (let char of characters) { //haetaan hahmoista lisättävä hahmo
-            if (char.name === characterName) {
-                character = char;
+        let arrays = this.state[formType];
+        console.log(arrays);
+        let selectedProperty;
+        for (let char of arrays) { //haetaan hahmoista lisättävä hahmo
+            if (char.name === arrays) {
+                selectedProperty = char;
                 break;
             }
         }
-        if (character != null) this.setState({editable: character});
+        if (selectedProperty != null) this.setState({editable: selectedProperty});
 
+    }
+
+    /** Adds given character to be edited in editor;
+     * todo: remove
+     * @param characterName
+     */
+    editCharacter(characterName) {
+        console.log("edit char clicked: "+ characterName);
+        this.changeEditor("character");
+
+        this.editProperty(characterName, "characters");
     }
 
     /**
