@@ -54,7 +54,7 @@ const Editor = (props) => {
         return (
             <Character defaultCharacter={props.editable} addCharacter={props.addCharacter} />
         )
-    } else return <Settlement characters={props.characters}/>
+    } else return <Settlement defaultValues={props.editable} addProperty={props.addProperty} characters={props.characters}/>
 };
 
 //Pääohjelma
@@ -146,7 +146,10 @@ class App extends React.Component {
                 break;
             }
         }
-        if (selectedProperty != null) this.setState({editable: selectedProperty});
+        if (selectedProperty != null) {
+            this.setState({editable: selectedProperty});
+            if (this.state.selected === "character" && formType === "settlements") this.setState({selected: "settlement"}); //todo muuta yleisempään muotoon
+        }
 
     }
 

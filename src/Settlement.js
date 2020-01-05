@@ -5,6 +5,18 @@ import utilities from "./utilities";
 import { Form, Field } from "react-final-form";
 import SimpleField from "./SimpleField";
 class Settlement extends React.Component {
+
+    //todo yleistä
+    getDefault(defaults, attribute) {
+        if (defaults[attribute] != null) {
+            return defaults[attribute];
+        }
+        else {
+            return "";
+        }
+    }
+
+
     render() {
         const characterList = this.props.characters.map((character) =>
             <option value={character.name}> {character.name} </option>
@@ -14,23 +26,26 @@ class Settlement extends React.Component {
                 console.log(formData);
                 if (formData.name === "" || formData.name === null) return;
                 let util = new utilities();
-                util.sendToServer(formData,"post", "settlement");
+                if (this.props.defaultValues === "") { //lisätään uusi kaupunki
+                    util.sendToServer(formData,"post", "settlement");
+                }
+                this.props.addProperty(formData, "settlements");
             } }>
                 {({handleSubmit}) => (
                     <form onSubmit={handleSubmit}>
-                        <SimpleField defaultValue={""} name={"name"} label={"Name"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "name")} defaultValue={""} name={"name"} label={"Name"}/>
                         <div>
                             <label>Leader</label>
-                            <Field name="leader" component="select">
+                            <Field selected={this.getDefault(this.props.defaultValues, "leader")} name="leader" component="select">
                                 {characterList}
                             </Field>
                         </div>
-                        <SimpleField defaultValue={""} name={"location"} label={"Location"}/>
-                        <SimpleField defaultValue={""} name={"feature"} label={"Notable features"}/>
-                        <SimpleField defaultValue={""} name={"population"} label={"Population and structure"}/>
-                        <SimpleField defaultValue={""} name={"security"} label={"Level of security"}/>
-                        <SimpleField defaultValue={""} name={"organisations"} label={"Organisations"}/>
-                        <SimpleField defaultValue={""} name={"interesting"} label={"Interesting locations"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "location")} defaultValue={""} name={"location"} label={"Location"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "feature")} defaultValue={""} name={"feature"} label={"Notable features"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "population")} defaultValue={""} name={"population"} label={"Population and structure"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "security")} name={"security"} label={"Level of security"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "organisations")} name={"organisations"} label={"Organisations"}/>
+                        <SimpleField defaultText={this.getDefault(this.props.defaultValues, "interesting")} name={"interesting"} label={"Interesting locations"}/>
                         <button type="submit">Save</button>
                     </form>
                 )}
