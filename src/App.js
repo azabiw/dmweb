@@ -138,10 +138,10 @@ class App extends React.Component {
             return;
         }
         let arrays = this.state[formType];
-        console.log(arrays);
         let selectedProperty;
         for (let char of arrays) { //haetaan hahmoista lisättävä hahmo
-            if (char.name === arrays) {
+            console.log("char name" + char.name);
+            if (char.name === name) {
                 selectedProperty = char;
                 break;
             }
