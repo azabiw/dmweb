@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Character from "./Character";
 import "./utilities";
 import Settlement from "./Settlement";
+import HPCounter from "./HPCounter";
 const Header = (props) => {
   return (
       <nav>
@@ -204,6 +205,7 @@ class App extends React.Component {
                         <Header/>
                     </Grid>
                     <Grid item xs={2}>
+                        <HPCounter initialValue={10}/>
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
