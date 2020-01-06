@@ -9,6 +9,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import Typography from "@material-ui/core/Typography";
 import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
+import { makeStyles } from '@material-ui/core/styles';
+
 class Character extends React.Component{
     id = 0;
     constructor(props){
@@ -42,7 +44,7 @@ class Character extends React.Component{
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
-                            <Paper className={"inputFormPaper"}>
+                            <Paper className={"paper"}>
                                 <Grid container spacing={4} direction="column">
                                     <Grid item xs={6}>
                                         <Grid container direction="row" spacing={2}>

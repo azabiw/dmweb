@@ -1,6 +1,7 @@
 import React from "react";
 //import Field from "./Field";
 import Button from "@material-ui/core/Button";
+
 import utilities from "./utilities";
 import { Form, Field } from "react-final-form";
 import SimpleField from "./SimpleField";
@@ -37,6 +38,7 @@ class Settlement extends React.Component {
                         <div>
                             <label>Leader</label>
                             <Field selected={this.getDefault(this.props.defaultValues, "leader")} name="leader" component="select">
+                                <option value={"Not selected"}> {"Not selected"} </option>
                                 {characterList}
                             </Field>
                         </div>
