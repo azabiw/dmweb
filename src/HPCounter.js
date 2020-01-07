@@ -19,7 +19,7 @@ class HPCounter extends React.Component {
             <div>
                 <Paper className={"paper"}>
                     {this.state.value}
-                    <input/>
+                    <input />
                     <button onClick={event => this.modify(-1)}>-1</button>
                     <button onClick={event => this.modify(1)}>+1</button>
                </Paper>

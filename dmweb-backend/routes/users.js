@@ -44,10 +44,14 @@ function getHash(text) {
 
 //käsittelee patch metodin kutsun ja tietokannassa olevan hahmon muokkaamisen
 router.patch("/", function (req,res,next) {
+  //console.log(req);
   let MongoClient = require('mongodb').MongoClient;
   const data = req.body.data;
   const user = getHash(req.body.user);
-  const charID = getHash(req.body.name);
+  const charID = getHash(req.body.data.name);
+  /*console.log(data);
+  console.log(user);
+  console.log(charID); */
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     let dbo = db.db("dmweb");
