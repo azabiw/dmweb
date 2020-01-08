@@ -1,19 +1,19 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
+import styles from "../styles/Header.module.css";
 class Header extends React.Component {
 
     render() {
         return (
-            <nav>
+            <nav className={styles.header}>
                 <ul>
-                    <li>
+                    <li className={styles.Link}>
                         <Link to="/">Front page</Link>
                     </li>
-                    <li>
+                    <li className={styles.Link}>
                         <Link to="/editor">Editor</Link>
                     </li>
-                    <li>
+                    <li className={styles.Link}>
                         <Link to="/about">About</Link>
                     </li>
                 </ul>
