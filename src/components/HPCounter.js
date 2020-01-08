@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import styles from "./styles/HPCounter.module.css"
+import styles from "../styles/HPCounter.module.css"
 
 class HPCounter extends React.Component {
 

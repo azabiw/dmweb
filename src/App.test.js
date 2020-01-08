@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Character from "./Character";
-import Settlement from "./Settlement";
+import Character from "./components/Character";
+import Settlement from "./components/Settlement";
 
 it('App renders without crashing', () => {
   const div = document.createElement('div');

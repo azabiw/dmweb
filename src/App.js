@@ -2,19 +2,20 @@ import React from 'react';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
-import Character from "./Character";
-import "./utilities";
-import Settlement from "./Settlement";
-import HPCounter from "./HPCounter";
-import Logbook from "./Logbook";
-const Header = (props) => {
-  return (
-      <nav>
-          Linkit halutuille sivuille.
-      </nav>
-  )
-};
-
+import Character from "./components/Character";
+import "./components/utilities";
+import Settlement from "./components/Settlement";
+import HPCounter from "./components/HPCounter";
+import Logbook from "./components/Logbook";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import FrontPage from "./components/FrontPage";
+import Header from "./components/Header";
+import AboutPage from "./components/AboutPage";
 
 /**
  *
@@ -200,25 +201,40 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App">
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Header/>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <HPCounter initialValue={10}/>
-                        <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
-                    </Grid>
-                    <Grid item xs={9}>
-                        <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
-                        <button onClick={this.changeEditor}>Change editor</button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Logbook />
-                        <Footer />
-                    </Grid>
-                </Grid>
-            </div>
+            <Router >
+
+                <Switch>
+                    <Route path="/about">
+                        <AboutPage />
+                    </Route>
+                    <Route path="/editor">
+                        <div className="App">
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Header/>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <HPCounter initialValue={10}/>
+                                    <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
+                                    <button onClick={this.changeEditor}>Change editor</button>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Logbook />
+                                    <Footer />
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Route>
+                    <Route path="/">
+                        <FrontPage />
+                    </Route>
+                </Switch>
+
+            </Router>
+
         );
 
     }

@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import Typography from "@material-ui/core/Typography";
 import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
-import styles from "./styles/characterform.module.css";
+import styles from "../styles/characterform.module.css";
 
 class Character extends React.Component{
     id = 0;
