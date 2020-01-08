@@ -5,6 +5,7 @@ class Logbook extends React.Component {
     constructor(props) {
         super();
         this.addEntry = this.addEntry.bind(this);
+        this.removeEntry = this.removeEntry.bind(this);
         this.state = {
             entries: []
         };
@@ -23,10 +24,29 @@ class Logbook extends React.Component {
         this.setState({entries: entries});
     }
 
+    /**
+     *
+     * @param date used to identify targeted entry to be deleted
+     */
+    removeEntry(date) {
+        let entries = this.state.entries;
+        if (entries.length <1) return;
+        for (let i = 0; i < entries.length; i++) {
+            let entry = entries[i];
+            if (entry === null) return;
+            if (entry.date === date) {
+                delete entries[i];
+                this.setState({entries: entries});
+                return;
+            }
+        }
+
+    }
+
     render() {
         let  formValue = "";
         const entries = this.state.entries.map(entry =>
-            <div>Content: {entry.content} Date: {entry.date}</div>
+            <div>Content: {entry.content} Date: {entry.date} <button onClick={event => this.removeEntry(entry.date)}>Delete</button></div>
         );
         return (
             <div>
