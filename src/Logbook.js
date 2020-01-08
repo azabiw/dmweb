@@ -12,6 +12,7 @@ class Logbook extends React.Component {
     }
 
     addEntry(text) {
+        if (text === "" || text === null) return; //ei lisätä tyhjää
         let entries = this.state.entries;
         let newEntry = {
             content: text,
@@ -23,12 +24,16 @@ class Logbook extends React.Component {
     }
 
     render() {
+        let  formValue = "";
+        const entries = this.state.entries.map(entry =>
+            <div>Content: {entry.content} Date: {entry.date}</div>
+        );
         return (
             <div>
                 <h2>Logbook</h2>
-
-                <textarea placeholder="Log entry text"> </textarea>
-                <button onClick={this.addEntry}>Add log entry </button>
+                {entries}
+                <textarea onChange={event => formValue = event.target.value} placeholder="Log entry text"> </textarea>
+                <button onClick={event => this.addEntry(formValue)}>Add log entry </button>
             </div>
         )
     }
