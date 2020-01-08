@@ -6,6 +6,7 @@ import Character from "./Character";
 import "./utilities";
 import Settlement from "./Settlement";
 import HPCounter from "./HPCounter";
+import Logbook from "./Logbook";
 const Header = (props) => {
   return (
       <nav>
@@ -213,6 +214,7 @@ class App extends React.Component {
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>
+                        <Logbook />
                         <Footer />
                     </Grid>
                 </Grid>

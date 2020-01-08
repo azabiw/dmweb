@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-
+import styles from "./styles/HPCounter.module.css"
 
 class HPCounter extends React.Component {
 
@@ -17,10 +17,10 @@ class HPCounter extends React.Component {
     render() {
         return (
             <div>
-                <Paper className={"paper"}>
+                <Paper className={styles.Paper}>
                     {this.state.value}
-                    <input />
                     <button onClick={event => this.modify(-1)}>-1</button>
+                    <input />
                     <button onClick={event => this.modify(1)}>+1</button>
                </Paper>
             </div>
