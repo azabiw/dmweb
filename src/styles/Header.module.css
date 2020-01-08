@@ -1,0 +1,21 @@
+.header {
+    display: inline;
+}
+.header ul {
+    list-style-type: none;
+}
+.Link {
+    display: inline;
+    text-decoration: none;
+}
+a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: inline-block;
+    margin: 2em;
+    padding: 1rem;
+}
+a:hover {
+    background-color: darkmagenta;
+    border-radius: 0.8rem;
+}
