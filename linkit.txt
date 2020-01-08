@@ -33,3 +33,4 @@ https://www.w3schools.com/js/js_switch.asp
 https://jwt.io/introduction/
 https://material-ui.com/components/grid/
 https://create-react-app.dev/docs/running-tests/
+https://css-tricks.com/css-modules-part-1-need/
