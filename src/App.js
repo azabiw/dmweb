@@ -10,13 +10,12 @@ import Logbook from "./components/Logbook";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import FrontPage from "./components/FrontPage";
 import Header from "./components/Header";
 import AboutPage from "./components/AboutPage";
-
+import styles from "./styles/Editor.module.css";
 /**
  *
  * @param props List of characters and settlements as arrays
@@ -208,10 +207,12 @@ class App extends React.Component {
                         <AboutPage />
                     </Route>
                     <Route path="/editor">
+                        <Header/>
+
                         <div className="App">
-                            <Grid container spacing={2}>
+
+                            <Grid className={styles.GridContainer} container spacing={2}>
                                 <Grid item xs={12}>
-                                    <Header/>
                                 </Grid>
                                 <Grid item xs={2}>
                                     <HPCounter initialValue={10}/>

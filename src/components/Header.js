@@ -12,6 +12,7 @@ class Header extends React.Component {
         margin: "1rem 0.5rem 1rem 0.5rem",
         padding: "1rem",
         color: "white",
+        "z-index": 1000,
         "border-radius" : "1rem",
         "background-color": "darkgray"
     };
