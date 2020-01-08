@@ -3,7 +3,7 @@ import React from "react";
 
 class Logbook extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.addEntry = this.addEntry.bind(this);
         this.removeEntry = this.removeEntry.bind(this);
         this.state = {
