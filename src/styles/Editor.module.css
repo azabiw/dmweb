@@ -1,8 +1,8 @@
 .CharacterEditor {
-    background-color: darkgray;
-    color: #09d3ac;
-}
+     background-color: darkgray;
+     color: #09d3ac;
+ }
 .GridContainer {
-    background-color: black;
+    background-color: darkgray;
     z-index: -100000000000;
 }
