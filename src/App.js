@@ -38,8 +38,6 @@ class App extends React.Component {
                         <AboutPage />
                     </Route>
                     <Route path="/editor">
-                        <Header/>
-
                         <div className="App">
                             <EditorPage />
                         </div>

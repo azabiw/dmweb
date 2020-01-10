@@ -11,7 +11,7 @@ import Character from "./Character";
 import Settlement from "./Settlement";
 import Button from "@material-ui/core/Button";
 import Footer from "./Footer";
-
+import {Container} from "semantic-ui-react";
 class EditorPage extends React.Component {
     constructor(props) {
         super(props);
@@ -152,10 +152,9 @@ class EditorPage extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className={styles.root}>
+                <Header />
                 <Grid className={styles.GridContainer} container spacing={2}>
-                    <Grid item xs={12}>
-                    </Grid>
                     <Grid item xs={2}>
                         <HPCounter initialValue={10}/>
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
@@ -192,12 +191,15 @@ const LeftList = (props) => {
     );
 
     return (
-        <div className="LeftNavigation" id="leftList">
-            <h3>List of NPCs:</h3>
-            <ul>{characterList}</ul>
-            <h3>List of Settlements: </h3>
-            <ul>{settlementList}</ul>
-            <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
-        </div>
+        <Container className={styles.Container}>
+            <div className="LeftNavigation" id="leftList">
+                <h3>List of NPCs:</h3>
+                <ul>{characterList}</ul>
+                <h3>List of Settlements: </h3>
+                <ul>{settlementList}</ul>
+                <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
+            </div>
+
+        </Container>
     )
 };

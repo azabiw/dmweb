@@ -39,3 +39,5 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://reacttraining.com/react-router/web/guides/quick-start
 https://www.w3schools.com/css/css_align.asp
 https://www.w3schools.com/css/css_navbar.asp
+https://react.semantic-ui.com/usage/
+https://react.semantic-ui.com/elements/button/#types-button

@@ -1,8 +1,26 @@
 .CharacterEditor {
-     background-color: darkgray;
+     background-color: pink;
      color: #09d3ac;
  }
 .GridContainer {
-    background-color: darkgray;
     z-index: -100000000000;
+}
+.root {
+    background-color: black;
+    z-index: -100;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    min-width: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+.Container {
+    background-color: darkgray;
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+}
+.Container ul {
+    list-style-type: none;
 }

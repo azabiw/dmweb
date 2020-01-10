@@ -1,36 +1,26 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import styles from "../styles/Header.module.css";
+import {Button} from "semantic-ui-react";
 class Header extends React.Component {
 
     render() {
-        //pakko määritellä näin, koska Link ei jostain syystä ymmärrä CSS -moduuleja
-        const style = {
-            "text-decoration": "none",
-        "font-size": "1.5rem",
-        display: "inline-block",
-        margin: "1rem 0.5rem 1rem 0.5rem",
-        padding: "1rem",
-        color: "white",
-        "z-index": 1000,
-        "border-radius" : "1rem",
-        "background-color": "darkgray"
-    };
         return (
+
             <nav className={styles.header}>
                 <ul>
                     <li className={styles.ListElement}>
-                        <Link style={style} to="/">Front page</Link>
+                        <Button className={styles.LinkContainer} as={Link} to="/">Front Page</Button>
                     </li>
                     <li className={styles.ListElement}>
-                        <Link style={style} to="/editor">Editor</Link>
+                        <Button className={styles.LinkContainer} as={Link} to="/editor">Editor</Button>
                     </li>
                     <li className={styles.ListElement}>
-                        <Link style={style} classname={styles.LinkContainer} to="/about">About</Link>
+                        <Button className={styles.LinkContainer} as={Link} to="/about">About</Button>
                     </li>
-
                 </ul>
             </nav>
+
         )
 
     }
