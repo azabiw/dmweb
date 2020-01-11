@@ -7,12 +7,13 @@ class HPCounter extends React.Component {
     constructor(props) {
         super(props);
         this.label = props.label;
-        this.state = {value: props.initialValue};
+        this.state = {value: parseInt(props.initialValue)};
     }
 
     modify(value) {
         let newValue = this.state.value + value;
         this.setState({value: newValue});
+        console.log("value");
     }
 
     render() {
