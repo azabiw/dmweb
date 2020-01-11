@@ -10,6 +10,9 @@ class Header extends React.Component {
             <nav className={styles.header}>
                 <ul>
                     <li className={styles.ListElement}>
+                        <h2 className={styles.logo} >DM web</h2>
+                    </li>
+                    <li className={styles.ListElement}>
                         <Button className={styles.LinkContainer} as={Link} to="/">Front Page</Button>
                     </li>
                     <li className={styles.ListElement}>

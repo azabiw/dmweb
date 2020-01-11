@@ -15,13 +15,17 @@
     text-decoration: none;
     font-size: 1.5rem;
     display: inline-block;
-    margin: 1rem;
-    padding: 1rem;
+    margin: 0.5rem;
+    margin-bottom: 0.1rem;
+    padding: 0.5rem 0.5rem 0.2rem;
     color: white;
-    background-color: darkgray;
-    border-radius: 1rem;
 }
 .LinkContainer:hover{
-    background-color: darkmagenta;
+    color: darkmagenta;
     border-radius: 0.8rem;
+}
+.logo {
+    display: inline;
+    float:left;
+    color: white;
 }
