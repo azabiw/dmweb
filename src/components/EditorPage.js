@@ -199,6 +199,8 @@ const LeftList = (props) => {
                 <h3>List of Settlements: </h3>
                 <ul>{settlementList}</ul>
                 <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
+                <Button onClick={(event => props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
+
             </div>
 
         </Container>
