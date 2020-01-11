@@ -1,0 +1,9 @@
+.Container {
+    background-color: darkgray;
+    margin: 1rem;
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+}
+.button {
+    margin: 0.5rem;
+}

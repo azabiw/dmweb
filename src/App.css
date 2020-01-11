@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  background-color: lightgrey;
   /*
   background-color: #282c34;
   min-height: 100vh;
@@ -15,43 +14,4 @@
 
 .FlexContainer {
   display: flex;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
-.FieldLabel {
-  margin-right: 0.2rem;
-  padding-right: 0.2rem;
-}
-
-.saveButton {
-  margin: 0.7rem;
-}
-
-.LeftNavigation a {
-  display: block;
-}
-.LeftNavigation {
-  display: flex;
-  flex-direction: column;
-}
-.inputFieldGrid {
-  margin: 2em;
 }

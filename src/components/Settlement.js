@@ -8,7 +8,7 @@ import SimpleField from "./SimpleField";
 class Settlement extends React.Component {
 
     //todo yleistä
-    getDefault(defaults, attribute) {
+        getDefault(defaults, attribute) {
         if (defaults[attribute] != null) {
             return defaults[attribute];
         }
