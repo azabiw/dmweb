@@ -26,6 +26,7 @@ class EditorPage extends React.Component {
         this.addCharacter = this.addCharacter.bind(this);
         this.editCharacter = this.editCharacter.bind(this);
         this.editProperty = this.editProperty.bind(this);
+        this.addProperty = this.addProperty.bind(this);
     }
 
     /** TODO: KORJAA
@@ -160,7 +161,7 @@ class EditorPage extends React.Component {
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
+                        <Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>

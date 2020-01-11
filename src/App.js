@@ -11,7 +11,6 @@ import AboutPage from "./components/AboutPage";
 import EditorPage from "./components/EditorPage";
 import HPCounterContainer from "./components/HPCounterContainer";
 
-
 //Pääohjelma
 class App extends React.Component {
 
@@ -23,9 +22,7 @@ class App extends React.Component {
                         <AboutPage />
                     </Route>
                     <Route path="/npceditor">
-                        <div className="App">
-                            <EditorPage />
-                        </div>
+                        <EditorPage />
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />
