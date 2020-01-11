@@ -157,7 +157,6 @@ class EditorPage extends React.Component {
                 <Header />
                 <Grid className={styles.GridContainer} container spacing={2}>
                     <Grid item xs={2}>
-                        <HPCounterContainer />
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
@@ -198,11 +197,9 @@ const LeftList = (props) => {
                 <ul>{characterList}</ul>
                 <h3>List of Settlements: </h3>
                 <ul>{settlementList}</ul>
-                <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
+                 <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
                 <Button onClick={(event => props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
-
             </div>
-
         </Container>
     )
 };

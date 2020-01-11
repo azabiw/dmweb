@@ -16,7 +16,10 @@ class Header extends React.Component {
                         <Button className={styles.LinkContainer} as={Link} to="/">Front Page</Button>
                     </li>
                     <li className={styles.ListElement}>
-                        <Button className={styles.LinkContainer} as={Link} to="/editor">Editor</Button>
+                        <Button className={styles.LinkContainer} as={Link} to="/npceditor">Editor</Button>
+                    </li>
+                    <li className={styles.ListElement}>
+                        <Button className={styles.LinkContainer} as={Link} to="/hpc">HP Counter</Button>
                     </li>
                     <li className={styles.ListElement}>
                         <Button className={styles.LinkContainer} as={Link} to="/about">About</Button>

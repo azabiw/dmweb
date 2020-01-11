@@ -7,6 +7,7 @@ class HPCounterContainer extends React.Component {
         super(props);
         this.state = {counters: []};
         this.addCounter = this.addCounter.bind(this);
+        console.log("container rendered");
     }
     addCounter(name, value) {
         let counters = this.state.counters;
