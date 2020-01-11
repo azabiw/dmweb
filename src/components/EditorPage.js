@@ -12,6 +12,7 @@ import Settlement from "./Settlement";
 import Button from "@material-ui/core/Button";
 import Footer from "./Footer";
 import {Container} from "semantic-ui-react";
+import HPCounterContainer from "./HPCounterContainer";
 class EditorPage extends React.Component {
     constructor(props) {
         super(props);
@@ -156,7 +157,7 @@ class EditorPage extends React.Component {
                 <Header />
                 <Grid className={styles.GridContainer} container spacing={2}>
                     <Grid item xs={2}>
-                        <HPCounter initialValue={10}/>
+                        <HPCounterContainer />
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>

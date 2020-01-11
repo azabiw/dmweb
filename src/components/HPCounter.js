@@ -6,6 +6,7 @@ class HPCounter extends React.Component {
 
     constructor(props) {
         super(props);
+        this.label = props.label;
         this.state = {value: props.initialValue};
     }
 
@@ -15,13 +16,14 @@ class HPCounter extends React.Component {
     }
 
     render() {
+        let modifier = 0;
         return (
             <div>
                 <Paper className={styles.Paper}>
+                    <h3>{this.label}</h3>
                     {this.state.value}
-                    <button onClick={event => this.modify(-1)}>-1</button>
-                    <input />
-                    <button onClick={event => this.modify(1)}>+1</button>
+                    <input defaultValue={""} onChange={event => modifier = parseInt(event.target.value)} placeholder="Modifier" />
+                    <button onClick={event => this.modify(modifier)}>Apply</button>
                </Paper>
             </div>
             )

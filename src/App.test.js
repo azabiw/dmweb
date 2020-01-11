@@ -21,8 +21,3 @@ it('Settlement renders without crashing', () => {
   ReactDOM.render(<Settlement defaultValues={""} characters={[]} /> , div);
   ReactDOM.unmountComponentAtNode(div);
 });
-it('editorpage renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<EditorPage/> , div);
-  ReactDOM.unmountComponentAtNode(div);
-});
