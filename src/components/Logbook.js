@@ -1,5 +1,5 @@
 import React from "react";
-import {Container} from "semantic-ui-react";
+import {Container, Card} from "semantic-ui-react";
 import styles from "../styles/Logbook.module.css"
 
 class Logbook extends React.Component {
@@ -51,10 +51,13 @@ class Logbook extends React.Component {
         );
         return (
             <Container className={styles.Container}>
-                <h2>Logbook</h2>
+                <h2 className={styles.Title}>Logbook</h2>
                 {entries}
-                <textarea onChange={event => formValue = event.target.value} placeholder="Log entry text"> </textarea>
-                <button onClick={event => this.addEntry(formValue)}>Add log entry </button>
+                <div>
+                  <label>Log entry text</label>
+                  <textarea className={styles.TextArea} onChange={event => formValue = event.target.value} placeholder="Log entry text"> </textarea>
+                  <button onClick={event => this.addEntry(formValue)}>Add log entry </button>
+                </div>
             </Container>
         )
     }
