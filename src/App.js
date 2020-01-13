@@ -11,6 +11,7 @@ import AboutPage from "./components/AboutPage";
 import EditorPage from "./components/EditorPage";
 import HPCounterContainer from "./components/HPCounterContainer";
 import Logbook from "./components/Logbook";
+import 'semantic-ui-less/semantic.less'
 //Pääohjelma
 class App extends React.Component {
 
