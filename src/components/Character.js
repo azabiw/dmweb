@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
-
+import {Card} from "semantic-ui-react";
 class Character extends React.Component{
     id = 0;
     constructor(props){
@@ -57,10 +57,12 @@ class Character extends React.Component{
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Grid container direction="row" spacing={2}>
+                                      <Card>
                                         <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "role")} name={"role"} label={"Role"} />
                                         <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "profession")} name={"profession"} label={"Profession"} />
                                         <SimpleField defaultText={this.getDefault(this.props.defaultCharacter, "intro")} name={"intro"} label={"Short intro"} />
-                                    </Grid>
+                                      </Card>
+                                  </Grid>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Grid container direction="row"  spacing={2}>

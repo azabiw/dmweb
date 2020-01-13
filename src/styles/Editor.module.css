@@ -4,11 +4,9 @@
      max-width: inherit;
  }
 .GridContainer {
-    z-index: -100000000000;
 }
 .root {
     background-color: black;
-    z-index: -100;
     min-height: 100vh;
     position: absolute;
     top: 0;
