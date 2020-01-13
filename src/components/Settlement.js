@@ -1,11 +1,9 @@
 import React from "react";
-//import Field from "./Field";
-import Button from "@material-ui/core/Button";
-
 import utilities from "./utilities";
 import { Form, Field } from "react-final-form";
 import SimpleField from "./SimpleField";
 import {Container} from "semantic-ui-react";
+import styles from "../styles/Settlement.module.css";
 class Settlement extends React.Component {
 
     //todo yleistä
@@ -24,7 +22,7 @@ class Settlement extends React.Component {
             <option value={character.name}> {character.name} </option>
         );
         return (
-            <Container>
+            <Container className={styles.Container}>
                 <Form onSubmit={(formData) => {
                     console.log(formData);
                     if (formData.name === "" || formData.name === null) return;

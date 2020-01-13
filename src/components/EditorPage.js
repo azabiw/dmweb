@@ -26,6 +26,7 @@ class EditorPage extends React.Component {
         this.addCharacter = this.addCharacter.bind(this);
         this.editCharacter = this.editCharacter.bind(this);
         this.editProperty = this.editProperty.bind(this);
+        this.addProperty = this.addProperty.bind(this);
     }
 
     /** TODO: KORJAA
@@ -157,11 +158,10 @@ class EditorPage extends React.Component {
                 <Header />
                 <Grid className={styles.GridContainer} container spacing={2}>
                     <Grid item xs={2}>
-                        <HPCounterContainer />
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
+                        <Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid>
                     <Grid item xs={12}>
@@ -198,11 +198,9 @@ const LeftList = (props) => {
                 <ul>{characterList}</ul>
                 <h3>List of Settlements: </h3>
                 <ul>{settlementList}</ul>
-                <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
+                 <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
                 <Button onClick={(event => props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
-
             </div>
-
         </Container>
     )
 };
