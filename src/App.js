@@ -10,7 +10,7 @@ import FrontPage from "./components/FrontPage";
 import AboutPage from "./components/AboutPage";
 import EditorPage from "./components/EditorPage";
 import HPCounterContainer from "./components/HPCounterContainer";
-
+import Logbook from "./components/Logbook";
 //Pääohjelma
 class App extends React.Component {
 
@@ -23,6 +23,9 @@ class App extends React.Component {
                     </Route>
                     <Route path="/npceditor">
                         <EditorPage />
+                    </Route>
+                    <Route path="/logbook">
+                        <Logbook />
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />

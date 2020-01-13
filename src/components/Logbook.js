@@ -1,5 +1,6 @@
 import React from "react";
-
+import {Container} from "semantic-ui-react";
+import styles from "../styles/Logbook.module.css"
 
 class Logbook extends React.Component {
     constructor(props) {
@@ -49,12 +50,12 @@ class Logbook extends React.Component {
             <div>Content: {entry.content} Date: {entry.date} <button onClick={event => this.removeEntry(entry.date)}>Delete</button></div>
         );
         return (
-            <div>
+            <Container className={styles.Container}>
                 <h2>Logbook</h2>
                 {entries}
                 <textarea onChange={event => formValue = event.target.value} placeholder="Log entry text"> </textarea>
                 <button onClick={event => this.addEntry(formValue)}>Add log entry </button>
-            </div>
+            </Container>
         )
     }
 } export default Logbook;

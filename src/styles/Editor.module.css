@@ -1,6 +1,7 @@
 .CharacterEditor {
      background-color: pink;
      color: #09d3ac;
+     max-width: inherit;
  }
 .GridContainer {
     z-index: -100000000000;
