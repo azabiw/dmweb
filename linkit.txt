@@ -42,3 +42,4 @@ https://www.w3schools.com/css/css_navbar.asp
 https://react.semantic-ui.com/usage/
 https://react.semantic-ui.com/elements/button/#types-button
 https://reactjs.org/docs/composition-vs-inheritance.html
+https://react.semantic-ui.com/theming
