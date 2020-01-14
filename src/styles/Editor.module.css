@@ -6,7 +6,7 @@
 .GridContainer {
 }
 .root {
-    background-color: black;
+    background-color: white;
     min-height: 100vh;
     position: absolute;
     top: 0;
@@ -22,4 +22,7 @@
 }
 .Container ul {
     list-style-type: none;
+}
+.LeftNavigation {
+    margin-top: 1rem;
 }

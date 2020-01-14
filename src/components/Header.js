@@ -1,12 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import styles from "../styles/Header.module.css";
-import {Button} from "semantic-ui-react";
+import {Button, Container} from "semantic-ui-react";
 class Header extends React.Component {
 
     render() {
         return (
-
+            <div className={styles.header}>
             <nav className={styles.header}>
                 <ul>
                     <li className={styles.ListElement}>
@@ -29,7 +29,7 @@ class Header extends React.Component {
                     </li>
                 </ul>
             </nav>
-
+            </div>
         )
 
     }

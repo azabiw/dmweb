@@ -1,7 +1,6 @@
 .header {
     display: inline;
     background-color: rebeccapurple;
-    z-index: 1;
     align-content: center;
 }
 .header ul {

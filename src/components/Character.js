@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
-import {Card} from "semantic-ui-react";
+import {Card, Segment} from "semantic-ui-react";
 class Character extends React.Component{
     id = 0;
     constructor(props){
@@ -30,8 +30,8 @@ class Character extends React.Component{
     render() {
         console.log(this.props.defaultCharacter);
         return (
-            <fieldset className={styles.editor}>
-                <legend>Edit NPC</legend>
+            <Segment className={styles.editor}>
+                <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
                     console.log(formData);
                     let util = new utilities();
@@ -166,7 +166,7 @@ class Character extends React.Component{
                     )}
                 </Form>
 
-            </fieldset>
+            </Segment>
         )
     }
 }

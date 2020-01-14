@@ -2,7 +2,6 @@ import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AboutPage from "./AboutPage";
 import Header from "./Header";
-import Grid from "@material-ui/core/Grid";
 import styles from "../styles/Editor.module.css";
 import HPCounter from "./HPCounter";
 import Logbook from "./Logbook";
@@ -11,7 +10,7 @@ import Character from "./Character";
 import Settlement from "./Settlement";
 import Button from "@material-ui/core/Button";
 import Footer from "./Footer";
-import {Container} from "semantic-ui-react";
+import {Container, Grid, Rail, Segment} from "semantic-ui-react";
 import HPCounterContainer from "./HPCounterContainer";
 class EditorPage extends React.Component {
     constructor(props) {
@@ -156,18 +155,16 @@ class EditorPage extends React.Component {
         return (
             <div className={styles.root}>
                 <Header />
-                <Grid className={styles.GridContainer} container spacing={2}>
-                    <Grid item xs={2}>
+                <Grid centered columns={2}>
+                    <Grid.Column>
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
-                    </Grid>
-                    <Grid item xs={9}>
                         <Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
                         <button onClick={this.changeEditor}>Change editor</button>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </Grid.Column>
+                    <div>
                         <Logbook />
                         <Footer />
-                    </Grid>
+                    </div>
                 </Grid>
             </div>
 
@@ -192,15 +189,15 @@ const LeftList = (props) => {
     );
 
     return (
-        <Container className={styles.Container}>
-            <div className="LeftNavigation" id="leftList">
+        <Rail position="left" >
+            <Segment className="LeftNavigation" id="leftList">
                 <h3>List of NPCs:</h3>
                 <ul>{characterList}</ul>
                 <h3>List of Settlements: </h3>
                 <ul>{settlementList}</ul>
                  <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
                 <Button onClick={(event => props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
-            </div>
-        </Container>
+            </Segment>
+        </Rail>
     )
 };
