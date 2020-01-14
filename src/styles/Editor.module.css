@@ -4,11 +4,9 @@
      max-width: inherit;
  }
 .GridContainer {
-    z-index: -100000000000;
 }
 .root {
-    background-color: black;
-    z-index: -100;
+    background-color: white;
     min-height: 100vh;
     position: absolute;
     top: 0;
@@ -24,4 +22,7 @@
 }
 .Container ul {
     list-style-type: none;
+}
+.LeftNavigation {
+    margin-top: 1rem;
 }

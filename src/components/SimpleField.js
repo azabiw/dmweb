@@ -12,7 +12,7 @@ const SimpleField = (props ) => {
         <div >
             <label>{props.label}</label>
             <Field id={props.id} defaultValue={props.defaultText} name={props.name} component="input" type="text" placeholder={props.label} />
-        </div>
+      </div>
     )
 };
 export default SimpleField;

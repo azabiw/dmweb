@@ -20,7 +20,7 @@ class HPCounterContainer extends React.Component {
         let label = "New Character";
         let value = 10;
         return (
-            <Container className={styles.Container}>
+            <Container>
                 <div>{this.state.counters}</div>
                 <h3>Add a new HP counter</h3>
                 <input placeholder="Name" onChange={event => label = event.target.value} />
