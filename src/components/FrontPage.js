@@ -11,7 +11,6 @@ class FrontPage extends React.Component {
    render() {
        return (
            <Container>
-               <Header />
                <h1 className={styles.Title}>DM Web</h1>
            </Container>
 

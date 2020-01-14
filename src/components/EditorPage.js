@@ -153,8 +153,7 @@ class EditorPage extends React.Component {
 
     render() {
         return (
-            <div className={styles.root}>
-                <Header />
+            <Container fluid>
                 <Grid centered columns={2}>
                     <Grid.Column>
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
@@ -166,7 +165,7 @@ class EditorPage extends React.Component {
                         <Footer />
                     </div>
                 </Grid>
-            </div>
+            </Container>
 
         );
 

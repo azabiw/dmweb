@@ -12,12 +12,14 @@ import EditorPage from "./components/EditorPage";
 import HPCounterContainer from "./components/HPCounterContainer";
 import Logbook from "./components/Logbook";
 import 'semantic-ui-less/semantic.less'
+import Header from "./components/Header";
 //Pääohjelma
 class App extends React.Component {
 
     render() {
         return (
             <Router >
+                <Header />
                 <Switch>
                     <Route path="/about">
                         <AboutPage />
