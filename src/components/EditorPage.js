@@ -157,7 +157,7 @@ class EditorPage extends React.Component {
                 <Grid centered columns={2}>
                     <Grid.Column>
                         <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
-                        <Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
+                        <Container><Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} /></Container>
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid.Column>
                     <div>
@@ -188,13 +188,13 @@ const LeftList = (props) => {
     );
 
     return (
-        <Rail position="left" >
+        <Rail close="very" position="left" >
             <Segment className="LeftNavigation" id="leftList">
                 <h3>List of NPCs:</h3>
                 <ul>{characterList}</ul>
                 <h3>List of Settlements: </h3>
                 <ul>{settlementList}</ul>
-                 <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
+                <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
                 <Button onClick={(event => props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
             </Segment>
         </Rail>
