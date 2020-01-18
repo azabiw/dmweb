@@ -47,3 +47,5 @@ https://redux-toolkit.js.org/tutorials/basic-tutorial
 https://github.com/airbnb/javascript
 https://redux-docs.netlify.com/basics/usage-with-react
 https://www.npmjs.com/package/uuid
+https://redux-toolkit.js.org/tutorials/intermediate-tutorial
+https://redux-toolkit.js.org/api/createaction/

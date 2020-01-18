@@ -1,16 +1,20 @@
 import {ADD_CHARACTER, ADD_LOG, ADD_SETTLEMENT} from "./ActionTypes";
-import { createStore } from 'redux';
-function addCharacter() {
-    return {type: ADD_CHARACTER};
-}
+import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
+import v4 from 'uuid/v4';
 
-function addLog() {
-    return{type: ADD_LOG};
-}
+const addCharacter = createAction("characters/add", function prepare(character) {
+    return {
+        payload: character,
+        id: v4()
+    }
+});
+const addSettlement = createAction("settlements/add", function prepare(settlement) {
+    return {
+        payload: settlement,
+        id: v4()
+    }
+});
 
-function addSettlement() {
-    return {type: ADD_SETTLEMENT};
-}
 function storeConfig(state = {characters: [],
     settlements: [],
     logs: []
@@ -25,5 +29,17 @@ function storeConfig(state = {characters: [],
             return state.logs.push(action.payload);
     }
 }
-const store =  createStore(storeConfig);
+
+const reducer = createReducer({characters: [],
+    settlements: [],
+    logs: []
+}, {
+   [addCharacter]: (state, action) => {
+       state.characters.push(action.payload)
+   }
+});
+
+const store =  configureStore({
+    reducer: reducer
+});
 export default store;
