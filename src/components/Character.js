@@ -11,11 +11,13 @@ import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
 import {Card, Segment} from "semantic-ui-react";
+import store from "../redux/Store";
 class Character extends React.Component{
     id = 0;
     constructor(props){
         super(props);
         this.state = {customFields: []};
+        //this.defaultCharater = store.getState().editable;
     }
 
     //palauttaa vakioarvon NPC:n ominaisuudelle.
@@ -33,6 +35,7 @@ class Character extends React.Component{
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
+                    store.dispatch({type: "characters/add",payload:formData});
                     console.log(formData);
                     let util = new utilities();
                     if (formData.name === "") return;  //ei lisätä tyhjää hahmoa //todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
@@ -40,7 +43,7 @@ class Character extends React.Component{
                     else {
                         util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
                     }
-                    this.props.addCharacter(formData); //lisää hahmon pääohjelman tilaksi. addCharacter osaa käsitellä hahmon muokkauksen
+                   // this.props.addCharacter(formData); //lisää hahmon pääohjelman tilaksi. addCharacter osaa käsitellä hahmon muokkauksen
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">

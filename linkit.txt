@@ -43,3 +43,9 @@ https://react.semantic-ui.com/usage/
 https://react.semantic-ui.com/elements/button/#types-button
 https://reactjs.org/docs/composition-vs-inheritance.html
 https://react.semantic-ui.com/theming
+https://redux-toolkit.js.org/tutorials/basic-tutorial
+https://github.com/airbnb/javascript
+https://redux-docs.netlify.com/basics/usage-with-react
+https://www.npmjs.com/package/uuid
+https://redux-toolkit.js.org/tutorials/intermediate-tutorial
+https://redux-toolkit.js.org/api/createaction/

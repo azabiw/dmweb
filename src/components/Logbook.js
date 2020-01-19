@@ -1,8 +1,11 @@
 import React from "react";
 import {Container, Card} from "semantic-ui-react";
 import styles from "../styles/Logbook.module.css"
-
+import {Connect} from "react-redux";
+import store from "../redux/Store";
+import {ADD_LOG} from "../redux/ActionTypes";
 class Logbook extends React.Component {
+    localstore;
     constructor(props) {
         super(props);
         this.addEntry = this.addEntry.bind(this);
@@ -11,8 +14,19 @@ class Logbook extends React.Component {
             entries: []
         };
 
+        this.handleChange = store.subscribe(this.handleChange);
+        this.setState(store.getState());
+        console.log(this.state);
     }
-
+    handleChange() {
+        //this.setState() = store.getState().logs;
+        console.log("got data from store");
+        console.log(store.getState());
+    }
+    /**
+     *
+     * @param text
+     */
     addEntry(text) {
         if (text === "" || text === null) return; //ei lisätä tyhjää
         let entries = this.state.entries;
@@ -21,8 +35,9 @@ class Logbook extends React.Component {
             date: Date()
         };
         entries.push(newEntry);
-        console.log(newEntry);
+        //console.log(newEntry);
         this.setState({entries: entries});
+        store.dispatch({type: ADD_LOG, payload: newEntry});
     }
 
     /**

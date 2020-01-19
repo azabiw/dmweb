@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 import Footer from "./Footer";
 import {Container, Grid, Rail, Segment} from "semantic-ui-react";
 import HPCounterContainer from "./HPCounterContainer";
+import store from "../redux/Store";
+import PropertyList from "./PropertyList";
 class EditorPage extends React.Component {
     constructor(props) {
         super(props);
@@ -156,8 +158,8 @@ class EditorPage extends React.Component {
             <Container fluid>
                 <Grid centered columns={2}>
                     <Grid.Column>
-                        <LeftList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
-                        <Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} />
+                        <PropertyList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
+                        <Container><Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} /></Container>
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid.Column>
                     <div>
@@ -175,28 +177,7 @@ class EditorPage extends React.Component {
 const Editor = (props) => {
     if (props.selected === "character") {
         return (
-            <Character defaultCharacter={props.editable} addCharacter={props.addCharacter} />
+            <Character defaultCharacter={props.editable}  />
         )
     } else return <Settlement defaultValues={props.editable} addProperty={props.addProperty} characters={props.characters}/>
-};
-const LeftList = (props) => {
-    const characterList = props.characters.map((char) =>
-        <li><button onClick={(event => props.editCharacter(event.target.textContent))}>{char.name}</button></li>
-    );
-    const settlementList = props.settlements.map((settlement) =>
-        <li><button onClick={(event => props.editProperty(event.target.textContent, "settlements"))}>{settlement.name}</button></li>
-    );
-
-    return (
-        <Rail position="left" >
-            <Segment className="LeftNavigation" id="leftList">
-                <h3>List of NPCs:</h3>
-                <ul>{characterList}</ul>
-                <h3>List of Settlements: </h3>
-                <ul>{settlementList}</ul>
-                 <Button onClick={(event => props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
-                <Button onClick={(event => props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
-            </Segment>
-        </Rail>
-    )
 };
