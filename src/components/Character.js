@@ -17,6 +17,7 @@ class Character extends React.Component{
     constructor(props){
         super(props);
         this.state = {customFields: []};
+        //this.defaultCharater = store.getState().editable;
     }
 
     //palauttaa vakioarvon NPC:n ominaisuudelle.

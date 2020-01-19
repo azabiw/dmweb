@@ -5,23 +5,31 @@ import Button from "@material-ui/core/Button";
 class PropertyList extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChange = store.subscribe(this.handleChange);
         this.handleChange = this.handleChange.bind(this);
+        this.handleChange = store.subscribe(this.handleChange);
+        this.state = {
+            characters: store.getState().characters,
+            settlements: store.getState().settlements
+        }
 
     }
 
     handleChange() {
-        this.setState(store.getState().characters);
+        console.log(store.getState().characters);
+        this.setState({
+            characters: store.getState().characters,
+            settlements: store.getState().settlements
+        });
         console.log("got data from store");
         console.log(store.getState());
     }
 
 
     render() {
-        const characterList = this.props.characters.map((char) =>
+        const characterList = this.state.characters.map((char) =>
             <li><button onClick={(event => this.props.editCharacter(event.target.textContent))}>{char.name}</button></li>
         );
-        const settlementList = this.props.settlements.map((settlement) =>
+        const settlementList = this.state.settlements.map((settlement) =>
             <li><button onClick={(event => this.props.editProperty(event.target.textContent, "settlements"))}>{settlement.name}</button></li>
         );
 

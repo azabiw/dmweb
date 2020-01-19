@@ -177,7 +177,7 @@ class EditorPage extends React.Component {
 const Editor = (props) => {
     if (props.selected === "character") {
         return (
-            <Character defaultCharacter={props.editable} addCharacter={props.addCharacter} />
+            <Character defaultCharacter={props.editable}  />
         )
     } else return <Settlement defaultValues={props.editable} addProperty={props.addProperty} characters={props.characters}/>
 };

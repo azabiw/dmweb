@@ -1,4 +1,3 @@
-import {ADD_CHARACTER, ADD_LOG, ADD_SETTLEMENT} from "./ActionTypes";
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
 
@@ -14,25 +13,19 @@ const addSettlement = createAction("settlements/add", function prepare(settlemen
         id: v4()
     }
 });
+const setEditable = createAction("editable/set", function prepare(editable){
+   return {
+       payload: editable,
+       editType: editable.type
+   }
+});
 
-function storeConfig(state = {characters: [],
-    settlements: [],
-    logs: []
-}, action) {
-    console.log("store created");
-    switch (action.type) {
-        case ADD_CHARACTER:
-            return state.characters.push(action.payload);
-        case ADD_SETTLEMENT:
-            return state.settlements.push(action.payload);
-        case ADD_LOG:
-            return state.logs.push(action.payload);
-    }
-}
+
 
 const reducer = createReducer({characters: [],
     settlements: [],
-    logs: []
+    logs: [],
+    editable: []
 }, {
    [addCharacter]: (state, action) => {
        state.characters.push(action.payload)
