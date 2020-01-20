@@ -6,7 +6,6 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div >
             <Menu inverted color={"purple"}>
                 <Menu.Item>
                     <Button  as={Link} to="/">DM Web</Button>
@@ -24,9 +23,7 @@ class Header extends React.Component {
                     <Button as={Link} to="/about">About</Button>
                 </Menu.Item>
             </Menu>
-            </div>
         )
-
     }
 }
 export default Header;

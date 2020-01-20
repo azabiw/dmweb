@@ -160,7 +160,7 @@ class Character extends React.Component{
                                     let charToDelete = {
                                         name: name
                                     };
-                                    util.sendToServer(charToDelete,"DELETE");
+                                        util.sendToServer(charToDelete,"DELETE");
                                 }} className={styles.Button} variant="contained" color="secondary">
                                     Remove
                                 </Button>
@@ -168,7 +168,6 @@ class Character extends React.Component{
                         </form>
                     )}
                 </Form>
-
             </Segment>
         )
     }

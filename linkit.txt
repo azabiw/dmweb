@@ -49,3 +49,5 @@ https://redux-docs.netlify.com/basics/usage-with-react
 https://www.npmjs.com/package/uuid
 https://redux-toolkit.js.org/tutorials/intermediate-tutorial
 https://redux-toolkit.js.org/api/createaction/
+https://www.w3schools.com/js/js_json_arrays.asp
+https://redux.js.org/recipes/structuring-reducers/initializing-state/
