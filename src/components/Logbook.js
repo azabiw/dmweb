@@ -3,7 +3,6 @@ import {Container, Card} from "semantic-ui-react";
 import styles from "../styles/Logbook.module.css"
 import {Connect} from "react-redux";
 import store from "../redux/Store";
-import {ADD_LOG} from "../redux/ActionTypes";
 class Logbook extends React.Component {
     localstore;
     constructor(props) {
@@ -37,7 +36,7 @@ class Logbook extends React.Component {
         entries.push(newEntry);
         //console.log(newEntry);
         this.setState({entries: entries});
-        store.dispatch({type: ADD_LOG, payload: newEntry});
+        store.dispatch({type: "log/add", payload: newEntry});
     }
 
     /**

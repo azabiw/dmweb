@@ -22,7 +22,7 @@ const setEditable = createAction("editable/set", function prepare(editable){
 const removeCharacter = createAction("characters/remove");
 const removeSettlement = createAction("settlements/remove");
 
-const setinitialValues = createAction("initialise", function prepare(editable){
+const setInitialValues = createAction("initialise", function prepare(editable){
     return {
         payload: editable,
     }
@@ -51,7 +51,7 @@ const reducer = createReducer({
             }
         }
     },
-    [setinitialValues]: (state, action) => {
+    [setInitialValues]: (state, action) => {
        state.characters = action.payload.characters;
        state.settlements = action.payload.settlements;
        state.logs = action.payload.logs;

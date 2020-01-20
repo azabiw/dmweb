@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import Character from "./components/Character";
 import Settlement from "./components/Settlement";
-import EditorPage from "./components/EditorPage";
 
 it('App renders without crashing', () => {
   const div = document.createElement('div');

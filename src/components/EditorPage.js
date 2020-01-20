@@ -1,17 +1,9 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import AboutPage from "./AboutPage";
-import Header from "./Header";
-import styles from "../styles/Editor.module.css";
-import HPCounter from "./HPCounter";
 import Logbook from "./Logbook";
-import FrontPage from "./FrontPage";
 import Character from "./Character";
 import Settlement from "./Settlement";
-import Button from "@material-ui/core/Button";
 import Footer from "./Footer";
 import {Container, Grid, Rail, Segment} from "semantic-ui-react";
-import HPCounterContainer from "./HPCounterContainer";
 import store from "../redux/Store";
 import PropertyList from "./PropertyList";
 
