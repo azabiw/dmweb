@@ -14,6 +14,7 @@ import {Container, Grid, Rail, Segment} from "semantic-ui-react";
 import HPCounterContainer from "./HPCounterContainer";
 import store from "../redux/Store";
 import PropertyList from "./PropertyList";
+
 class EditorPage extends React.Component {
     constructor(props) {
         super(props);
@@ -135,6 +136,7 @@ class EditorPage extends React.Component {
         console.log(data);
         let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
         let settlements = [];
+        let logs = [];
         for (let i = 0; i < data.length; i++) {
             let char = data[i]["data"]; //lisätään lomake vastavaan listaan
             switch (data[i].type) {
@@ -148,9 +150,12 @@ class EditorPage extends React.Component {
             }
 
         }
-        this.setState({characters : chars,
-            settlements: settlements
-        });
+        store.dispatch({type:"initialise",
+        payload: {
+            characters: chars,
+            settlements: settlements,
+            logs: logs,
+        }});
     }
 
     render() {
