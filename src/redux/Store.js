@@ -1,25 +1,35 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
 
+
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
         payload: character,
         id: v4()
     }
 });
+
+
 const addSettlement = createAction("settlements/add", function prepare(settlement) {
     return {
         payload: settlement,
         id: v4()
     }
 });
+
+
 const setEditable = createAction("editable/set", function prepare(editable){
    return {
        payload: editable,
        editType: editable.type
    }
 });
+
+const updateCharacter = createAction("characters/update");
+
 const removeCharacter = createAction("characters/remove");
+
+
 const removeSettlement = createAction("settlements/remove");
 
 const setInitialValues = createAction("initialise", function prepare(editable){
@@ -28,6 +38,7 @@ const setInitialValues = createAction("initialise", function prepare(editable){
     }
 });
 
+
 const reducer = createReducer({
     characters: [],
     settlements: [],
@@ -35,8 +46,17 @@ const reducer = createReducer({
     editable: []
 }, {
    [addCharacter]:  (state, action) => {
+
        state.characters.push(action.payload)
    },
+    [updateCharacter]: (state, action) => {
+        for (let i = 0; i < state.characters.length; i++) {
+            if (state.characters[i].id === state.editable.id) {
+                state.characters[i] = action.payload;
+                return;
+            }
+        }
+    },
    [addSettlement]: (state, action) => {
        state.settlements.push(action.payload)
    },
@@ -57,6 +77,7 @@ const reducer = createReducer({
        state.logs = action.payload.logs;
     }
 });
+
 
 const store =  configureStore({
     reducer: reducer

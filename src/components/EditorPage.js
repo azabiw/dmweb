@@ -98,6 +98,11 @@ class EditorPage extends React.Component {
         }
         if (selectedProperty != null) {
             this.setState({editable: selectedProperty});
+            store.dispatch({type: "editable/set", payload: {
+                    editable: selectedProperty,
+                    editType: "formType"
+                }});
+
             if (this.state.selected === "character" && formType === "settlements") this.setState({selected: "settlement"}); //todo muuta yleisempään muotoon
         }
 
@@ -156,7 +161,7 @@ class EditorPage extends React.Component {
                 <Grid centered columns={2}>
                     <Grid.Column>
                         <PropertyList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
-                        <Container><Editor addProperty={this.addProperty} editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} characters={this.state.characters} settlements={this.state.settlements} /></Container>
+                        <Container><Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} /></Container>
                         <button onClick={this.changeEditor}>Change editor</button>
                     </Grid.Column>
                     <div>
