@@ -22,15 +22,15 @@ class Character extends React.Component{
             customFields: [],
             defaultCharacter: defaultCharacter
         };
-        store.subscribe(this.handleChange);
         this.handleChange = this.handleChange.bind(this);
+        store.subscribe(this.handleChange);
     }
     
 
     handleChange() {
         let storeState = store.getState().editable;
         console.log("edit type in store" + storeState.editType);
-        if (storeState.editType === "character") {
+        if (true || storeState.editType === "characters") { //todo: korjaa tyyppi
             this.setState({defaultCharacter: storeState});
         }
     }

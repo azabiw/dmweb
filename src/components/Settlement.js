@@ -5,7 +5,13 @@ import SimpleField from "./SimpleField";
 import {Container} from "semantic-ui-react";
 import styles from "../styles/Settlement.module.css";
 class Settlement extends React.Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            characters: [],
+            defaultValues: []
+        }
+    }
     //todo yleistä
         getDefault(defaults, attribute) {
         if (defaults[attribute] != null) {
@@ -19,7 +25,7 @@ class Settlement extends React.Component {
 
     render() {
         const characterList = this.props.characters.map((character) =>
-            <option value={character.name}> {character.name} </option>
+            <option value={character.id}> {character.name} </option>
         );
         return (
             <Container className={styles.Container}>
@@ -30,7 +36,7 @@ class Settlement extends React.Component {
                     if (this.props.defaultValues === "") { //lisätään uusi kaupunki
                         util.sendToServer(formData,"post", "settlement");
                     }
-                    this.props.addProperty(formData, "settlements");
+                    //this.props.addProperty(formData, "settlements");
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit}>
