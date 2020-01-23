@@ -27,7 +27,7 @@ class PropertyList extends React.Component {
 
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li><button onClick={(event => this.props.editCharacter(event.target.textContent))}>{char.name}</button></li>
+            <li><button onClick={(event => this.props.editCharacter(char.id))}>{char.name}</button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
             <li><button onClick={(event => this.props.editProperty(event.target.textContent, "settlements"))}>{settlement.name}</button></li>

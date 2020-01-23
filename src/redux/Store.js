@@ -4,8 +4,10 @@ import v4 from 'uuid/v4';
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
-        payload: character,
-        id: v4()
+        payload: {
+            character,
+            id: v4()
+        }
     }
 });
 

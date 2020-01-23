@@ -16,37 +16,17 @@ class EditorPage extends React.Component {
             settlements: [],
             editable: ""
         }; //Valittu editori
-        this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii oikein
-        this.addCharacter = this.addCharacter.bind(this);
+        //this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii oikein
+       /* this.addCharacter = this.addCharacter.bind(this);
         this.editCharacter = this.editCharacter.bind(this);
         this.editProperty = this.editProperty.bind(this);
-        this.addProperty = this.addProperty.bind(this);
+        this.addProperty = this.addProperty.bind(this); */
     }
-
-    /** TODO: KORJAA
-     *
-     * @param editor wanted editor
-     */
-    changeEditor(editor) {
-        if ((editor !== null) && (typeof editor === "string")) {
-            if(this.state.selected !== editor) {
-                console.log("editor set to " + editor);
-                this.setState({selected: editor});
-            }
-        }  else {
-            if (this.state.selected === "character") {
-                this.setState( {selected : "settlement"} );
-            } else {
-                this.setState( {selected : "character"} );
-            }
-        }
-
-    }
-
+/*
     /**
      * Adds given character to main app's state.
      * @param character character to be added as app's state
-     */
+
     addCharacter(character) {
         let newCharacters = this.state.characters;
         if(this.state.editable !== "") {
@@ -64,6 +44,7 @@ class EditorPage extends React.Component {
         console.log("hahmo lisätty");
     }
 
+
     addProperty(property, type) {
         let newProperties = this.state[type];
         if(this.state.editable !== "") {
@@ -80,9 +61,11 @@ class EditorPage extends React.Component {
         newState[type] = newProperties;
         this.setState(newState);
         console.log("lisätty" + property + "type: " + type);
-    }
+    }*/
 
+/*
     editProperty(name, formType ) {
+        console.log(name);
         if(name === "") {
             this.setState({editable: ""});
             return;
@@ -107,16 +90,17 @@ class EditorPage extends React.Component {
         }
 
     }
-
+*/
     /** Adds given character to be edited in editor;
      * todo: remove
      * @param characterName
-     */
+     *//*
     editCharacter(characterName) {
         console.log("edit char clicked: "+ characterName);
-        this.changeEditor("character");
+        //this.changeEditor("character");
         this.editProperty(characterName, "characters");
     }
+*/
 
     /**
      * Fetches all user's data from server and saves them to corresponding states
@@ -161,8 +145,9 @@ class EditorPage extends React.Component {
                 <Grid centered columns={2}>
                     <Grid.Column>
                         <PropertyList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
-                        <Container><Editor editable={this.state.editable} addCharacter={this.addCharacter} selected={this.state.selected} /></Container>
-                        <button onClick={this.changeEditor}>Change editor</button>
+                        <Container>{
+                           this.props.children
+                        }</Container>
                     </Grid.Column>
                     <div>
                         <Logbook />
@@ -175,11 +160,3 @@ class EditorPage extends React.Component {
 
     }
 } export default EditorPage;
-//vaihtaa editoria valinnan mukaan
-const Editor = (props) => {
-    if (props.selected === "character") {
-        return (
-            <Character defaultCharacter={props.editable}  />
-        )
-    } else return <Settlement defaultValues={props.editable} addProperty={props.addProperty} characters={props.characters}/>
-};
