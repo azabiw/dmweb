@@ -12,12 +12,27 @@ import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
 import {Card, Segment} from "semantic-ui-react";
 import store from "../redux/Store";
+import v4 from 'uuid/v4';
+
 class Character extends React.Component{
-    defaultCharacter = [];
     constructor(props){
+        let defaultCharacter = store.getState().editable;
         super(props);
-        this.state = {customFields: []};
-        this.defaultCharater = store.getState().editable;
+        this.state = {
+            customFields: [],
+            defaultCharacter: defaultCharacter
+        };
+        store.subscribe(this.handleChange);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    
+
+    handleChange() {
+        let storeState = store.getState().editable;
+        console.log("edit type in store" + storeState.editType);
+        if (storeState.editType === "character") {
+            this.setState({defaultCharacter: storeState});
+        }
     }
 
     //palauttaa vakioarvon NPC:n ominaisuudelle.
@@ -35,6 +50,10 @@ class Character extends React.Component{
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
+                    if (formData.id === null) {
+                        formData.id = v4();
+                    }
+                    console.log(formData.id);
                     store.dispatch({type: "characters/add",payload:formData});
                     console.log(formData);
                     let util = new utilities();
@@ -51,19 +70,19 @@ class Character extends React.Component{
                                 <Grid item xs={6}>
                                     <Paper className={styles.Paper}>
                                         <Grid container direction="row" spacing={2}>
-                                            <SimpleField id={"name"} defaultText={this.getDefault(this.defaultCharacter, "name")} name={"name"} label={"Name"}/>
-                                            <SimpleField defaultText={this.getDefault(this.defaultCharacter, "race")} name={"race"} label={"Race"} />
-                                            <SimpleField defaultText={this.getDefault(this.defaultCharacter, "gender")} name={"gender"} label={"Gender"} />
-                                            <SimpleField defaultText={this.getDefault(this.defaultCharacter, "characterClass")} name={"characterClass"} label={"Class"} />
+                                            <SimpleField id={"name"} defaultText={this.getDefault(this.state.defaultCharacter, "name")} name={"name"} label={"Name"}/>
+                                            <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "race")} name={"race"} label={"Race"} />
+                                            <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "gender")} name={"gender"} label={"Gender"} />
+                                            <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "characterClass")} name={"characterClass"} label={"Class"} />
                                         </Grid>
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Grid container direction="row" spacing={2}>
                                       <Card>
-                                        <SimpleField defaultText={this.getDefault(this.defaultCharacter, "role")} name={"role"} label={"Role"} />
-                                        <SimpleField defaultText={this.getDefault(this.defaultCharacter, "profession")} name={"profession"} label={"Profession"} />
-                                        <SimpleField defaultText={this.getDefault(this.defaultCharacter, "intro")} name={"intro"} label={"Short intro"} />
+                                        <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "role")} name={"role"} label={"Role"} />
+                                        <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "profession")} name={"profession"} label={"Profession"} />
+                                        <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "intro")} name={"intro"} label={"Short intro"} />
                                       </Card>
                                   </Grid>
                                 </Grid>
@@ -78,13 +97,13 @@ class Character extends React.Component{
                                                 <Typography >General</Typography>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "alignment")} name={"alignment"} label={"Alignment"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "size")} name={"size"} label={"Size"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "type")} name={"type"} label={"Type"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "subtype")} name={"subtype"} label={"Subtype"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "organisation")} name={"organisation"} label={"Organisation"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "age")} name={"age"} label={"Age"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "cr")} name={"cr"} label={"Challenge rating (CR)"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "alignment")} name={"alignment"} label={"Alignment"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "size")} name={"size"} label={"Size"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "type")} name={"type"} label={"Type"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "subtype")} name={"subtype"} label={"Subtype"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "organisation")} name={"organisation"} label={"Organisation"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "age")} name={"age"} label={"Age"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "cr")} name={"cr"} label={"Challenge rating (CR)"} />
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </Grid>
@@ -101,11 +120,11 @@ class Character extends React.Component{
                                                 <Typography >Defense</Typography>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "ac")} label={"AC"} name={"ac"}/>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "hp")} name={"hp"} label={"HP"}/>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "fort")} name={"fort"}  label={"Fort"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "ref")} name={"ref"} label={"Ref"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "will")} name={"will"} label={"Will"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "ac")} label={"AC"} name={"ac"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "hp")} name={"hp"} label={"HP"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "fort")} name={"fort"}  label={"Fort"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "ref")} name={"ref"} label={"Ref"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "will")} name={"will"} label={"Will"} />
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </Grid>
@@ -122,10 +141,10 @@ class Character extends React.Component{
                                                 <Typography >Offense</Typography>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "initiative")} name={"initiative"} label={"Initiative"}/>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "speed")} name={"speed"} label={"Speed"}/>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "melee")} name={"melee"} label={"Melee"}/>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "specialattacks")} name={"specialattacks"} label={"Special attacks"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "initiative")} name={"initiative"} label={"Initiative"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "speed")} name={"speed"} label={"Speed"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "melee")} name={"melee"} label={"Melee"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "specialattacks")} name={"specialattacks"} label={"Special attacks"}/>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </Grid>
@@ -142,9 +161,9 @@ class Character extends React.Component{
                                                 <Typography >Tactics</Typography>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "beforeCombat")} name={"beforeCombat"} label={"Before Combat"}/>
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "duringCombat")} name={"duringCombat"} label={"During Combat"} />
-                                                <SimpleField defaultText={this.getDefault(this.defaultCharacter, "combatGear")} name={"combatGear"} label={"Combat Gear"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "beforeCombat")} name={"beforeCombat"} label={"Before Combat"}/>
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "duringCombat")} name={"duringCombat"} label={"During Combat"} />
+                                                <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "combatGear")} name={"combatGear"} label={"Combat Gear"} />
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </Grid>

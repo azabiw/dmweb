@@ -144,7 +144,7 @@ class EditorPage extends React.Component {
             <Container fluid>
                 <Grid centered columns={2}>
                     <Grid.Column>
-                        <PropertyList editProperty={this.editProperty} settlements={this.state.settlements} editCharacter={this.editCharacter} characters={this.state.characters} />
+                        <PropertyList />
                         <Container>{
                            this.props.children
                         }</Container>
