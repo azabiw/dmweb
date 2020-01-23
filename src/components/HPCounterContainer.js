@@ -1,6 +1,6 @@
 import React from "react";
 import HPCounter from "./HPCounter";
-import {Container} from "semantic-ui-react";
+import {Container, Segment} from "semantic-ui-react";
 import styles from "../styles/HPCounterContainer.module.css";
 class HPCounterContainer extends React.Component {
     constructor(props) {
@@ -21,11 +21,13 @@ class HPCounterContainer extends React.Component {
         let value = 10;
         return (
             <Container>
-                <div>{this.state.counters}</div>
-                <h3>Add a new HP counter</h3>
-                <input placeholder="Name" onChange={event => label = event.target.value} />
-                <input placeholder="HP" onChange={event => value = event.target.value}/>
-                <button className={styles.button} onClick={event => this.addCounter(label,value)}>Add a New Character</button>
+                <Segment>
+                    <div>{this.state.counters}</div>
+                    <h3>Add a new HP counter</h3>
+                    <input placeholder="Name" onChange={event => label = event.target.value} />
+                    <input placeholder="HP" onChange={event => value = event.target.value}/>
+                    <button className={styles.button} onClick={event => this.addCounter(label,value)}>Add a New Character</button>
+                </Segment>
             </Container>
         )
     }
