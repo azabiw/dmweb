@@ -6,6 +6,7 @@ import {Container} from "semantic-ui-react";
 import styles from "../styles/Settlement.module.css";
 import  store from "../redux/Store";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
+import v4 from "uuid/v4";
 class Settlement extends React.Component {
     constructor(props) {
         let characters = store.getState().characters;
@@ -34,11 +35,20 @@ class Settlement extends React.Component {
             <Container>
                 <Segment>
                     <Form onSubmit={(formData) => {
-                        console.log(formData);
                         if (formData.name === "" || formData.name === null) return;
+                        if (this.state.defaultValues.id != null ) formData["id"] = this.state.defaultValues.id;
+                        if (formData["id"] == null) {
+                            const id = v4();
+                            console.log("asetettu id " + id);
+                            formData["id"] = id;
+                        }
+                        store.dispatch({type:"settlement/add", payload: formData});
                         let util = new utilities();
-                        if (this.props.defaultValues === "") { //lisätään uusi kaupunki
+                        if (store.getState().editable.length === 0 ) { //lisätään uusi kaupunki
                             util.sendToServer(formData,"post", "settlement");
+                        }
+                        else {
+                            util.sendToServer(formData, "PATCH", "settlement"); //päivittää palvelimella olevaa hahmoa
                         }
                         //this.props.addProperty(formData, "settlements");
                     } }>

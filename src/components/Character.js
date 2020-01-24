@@ -49,17 +49,17 @@ class Character extends React.Component{
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
+                    if (formData.name === "") return;  //ei lisätä tyhjää hahmoa //todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
                     if (this.state.defaultCharacter["id"] != null) formData["id"] = this.state.defaultCharacter.id;
                     if (formData["id"] == null) {
                         const id = v4();
-                        console.log("asettettu id " + id);
+                        console.log("asetettu id " + id);
                         formData["id"] = id;
                     }
                     console.log("lomakkeen id" + formData.id);
                     store.dispatch({type: "characters/add",payload:formData});
                     console.log(formData);
                     let util = new utilities();
-                    if (formData.name === "") return;  //ei lisätä tyhjää hahmoa //todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
                     if(store.getState().editable.length === 0) util.sendToServer(formData, "post", "character"); //tehdään uusi hahmo
                     else {
                         util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
