@@ -45,15 +45,17 @@ class Character extends React.Component{
         }
     }
     render() {
-        console.log(this.props.defaultCharacter);
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    if (formData.id === null) {
-                        formData.id = v4();
+                    if (this.state.defaultCharacter["id"] != null) formData["id"] = this.state.defaultCharacter.id;
+                    if (formData["id"] == null) {
+                        const id = v4();
+                        console.log("asettettu id " + id);
+                        formData["id"] = id;
                     }
-                    console.log(formData.id);
+                    console.log("lomakkeen id" + formData.id);
                     store.dispatch({type: "characters/add",payload:formData});
                     console.log(formData);
                     let util = new utilities();
@@ -70,6 +72,7 @@ class Character extends React.Component{
                                 <Grid item xs={6}>
                                     <Paper className={styles.Paper}>
                                         <Grid container direction="row" spacing={2}>
+
                                             <SimpleField id={"name"} defaultText={this.getDefault(this.state.defaultCharacter, "name")} name={"name"} label={"Name"}/>
                                             <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "race")} name={"race"} label={"Race"} />
                                             <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "gender")} name={"gender"} label={"Gender"} />
