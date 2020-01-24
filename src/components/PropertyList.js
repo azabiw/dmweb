@@ -43,8 +43,8 @@ class PropertyList extends React.Component {
                     <ul>{characterList}</ul>
                     <h3>List of Settlements: </h3>
                     <ul>{settlementList}</ul>
-                    <Button onClick={(event => this.props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
-                    <Button onClick={(event => this.props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
+                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} variant="contained" color="primary">Add new Character</Button>
+                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} variant="contained" color="primary">Add new Settlement</Button>
                 </Segment>
             </Rail>
         )
