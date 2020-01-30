@@ -4,8 +4,9 @@ import v4 from 'uuid/v4';
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
-        payload: character,
-        id: v4()
+        payload: {
+            character : character
+        }
     }
 });
 
@@ -39,6 +40,20 @@ const setInitialValues = createAction("initialise", function prepare(editable){
 });
 
 
+/**
+ * Returns either given characters index from char list or -1 if not found
+ * @param characterList
+ * @param id
+ * @returns {number} index or -1 if not found from list
+ */
+function getCharacterIndexWithID(characterList, id) {
+    for (let i = 0; i < characterList.length; i++) {
+        if (characterList[i].id === id) {
+            return i;
+        }
+    }
+    return -1;
+}
 const reducer = createReducer({
     characters: [],
     settlements: [],
@@ -46,8 +61,11 @@ const reducer = createReducer({
     editable: []
 }, {
    [addCharacter]:  (state, action) => {
-
-       state.characters.push(action.payload)
+       let index = getCharacterIndexWithID(state.characters, action.payload.id);
+       if (index !== -1) {
+           state.characters[index] = action.payload;
+       }
+       else state.characters.push(action.payload);
    },
     [updateCharacter]: (state, action) => {
         for (let i = 0; i < state.characters.length; i++) {
@@ -83,3 +101,4 @@ const store =  configureStore({
     reducer: reducer
 });
 export default store;
+export {getCharacterIndexWithID};

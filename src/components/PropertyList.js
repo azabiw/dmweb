@@ -24,13 +24,16 @@ class PropertyList extends React.Component {
         console.log(store.getState());
     }
 
-
+    setEditable(editable, type) {
+        console.log("id = " + editable.id);
+        store.dispatch({type: "editable/set", payload:editable, editType: type});
+    }
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li><button onClick={(event => this.props.editCharacter(event.target.textContent))}>{char.name}</button></li>
+            <li><button onClick={(event => this.setEditable(char, "characters"))}>{char.name}</button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
-            <li><button onClick={(event => this.props.editProperty(event.target.textContent, "settlements"))}>{settlement.name}</button></li>
+            <li><button onClick={(event => this.setEditable(settlement, "settlements"))}>{settlement.name}</button></li>
         );
 
         return (
@@ -40,8 +43,8 @@ class PropertyList extends React.Component {
                     <ul>{characterList}</ul>
                     <h3>List of Settlements: </h3>
                     <ul>{settlementList}</ul>
-                    <Button onClick={(event => this.props.editCharacter(""))} variant="contained" color="primary">Add new Character</Button>
-                    <Button onClick={(event => this.props.editProperty("","settlements"))} variant="contained" color="primary">Add new Settlement</Button>
+                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} variant="contained" color="primary">Add new Character</Button>
+                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} variant="contained" color="primary">Add new Settlement</Button>
                 </Segment>
             </Rail>
         )

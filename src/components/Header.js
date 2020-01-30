@@ -14,6 +14,9 @@ class Header extends React.Component {
                     <Button  as={Link} to="/npceditor">NPC Editor</Button>
                 </Menu.Item>
                 <Menu.Item>
+                    <Button  as={Link} to="/settlementeditor">Settlement Editor</Button>
+                </Menu.Item>
+                <Menu.Item>
                     <Button as={Link} to="/hpc">HP Counter</Button>
                 </Menu.Item>
                 <Menu.Item>

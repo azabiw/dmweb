@@ -4,7 +4,6 @@ import styles from "../styles/Logbook.module.css"
 import {Connect} from "react-redux";
 import store from "../redux/Store";
 class Logbook extends React.Component {
-    localstore;
     constructor(props) {
         super(props);
         this.addEntry = this.addEntry.bind(this);
@@ -12,15 +11,14 @@ class Logbook extends React.Component {
         this.state = {
             entries: []
         };
-
+        this.handleChange = this.handleChange.bind(this);
         this.handleChange = store.subscribe(this.handleChange);
         this.setState(store.getState());
         console.log(this.state);
     }
     handleChange() {
-        //this.setState() = store.getState().logs;
+        this.setState({entries: store.getState().logs});
         console.log("got data from store");
-        console.log(store.getState());
     }
     /**
      *

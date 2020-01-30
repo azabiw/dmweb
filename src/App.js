@@ -13,6 +13,8 @@ import HPCounterContainer from "./components/HPCounterContainer";
 import Logbook from "./components/Logbook";
 import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
+import Settlement from "./components/Settlement";
+import Character from "./components/Character";
 //Pääohjelma
 class App extends React.Component {
 
@@ -25,7 +27,10 @@ class App extends React.Component {
                         <AboutPage />
                     </Route>
                     <Route path="/npceditor">
-                        <EditorPage />
+                        <EditorPage > <Character/> </EditorPage>
+                    </Route>
+                    <Route path="/settlementeditor">
+                        <EditorPage><Settlement /></EditorPage>
                     </Route>
                     <Route path="/logbook">
                         <Logbook />
