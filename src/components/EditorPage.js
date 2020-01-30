@@ -150,7 +150,6 @@ class EditorPage extends React.Component {
                         }</Container>
                     </Grid.Column>
                     <div>
-                        <Logbook />
                         <Footer />
                     </div>
                 </Grid>

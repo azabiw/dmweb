@@ -49,7 +49,7 @@ class Character extends React.Component{
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    if (formData.name === "") return;  //ei lisätä tyhjää hahmoa //todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
+                    if (formData.name === "") return;  //ei lisätä tyhjää hahmoa /c/todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
                     if (this.state.defaultCharacter["id"] != null) formData["id"] = this.state.defaultCharacter.id;
                     if (formData["id"] == null) {
                         const id = v4();

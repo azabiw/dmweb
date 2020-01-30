@@ -10,11 +10,15 @@ import v4 from "uuid/v4";
 class Settlement extends React.Component {
     constructor(props) {
         let characters = store.getState().characters;
+        let defaultValues = store.getState().editable;
         super(props);
         this.state = {
             characters: characters,
-            defaultValues: []
-        }
+            defaultValues: defaultValues
+        };
+        this.handleChange = this.handleChange.bind(this);
+        store.subscribe(this.handleChange);
+
     }
     //todo yleistä
         getDefault(defaults, attribute) {
@@ -23,6 +27,14 @@ class Settlement extends React.Component {
         }
         else {
             return "";
+        }
+    }
+
+    handleChange() {
+        let storeState = store.getState().editable;
+        console.log("edit type in store" + storeState.editType);
+        if (true || storeState.editType === "settlement") { //todo: korjaa tyyppi
+            this.setState({defaultValues: storeState});
         }
     }
 
@@ -42,6 +54,7 @@ class Settlement extends React.Component {
                             console.log("asetettu id " + id);
                             formData["id"] = id;
                         }
+                        console.log(formData);
                         store.dispatch({type:"settlement/add", payload: formData});
                         let util = new utilities();
                         if (store.getState().editable.length === 0 ) { //lisätään uusi kaupunki
