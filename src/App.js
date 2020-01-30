@@ -15,6 +15,7 @@ import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
 import Settlement from "./components/Settlement";
 import Character from "./components/Character";
+import QuestEditor from "./components/QuestEditor";
 //Pääohjelma
 class App extends React.Component {
 
@@ -37,6 +38,9 @@ class App extends React.Component {
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />
+                    </Route>
+                    <Route path="/QuestEditor" >
+                        <EditorPage><QuestEditor /> </EditorPage>
                     </Route>
                     <Route path="/">
                         <FrontPage />

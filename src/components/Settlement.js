@@ -46,6 +46,7 @@ class Settlement extends React.Component {
         return (
             <Container>
                 <Segment>
+                    <h2>Edit Settlement/town</h2>
                     <Form onSubmit={(formData) => {
                         if (formData.name === "" || formData.name === null) return;
                         if (this.state.defaultValues.id != null ) formData["id"] = this.state.defaultValues.id;
