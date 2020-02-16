@@ -17,6 +17,9 @@ class Header extends React.Component {
                     <Button  as={Link} to="/settlementeditor">Settlement Editor</Button>
                 </Menu.Item>
                 <Menu.Item>
+                    <Button as={Link} to="/QuestEditor">Quest Editor</Button>
+                </Menu.Item>
+                <Menu.Item>
                     <Button as={Link} to="/hpc">HP Counter</Button>
                 </Menu.Item>
                 <Menu.Item>

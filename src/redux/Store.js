@@ -18,6 +18,11 @@ const addSettlement = createAction("settlements/add", function prepare(settlemen
     }
 });
 
+const addQuest = createAction("quest/add", function prepare(quest) {
+    return {
+        payload: quest,
+    }
+});
 
 const setEditable = createAction("editable/set", function prepare(editable){
    return {
@@ -58,7 +63,8 @@ const reducer = createReducer({
     characters: [],
     settlements: [],
     logs: [],
-    editable: []
+    editable: [],
+    quests: []
 }, {
    [addCharacter]:  (state, action) => {
        let index = getCharacterIndexWithID(state.characters, action.payload.id);
@@ -93,6 +99,9 @@ const reducer = createReducer({
        state.characters = action.payload.characters;
        state.settlements = action.payload.settlements;
        state.logs = action.payload.logs;
+    },
+    [addQuest]: (state, action) => {
+        state.quests.push(action.payload);
     }
 });
 

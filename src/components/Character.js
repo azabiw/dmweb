@@ -64,7 +64,6 @@ class Character extends React.Component{
                     else {
                         util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
                     }
-                   // this.props.addCharacter(formData); //lisää hahmon pääohjelman tilaksi. addCharacter osaa käsitellä hahmon muokkauksen
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
