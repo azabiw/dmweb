@@ -4,7 +4,7 @@ import "./components/utilities";
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
 } from "react-router-dom";
 import FrontPage from "./components/FrontPage";
 import AboutPage from "./components/AboutPage";

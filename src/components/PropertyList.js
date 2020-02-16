@@ -2,6 +2,7 @@ import store from "../redux/Store";
 import React from "react";
 import {Rail, Segment} from "semantic-ui-react";
 import Button from "@material-ui/core/Button";
+import {Redirect } from "react-router-dom";
 class PropertyList extends React.Component {
     constructor(props) {
         super(props);
@@ -9,7 +10,8 @@ class PropertyList extends React.Component {
         this.handleChange = store.subscribe(this.handleChange);
         this.state = {
             characters: store.getState().characters,
-            settlements: store.getState().settlements
+            settlements: store.getState().settlements,
+            redirect: false
         }
 
     }
