@@ -1,7 +1,7 @@
 import store from "../redux/Store";
 import React from "react";
 import {Rail, Segment, Button} from "semantic-ui-react";
-import {Redirect } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 class PropertyList extends React.Component {
     constructor(props) {
         super(props);
@@ -31,10 +31,10 @@ class PropertyList extends React.Component {
     }
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li><button onClick={(event => this.setEditable(char, "characters"))}>{char.name}</button></li>
+            <li><Button onClick={(event => this.setEditable(char, "characters"))} as={Link} to="/npceditor">{char.name}</Button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
-            <li><button onClick={(event => this.setEditable(settlement, "settlements"))}>{settlement.name}</button></li>
+            <li><Button onClick={(event => this.setEditable(settlement, "settlements"))} as={Link} to="/settlementeditor">{settlement.name}</Button></li>
         );
 
         return (
