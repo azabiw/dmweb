@@ -1,7 +1,6 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import styles from "../styles/HPCounter.module.css"
-
+import styles from "../styles/HPCounter.module.css";
+import {Segment} from "semantic-ui-react";
 class HPCounter extends React.Component {
 
     constructor(props) {
@@ -20,12 +19,12 @@ class HPCounter extends React.Component {
         let modifier = 0;
         return (
             <div>
-                <Paper className={styles.Paper}>
+                <Segment className={styles.Paper}>
                     <h3>{this.label}</h3>
                     {this.state.value}
                     <input defaultValue={""} onChange={event => modifier = parseInt(event.target.value)} placeholder="Modifier" />
                     <button onClick={event => this.modify(modifier)}>Apply</button>
-               </Paper>
+               </Segment>
             </div>
             )
 
