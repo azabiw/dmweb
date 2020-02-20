@@ -1,7 +1,6 @@
 import store from "../redux/Store";
 import React from "react";
-import {Rail, Segment} from "semantic-ui-react";
-import Button from "@material-ui/core/Button";
+import {Rail, Segment, Button} from "semantic-ui-react";
 import {Redirect } from "react-router-dom";
 class PropertyList extends React.Component {
     constructor(props) {
@@ -45,8 +44,8 @@ class PropertyList extends React.Component {
                     <ul>{characterList}</ul>
                     <h3>List of Settlements: </h3>
                     <ul>{settlementList}</ul>
-                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} variant="contained" color="primary">Add new Character</Button>
-                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} variant="contained" color="primary">Add new Settlement</Button>
+                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add new Character</Button>
+                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add new Settlement</Button>
                 </Segment>
             </Rail>
         )
