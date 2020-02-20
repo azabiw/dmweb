@@ -9,6 +9,7 @@ import '@testing-library/jest-dom/extend-expect';
 import HPCounterContainer from "./components/HPCounterContainer";
 import PropertyList from "./components/PropertyList";
 import EditorPage from "./components/EditorPage";
+import AboutPage from "./components/AboutPage";
 it('App renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
@@ -49,4 +50,9 @@ it("Renders HPCounterContainer", () => {
   const { getByText } = render(<HPCounterContainer />);
   expect(getByText('Add a new HP counter')).toBeInTheDocument();
   expect(getByText('Add a New Character')).toBeInTheDocument();
+});
+it("Renders AboutPage", () => {
+  const { getByText } = render(<AboutPage />);
+  expect(getByText('This is a work-in-progress project to make a simple web program to help tabletop RPG game masters. Currently it\'s not ready for use.')).toBeInTheDocument();
+  expect(getByText('Made by Ossi Vanhala.')).toBeInTheDocument();
 });
