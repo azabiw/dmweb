@@ -109,5 +109,17 @@ const reducer = createReducer({
 const store =  configureStore({
     reducer: reducer
 });
+
+/**
+ *
+ * @param id wanted UUID
+ * @param type formType characters or settlements
+ * @returns {number}
+ */
+function getFormDataWithID(id, type) {
+    let forms = store.getState()[type];
+    return forms[getCharacterIndexWithID(forms, id)];
+}
+
 export default store;
 export {getCharacterIndexWithID};

@@ -2,7 +2,7 @@ import React from "react";
 import utilities from "./utilities";
 import { Form, Field } from "react-final-form";
 import SimpleField from "./SimpleField";
-import {Container} from "semantic-ui-react";
+import {Button, Container} from "semantic-ui-react";
 import styles from "../styles/Settlement.module.css";
 import  store from "../redux/Store";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
@@ -82,7 +82,10 @@ class Settlement extends React.Component {
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "security")} name={"security"} label={"Level of security"}/>
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "organisations")} name={"organisations"} label={"Organisations"}/>
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "interesting")} name={"interesting"} label={"Interesting locations"}/>
-                                <button type="submit">Save</button>
+                                <Button primary type="submit">Save</Button>
+                                <Button color={"red"} onClick={(event) => {
+                                    return 1
+                                }}>Remove</Button>
                             </form>
                         )}
                     </Form>

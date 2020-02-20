@@ -10,9 +10,9 @@ import styles from "../styles/SimpleField.module.css";
 const SimpleField = (props ) => {
     return (
         <div className={styles.container}>
-            <label>{props.label}</label>
+            <label className={styles.Label}>{props.label}</label>
             <Field id={props.id} defaultValue={props.defaultText} name={props.name} component="input" type="text" placeholder={props.label} />
-      </div>
+        </div>
     )
 };
 export default SimpleField;

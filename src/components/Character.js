@@ -44,7 +44,7 @@ class Character extends React.Component{
                 <Form onSubmit={(formData) => {
                     if (formData.name === "") return;  //ei lisätä tyhjää hahmoa /c/todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
                     if (this.state.defaultCharacter["id"] != null) formData["id"] = this.state.defaultCharacter.id;
-                    if (formData["id"] == null) {
+                    if (formData["id"] === null) {
                         const id = v4();
                         console.log("asetettu id " + id);
                         formData["id"] = id;
@@ -57,6 +57,7 @@ class Character extends React.Component{
                     else {
                         util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
                     }
+                    store.dispatch({type: "editable/set", payload:formData});
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">

@@ -8,25 +8,25 @@ class Header extends React.Component {
         return (
             <Menu inverted color={"purple"}>
                 <Menu.Item>
-                    <Button  as={Link} to="/">DM Web</Button>
+                    <Button color={"purple"}  as={Link} to="/">DM Web</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button  as={Link} to="/npceditor">NPC Editor</Button>
+                    <Button color={"purple"} as={Link} to="/npceditor">NPC Editor</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button  as={Link} to="/settlementeditor">Settlement Editor</Button>
+                    <Button color={"purple"} as={Link} to="/settlementeditor">Settlement Editor</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button as={Link} to="/QuestEditor">Quest Editor</Button>
+                    <Button color={"purple"} as={Link} to="/QuestEditor">Quest Editor</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button as={Link} to="/hpc">HP Counter</Button>
+                    <Button color={"purple"} as={Link} to="/hpc">HP Counter</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button as={Link} to="/logbook">Log Book</Button>
+                    <Button color={"purple"} as={Link} to="/logbook">Log Book</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button as={Link} to="/about">About</Button>
+                    <Button color={"purple"} as={Link} to="/about">About</Button>
                 </Menu.Item>
             </Menu>
         )
