@@ -49,6 +49,7 @@ class EditorPage extends React.Component {
         let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
         let settlements = [];
         let logs = [];
+        let quests = [];
         for (let i = 0; i < data.length; i++) {
             let char = data[i]["data"]; //lisätään lomake vastavaan listaan
             switch (data[i].type) {
@@ -58,7 +59,10 @@ class EditorPage extends React.Component {
                 case "settlement":
                     settlements.push(char);
                     break;
-                default: return;
+                case "quest":
+                    quests.push(char);
+                    break;
+                default: break;
             }
 
         }
@@ -67,6 +71,7 @@ class EditorPage extends React.Component {
             characters: chars,
             settlements: settlements,
             logs: logs,
+            quests: quests
         }});
     }
 

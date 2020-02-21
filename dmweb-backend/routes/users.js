@@ -44,7 +44,7 @@ function getHash(text) {
 
 //käsittelee patch metodin kutsun ja tietokannassa olevan hahmon muokkaamisen
 router.patch("/", function (req,res,next) {
-  //console.log(req);
+  console.log(req);
   let MongoClient = require('mongodb').MongoClient;
   const data = req.body.data;
   const user = getHash(req.body.user);

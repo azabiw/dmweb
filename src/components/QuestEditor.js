@@ -36,7 +36,7 @@ class QuestEditor extends React.Component {
                     <h2>Edit Quest</h2>
                     <Form onSubmit={(formData) => {
                         formData["id"] = v4();
-                        store.dispatch({type: "quest/add", payload: formData});
+                       // store.dispatch({type: "quest/add", payload: formData});
                         if (formData.name === "" || formData.name === null) return;
                         if (this.state.defaultValues.id != null ) formData["id"] = this.state.defaultValues.id;
                         if (formData["id"] == null) {
@@ -56,7 +56,7 @@ class QuestEditor extends React.Component {
                     } }>
                         {({handleSubmit}) => (
                             <form onSubmit={handleSubmit}>
-                                <SimpleField name={"guestName"} label={"Quest Name"}/>
+                                <SimpleField name={"name"} label={"Quest Name"}/>
                                 <SimpleField name={"description"} label={"Description"}/>
                                 <SimpleField name={"theme"} label={"theme"}/>
                                 <Button primary type="submit">Add quest</Button>
