@@ -68,7 +68,7 @@ class Settlement extends React.Component {
                     } }>
                         {({handleSubmit}) => (
                             <form onSubmit={handleSubmit}>
-                                <SimpleField defaultText={this.getDefault(this.state.defaultValues, "name")} defaultValue={""} name={"name"} label={"Name"}/>
+                                <SimpleField  id={"name"} defaultText={this.getDefault(this.state.defaultValues, "name")} defaultValue={""} name={"name"} label={"Name"}/>
                                 <div>
                                     <label>Leader</label>
                                     <Field selected={this.getDefault(this.state.defaultValues, "leader")} name="leader" component="select">
@@ -84,7 +84,14 @@ class Settlement extends React.Component {
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "interesting")} name={"interesting"} label={"Interesting locations"}/>
                                 <Button primary type="submit">Save</Button>
                                 <Button color={"red"} onClick={(event) => {
-                                    return 1
+                                    let util = new utilities();
+                                    let name = document.getElementById("name").value;
+                                    console.log(name);
+                                    let charToDelete = {
+                                        name: name
+                                    };
+                                    util.sendToServer(charToDelete,"DELETE");
+                                    utilities.initializeStore();
                                 }}>Remove</Button>
                             </form>
                         )}

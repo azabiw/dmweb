@@ -99,6 +99,7 @@ class Character extends React.Component{
                                     name: name
                                 };
                                     util.sendToServer(charToDelete,"DELETE");
+                                    utilities.initializeStore();
                             }}  color="red">
                                 Remove
                             </Button>
