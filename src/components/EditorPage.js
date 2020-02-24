@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import {Container, Grid, Rail, Segment} from "semantic-ui-react";
 import store from "../redux/Store";
 import PropertyList from "./PropertyList";
+import utilities from "./utilities";
 
 class EditorPage extends React.Component {
     constructor(props) {
@@ -37,42 +38,8 @@ class EditorPage extends React.Component {
      * Fetches all user's data from server and saves them to corresponding states
      * @returns {Promise<void>}
      */
-    async componentDidMount() {
-
-        let response = await fetch('/users', {
-            credentials: "omit",
-            cache: "no-store",
-            method: "get"
-        });
-        let data = await response.json();
-        console.log(data);
-        let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
-        let settlements = [];
-        let logs = [];
-        let quests = [];
-        for (let i = 0; i < data.length; i++) {
-            let char = data[i]["data"]; //lisätään lomake vastavaan listaan
-            switch (data[i].type) {
-                case "character":
-                    chars.push(char);
-                    break;
-                case "settlement":
-                    settlements.push(char);
-                    break;
-                case "quest":
-                    quests.push(char);
-                    break;
-                default: break;
-            }
-
-        }
-        store.dispatch({type:"initialise",
-        payload: {
-            characters: chars,
-            settlements: settlements,
-            logs: logs,
-            quests: quests
-        }});
+    componentDidMount() {
+        utilities.initializeStore();
     }
 
     render() {
