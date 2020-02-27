@@ -55,3 +55,4 @@ https://github.com/reduxjs/reselect
 https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export
 https://www.tutorialrepublic.com/faq/how-to-get-the-current-url-with-javascript.php
 https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
+https://reactjs.org/docs/composition-vs-inheritance.html

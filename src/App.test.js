@@ -10,6 +10,7 @@ import HPCounterContainer from "./components/HPCounterContainer";
 import PropertyList from "./components/PropertyList";
 import EditorPage from "./components/EditorPage";
 import AboutPage from "./components/AboutPage";
+import {BrowserRouter as Router} from "react-router-dom";
 it('App renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
@@ -31,19 +32,19 @@ it('Renders title/Frontpage', () => {
   expect(getByText('DM Web')).toBeInTheDocument();
 });
 it("Renders list of NPCs", () => {
-  const { getByText } = render(<PropertyList />);
+  const { getByText } = render(<Router><PropertyList /></Router>);
   expect(getByText('List of NPCs:')).toBeInTheDocument();
 });
 it("Renders list of Settlements", () => {
-  const { getByText } = render(<PropertyList />);
+  const { getByText } = render(<Router><PropertyList /></Router>);
   expect(getByText('List of Settlements:')).toBeInTheDocument();
 });
 it("Renders EditorPage with SettlementEditor", () => {
-  const { getByText } = render(<EditorPage><Settlement /></EditorPage>);
+  const { getByText } = render(<Router ><EditorPage><Settlement /></EditorPage></Router>);
   expect(getByText('Edit Settlement/town')).toBeInTheDocument();
 });
 it("Renders EditorPage with CharacterEditor", () => {
-  const { getByText } = render(<EditorPage><Character /></EditorPage>);
+  const { getByText } = render(<Router ><EditorPage><Character /></EditorPage></Router>);
   expect(getByText('Edit NPC')).toBeInTheDocument();
 });
 it("Renders HPCounterContainer", () => {

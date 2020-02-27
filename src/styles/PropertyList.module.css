@@ -1,0 +1,6 @@
+.list {
+    list-style-type: none;
+}
+.ListElement {
+    margin: 0.25rem;
+}

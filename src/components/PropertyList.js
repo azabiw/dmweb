@@ -1,7 +1,8 @@
 import store from "../redux/Store";
 import React from "react";
 import {Rail, Segment, Button} from "semantic-ui-react";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
+import styles from "../styles/PropertyList.module.css";
 class PropertyList extends React.Component {
     constructor(props) {
         super(props);
@@ -31,21 +32,21 @@ class PropertyList extends React.Component {
     }
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li><Button onClick={(event => this.setEditable(char, "characters"))} as={Link} to="/npceditor">{char.name}</Button></li>
+            <li className={styles.ListElement}><Button onClick={(event => this.setEditable(char, "characters"))} as={Link} to="/npceditor">{char.name}</Button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
-            <li><Button onClick={(event => this.setEditable(settlement, "settlements"))} as={Link} to="/settlementeditor">{settlement.name}</Button></li>
+            <li className={styles.ListElement}><Button onClick={(event => this.setEditable(settlement, "settlements"))} as={Link} to="/settlementeditor">{settlement.name}</Button></li>
         );
 
         return (
             <Rail close="very" position="left" >
                 <Segment className="LeftNavigation" id="leftList">
                     <h3>List of NPCs:</h3>
-                    <ul>{characterList}</ul>
+                    <ul className={styles.list}>{characterList}</ul>
                     <h3>List of Settlements: </h3>
-                    <ul>{settlementList}</ul>
-                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add new Character</Button>
-                    <Button onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add new Settlement</Button>
+                    <ul className={styles.list}>{settlementList}</ul>
+                    <Button className={styles.ListElement} as={Link} to="/npceditor" onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add new Character</Button>
+                    <Button className={styles.ListElement} as={Link} to="/settlementeditor" onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add new Settlement</Button>
                 </Segment>
             </Rail>
         )
