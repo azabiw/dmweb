@@ -22,12 +22,12 @@ class PropertyList extends React.Component {
             characters: store.getState().characters,
             settlements: store.getState().settlements
         });
-        console.log("got data from store");
-        console.log(store.getState());
+       // console.log("got data from store");
+        //console.log(store.getState());
     }
 
     setEditable(editable, type) {
-        console.log("id = " + editable.id);
+      //  console.log("id = " + editable.id);
         store.dispatch({type: "editable/set", payload:editable, editType: type});
     }
     render() {
