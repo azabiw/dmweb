@@ -3,6 +3,7 @@
 //todo: virheenkäsittely
 //lähettää lomakkeen sisällön palvelimelle
 import store from "../redux/Store";
+import v4 from "uuid/v4";
 
 class utilities {
 
@@ -78,6 +79,26 @@ class utilities {
         });
 
     }
+
+    static handleFormData(formData, defaultValues, type, action) {
+        if (formData.name === "") return;  //ei lisätä tyhjää hahmoa /c/todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
+        if (defaultValues["id"] != null) formData["id"] = defaultValues.id;
+        if (formData["id"] === null) {
+            const id = v4();
+            console.log("asetettu id " + id);
+            formData["id"] = id;
+        }
+        console.log("lomakkeen id" + formData.id);
+        store.dispatch({type: action,payload:formData});
+        console.log(formData);
+        let util = new utilities();
+        if(store.getState().editable.length === []) util.sendToServer(formData, "post", type); //tehdään uusi hahmo
+        else {
+            util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
+        }
+        store.dispatch({type: "editable/set", payload:formData});
+    }
+
 }
 
 
