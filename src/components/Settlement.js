@@ -48,7 +48,7 @@ class Settlement extends React.Component {
                 <Segment>
                     <h2>Edit Settlement/town</h2>
                     <Form onSubmit={(formData) => {
-                        if (formData.name === "" || formData.name === null) return;
+                       /* if (formData.name === "" || formData.name === null) return;
                         if (this.state.defaultValues.id != null ) formData["id"] = this.state.defaultValues.id;
                         if (formData["id"] == null) {
                             const id = v4();
@@ -64,7 +64,9 @@ class Settlement extends React.Component {
                         else {
                             util.sendToServer(formData, "PATCH", "settlement"); //päivittää palvelimella olevaa hahmoa
                         }
-                        //this.props.addProperty(formData, "settlements");
+                        //this.props.addProperty(formData, "settlements");*/
+                        utilities.handleFormData(formData,this.state.defaultValues, "settlement", "editable/set");
+
                     } }>
                         {({handleSubmit}) => (
                             <form onSubmit={handleSubmit}>

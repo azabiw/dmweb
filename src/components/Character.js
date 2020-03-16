@@ -58,7 +58,7 @@ class Character extends React.Component{
                         util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
                     }
                     store.dispatch({type: "editable/set", payload:formData});*/
-                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "editable/set");
+                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add");
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
