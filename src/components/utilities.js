@@ -96,7 +96,7 @@ class utilities {
         else {
             util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
         }
-        store.dispatch({type: "editable/set", payload:formData});
+        store.dispatch({type: action, payload:formData});
     }
 
 }
