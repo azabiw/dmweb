@@ -6,11 +6,14 @@ import styles from "../styles/characterform.module.css";
 import {Card, Segment, Grid, Button} from "semantic-ui-react";
 import store from "../redux/Store";
 import v4 from 'uuid/v4';
+import {Link} from "react-router-dom";
 
 class Character extends React.Component{
+    #isNew = true;
     constructor(props){
         let defaultCharacter = store.getState().editable;
         super(props);
+        if (defaultCharacter !== []) this.isNew = false;
         this.state = {
             customFields: [],
             defaultCharacter: defaultCharacter
@@ -58,7 +61,7 @@ class Character extends React.Component{
                         util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
                     }
                     store.dispatch({type: "editable/set", payload:formData});*/
-                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add");
+                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.#isNew);
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">

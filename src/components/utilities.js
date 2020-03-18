@@ -80,7 +80,7 @@ class utilities {
 
     }
 
-    static handleFormData(formData, defaultValues, type, action) {
+    static handleFormData(formData, defaultValues, type, action,isNew) {
         if (formData.name === "") return;  //ei lisätä tyhjää hahmoa /c/todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
         if (defaultValues["id"] != null) formData["id"] = defaultValues.id;
         if (formData["id"] === null) {
@@ -90,9 +90,9 @@ class utilities {
         }
         console.log("lomakkeen id" + formData.id);
         store.dispatch({type: action,payload:formData});
-        console.log(formData);
+        //console.log(formData);
         let util = new utilities();
-        if(store.getState().editable.length === []) util.sendToServer(formData, "post", type); //tehdään uusi hahmo
+        if(isNew) util.sendToServer(formData, "post", type); //tehdään uusi hahmo
         else {
             util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
         }

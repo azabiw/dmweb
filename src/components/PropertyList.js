@@ -22,7 +22,7 @@ class PropertyList extends React.Component {
             characters: store.getState().characters,
             settlements: store.getState().settlements
         });
-       // console.log("got data from store");
+        console.log("got data from store");
         //console.log(store.getState());
     }
 
