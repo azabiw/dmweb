@@ -94,9 +94,10 @@ class utilities {
         let util = new utilities();
         if(isNew) util.sendToServer(formData, "post", type); //tehdään uusi hahmo
         else {
-            util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
+            util.sendToServer(formData, "PATCH", type); //päivittää palvelimella olevaa arvoa
         }
         store.dispatch({type: action, payload:formData});
+        utilities.initializeStore();
     }
 
 }

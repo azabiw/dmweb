@@ -8,10 +8,12 @@ import  store from "../redux/Store";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
 import v4 from "uuid/v4";
 class Settlement extends React.Component {
+    #isNew = true;
     constructor(props) {
         let characters = store.getState().characters;
         let defaultValues = store.getState().editable;
         super(props);
+        if (defaultValues !== []) this.isNew = false;
         this.state = {
             characters: characters,
             defaultValues: defaultValues
@@ -48,25 +50,7 @@ class Settlement extends React.Component {
                 <Segment>
                     <h2>Edit Settlement/town</h2>
                     <Form onSubmit={(formData) => {
-                       /* if (formData.name === "" || formData.name === null) return;
-                        if (this.state.defaultValues.id != null ) formData["id"] = this.state.defaultValues.id;
-                        if (formData["id"] == null) {
-                            const id = v4();
-                            console.log("asetettu id " + id);
-                            formData["id"] = id;
-                        }
-                        console.log(formData);
-                        store.dispatch({type:"settlement/add", payload: formData});
-                        let util = new utilities();
-                        if (store.getState().editable.length === 0 ) { //lisätään uusi kaupunki
-                            util.sendToServer(formData,"post", "settlement");
-                        }
-                        else {
-                            util.sendToServer(formData, "PATCH", "settlement"); //päivittää palvelimella olevaa hahmoa
-                        }
-                        //this.props.addProperty(formData, "settlements");*/
-                        utilities.handleFormData(formData,this.state.defaultValues, "settlement", "editable/set");
-
+                        utilities.handleFormData(formData,this.state.defaultValues, "settlement", "editable/set", this.#isNew);
                     } }>
                         {({handleSubmit}) => (
                             <form onSubmit={handleSubmit}>
