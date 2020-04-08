@@ -6,8 +6,7 @@ import styles from "../styles/characterform.module.css";
 import {Card, Segment, Grid, Button} from "semantic-ui-react";
 import store from "../redux/Store";
 import v4 from 'uuid/v4';
-import {Link} from "react-router-dom";
-
+import {Link, Redirect} from "react-router-dom";
 class Character extends React.Component{
     #isNew = true;
     constructor(props){
@@ -16,7 +15,8 @@ class Character extends React.Component{
         if (defaultCharacter !== []) this.isNew = false;
         this.state = {
             customFields: [],
-            defaultCharacter: defaultCharacter
+            defaultCharacter: defaultCharacter,
+            redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
         store.subscribe(this.handleChange);
@@ -41,6 +41,9 @@ class Character extends React.Component{
         }
     }
     render() {
+        if (this.state.redirect === true) {
+            return <Redirect to="/about" />
+        }
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
@@ -62,6 +65,7 @@ class Character extends React.Component{
                     }
                     store.dispatch({type: "editable/set", payload:formData});*/
                     utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.#isNew);
+                    this.setState({redirect: true});
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
