@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import {Container, Grid, Rail, Segment} from "semantic-ui-react";
 import store from "../redux/Store";
 import PropertyList from "./PropertyList";
-import utilities from "./utilities";
+import utilities from "./Utilities";
 
 class EditorPage extends React.Component {
     constructor(props) {

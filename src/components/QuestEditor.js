@@ -4,7 +4,7 @@ import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
 import v4 from "uuid/v4";
 import store from "../redux/Store";
-import utilities from "./utilities";
+import utilities from "./Utilities";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
 
 class QuestEditor extends React.Component {

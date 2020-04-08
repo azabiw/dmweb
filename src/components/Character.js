@@ -1,5 +1,5 @@
 import React from "react";
-import utilities from "./utilities";
+import utilities from "./Utilities";
 import {Form, Field} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
