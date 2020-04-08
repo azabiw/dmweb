@@ -42,7 +42,7 @@ class Character extends React.Component{
     }
     render() {
         if (this.state.redirect === true) {
-            return <Redirect to="/about" />
+            return <Redirect to="/editor" />
         }
         return (
             <Segment className={styles.editor}>
