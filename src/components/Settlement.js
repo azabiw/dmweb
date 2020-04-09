@@ -43,9 +43,7 @@ class Settlement extends React.Component {
 
 
     render() {
-        const characterList = this.state.characters.map((character) =>
-            <option value={character.id}> {character.name} </option>
-        );
+        console.log(this.state.characters);
         return (
             <Container>
                 <Segment>
@@ -56,14 +54,7 @@ class Settlement extends React.Component {
                         {({handleSubmit}) => (
                             <form onSubmit={handleSubmit}>
                                 <SimpleField  id={"name"} defaultText={this.getDefault(this.state.defaultValues, "name")} defaultValue={""} name={"name"} label={"Name"}/>
-                                <div>
-                                    <label>Leader</label>
-                                    <Field selected={this.getDefault(this.state.defaultValues, "leader")} name="leader" component="select">
-                                        <option value={"Not selected"}> {"Not selected"} </option>
-                                        {characterList}
-                                    </Field>
-                                </div>
-                                <SelectorField properties={this.state.characters} name={"leader"} label={"Leader"} />
+                                <SelectorField idOfDefault={this.state.defaultValues["leader"]} properties={this.state.characters} name={"leader"} label={"Leader"} />
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "location")} defaultValue={""} name={"location"} label={"Location"}/>
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "feature")} defaultValue={""} name={"feature"} label={"Notable features"}/>
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "population")} defaultValue={""} name={"population"} label={"Population and structure"}/>

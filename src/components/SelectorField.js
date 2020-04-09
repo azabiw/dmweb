@@ -23,7 +23,7 @@ class SelectorField extends React.Component {
         return (
             <div>
                 <label>{this.props.label}</label>
-                <Field selected={this.props.idOfDefault} name={this.props.name} component="select">
+                <Field initialValue={this.props.idOfDefault} name={this.props.name} component="select">
                     <option value={"Not selected"}> {"Not selected"} </option>
                     {propertyList}
                 </Field>
