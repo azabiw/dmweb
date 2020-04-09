@@ -7,6 +7,7 @@ import styles from "../styles/Settlement.module.css";
 import  store from "../redux/Store";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
 import v4 from "uuid/v4";
+import SelectorField from "./SelectorField";
 class Settlement extends React.Component {
     #isNew = true;
     constructor(props) {
@@ -62,6 +63,7 @@ class Settlement extends React.Component {
                                         {characterList}
                                     </Field>
                                 </div>
+                                <SelectorField properties={this.state.characters} name={"leader"} label={"Leader"} />
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "location")} defaultValue={""} name={"location"} label={"Location"}/>
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "feature")} defaultValue={""} name={"feature"} label={"Notable features"}/>
                                 <SimpleField defaultText={this.getDefault(this.state.defaultValues, "population")} defaultValue={""} name={"population"} label={"Population and structure"}/>
