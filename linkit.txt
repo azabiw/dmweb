@@ -56,3 +56,5 @@ https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/exp
 https://www.tutorialrepublic.com/faq/how-to-get-the-current-url-with-javascript.php
 https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 https://reactjs.org/docs/composition-vs-inheritance.html
+https://www.lavalite.org/blog/programmatically-navigating-using-react-router
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator

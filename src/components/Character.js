@@ -6,8 +6,7 @@ import styles from "../styles/characterform.module.css";
 import {Card, Segment, Grid, Button} from "semantic-ui-react";
 import store from "../redux/Store";
 import v4 from 'uuid/v4';
-import {Link} from "react-router-dom";
-
+import {Link, Redirect} from "react-router-dom";
 class Character extends React.Component{
     #isNew = true;
     constructor(props){
@@ -16,7 +15,8 @@ class Character extends React.Component{
         if (defaultCharacter !== []) this.isNew = false;
         this.state = {
             customFields: [],
-            defaultCharacter: defaultCharacter
+            defaultCharacter: defaultCharacter,
+            redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
         store.subscribe(this.handleChange);
@@ -41,27 +41,15 @@ class Character extends React.Component{
         }
     }
     render() {
+        if (this.state.redirect === true) {
+            return <Redirect to="/editor" />
+        }
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    /*if (formData.name === "") return;  //ei lisätä tyhjää hahmoa /c/todo muuta tilaa, jos hahmon nimi on tyhjä ja poista käytöstä tallennuspainike
-                    if (this.state.defaultCharacter["id"] != null) formData["id"] = this.state.defaultCharacter.id;
-                    if (formData["id"] === null) {
-                        const id = v4();
-                        console.log("asetettu id " + id);
-                        formData["id"] = id;
-                    }
-                    console.log("lomakkeen id" + formData.id);
-                    store.dispatch({type: "characters/add",payload:formData});
-                    console.log(formData);
-                    let util = new utilities();
-                    if(store.getState().editable.length === 0) util.sendToServer(formData, "post", "character"); //tehdään uusi hahmo
-                    else {
-                        util.sendToServer(formData, "PATCH", "character"); //päivittää palvelimella olevaa hahmoa
-                    }
-                    store.dispatch({type: "editable/set", payload:formData});*/
                     utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.#isNew);
+                    this.setState({redirect: true});
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
@@ -102,8 +90,9 @@ class Character extends React.Component{
                                 let charToDelete = {
                                     name: name
                                 };
-                                    util.sendToServer(charToDelete,"DELETE");
-                                    utilities.initializeStore();
+                                util.sendToServer(charToDelete,"DELETE");
+                                utilities.initializeStore();
+                                this.setState({redirect: true}); //poistutaan sivulta.
                             }}  color="red">
                                 Remove
                             </Button>

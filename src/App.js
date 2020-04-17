@@ -33,6 +33,9 @@ class App extends React.Component {
                     <Route path="/settlementeditor">
                         <EditorPage><Settlement /></EditorPage>
                     </Route>
+                    <Route path={"/editor"}>
+                        <EditorPage />
+                    </Route>
                     <Route path="/logbook">
                         <Logbook />
                     </Route>
