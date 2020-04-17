@@ -10,8 +10,10 @@ import {Field} from "react-final-form";
 class SelectorField extends React.Component {
     constructor(props) {
         super(props);
+        let idOfDefault = ( this.props.idOfDefault != null) ? this.props.idOfDefault : "Not selected";
         this.state = {
-            properties: this.props.properties
+            properties: this.props.properties,
+            idOfDefault: idOfDefault
         }
         //properties for example characters or settlements
     }
@@ -23,7 +25,7 @@ class SelectorField extends React.Component {
         return (
             <div>
                 <label>{this.props.label}</label>
-                <Field initialValue={this.props.idOfDefault} name={this.props.name} component="select">
+                <Field initialValue={this.state.idOfDefault} name={this.props.name} component="select">
                     <option value={"Not selected"}> {"Not selected"} </option>
                     {propertyList}
                 </Field>
