@@ -46,6 +46,7 @@ class utilities {
             method: "get"
         });
         let data = await response.json();
+        console.log("Response from server was: ");
         console.log(data);
         let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
         let settlements = [];
