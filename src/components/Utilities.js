@@ -46,13 +46,14 @@ class utilities {
             method: "get"
         });
         let data = await response.json();
+        console.log("Response from server was: ");
         console.log(data);
         let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
         let settlements = [];
         let logs = [];
         let quests = [];
         for (let i = 0; i < data.length; i++) {
-            let char = data[i]["data"]; //lisätään lomake vastavaan listaan
+            let char = data[i]; //lisätään lomake vastavaan listaan
             switch (data[i].type) {
                 case "character":
                     chars.push(char);

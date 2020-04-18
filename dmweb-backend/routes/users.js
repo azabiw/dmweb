@@ -13,7 +13,15 @@ router.get('/', function(req, res, next) {
     let user = getHash("testi");
     db.collection('dmweb').find({"user": user}).toArray(function (err, result) {
       if (err) throw err;
-      res.send(result);
+      console.log(result);
+      let response = [];
+      for (let i = 0; i < result.length; i++) {
+        response.push(result[i]["data"]);
+        response[i]["type"] = result[i].type;
+      }
+      console.log("response is: ");
+      console.log(response);
+      res.send(response);
     })
   })
 
