@@ -58,3 +58,4 @@ https://dev.to/projectescape/programmatic-navigation-in-react-3p1l
 https://reactjs.org/docs/composition-vs-inheritance.html
 https://www.lavalite.org/blog/programmatically-navigating-using-react-router
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+https://docs.cypress.io/guides/getting-started/writing-your-first-test.html
