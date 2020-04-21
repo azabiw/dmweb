@@ -13,9 +13,11 @@ class Character extends React.Component{
         let defaultCharacter = store.getState().editable;
         super(props);
         if (defaultCharacter !== []) this.isNew = false;
+        console.log("is new tila: " + this.#isNew);
         this.state = {
             customFields: [],
             defaultCharacter: defaultCharacter,
+            isNew:false,
             redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -26,8 +28,13 @@ class Character extends React.Component{
     handleChange() {
         let storeState = store.getState().editable;
         console.log("edit type in store" + storeState.editType);
+        let isNew = false;
+        if (storeState !== []) isNew = true;
         if (true || storeState.editType === "characters") { //todo: korjaa tyyppi
-            this.setState({defaultCharacter: storeState});
+            this.setState({
+                defaultCharacter: storeState,
+                isNew: isNew
+            });
         }
     }
 
@@ -48,7 +55,7 @@ class Character extends React.Component{
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.#isNew);
+                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.state.isNew);
                     this.setState({redirect: true});
                 } }>
                     {({handleSubmit}) => (
