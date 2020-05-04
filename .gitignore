@@ -25,3 +25,5 @@ yarn-error.log*
 /dmweb-backend/node_modules/
 .flowconfig
 /cypress/integration/examples/
+.vscode/launch.json
+.vscode/
