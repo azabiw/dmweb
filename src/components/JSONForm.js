@@ -1,12 +1,11 @@
 import React from "react";
 import utilities from "./Utilities";
-import {Form, Field} from "react-final-form";
+import {Form} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
-import {Card, Segment, Grid, Button} from "semantic-ui-react";
+import {Segment, Button} from "semantic-ui-react";
 import store from "../redux/Store";
-import v4 from 'uuid/v4';
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
 
 class JSONForm extends React.Component{
@@ -103,6 +102,20 @@ class JSONForm extends React.Component{
 
     }
 
+
+   /**
+   * 
+   * @param {*} formData Array of forms's fields 
+   */
+    formFromJSON(formData){
+        let fields = [];
+        for (let field of formData) {
+            fields.push(this.fieldGenerator(field));
+        }
+
+        return fields;
+    }
+
     handleChange() {
         let storeState = store.getState().editable;
         console.log("edit type in store" + storeState.editType);
@@ -144,7 +157,7 @@ class JSONForm extends React.Component{
             ]
         }
 
-        let form = this.fieldGenerator
+        let jsonform = this.fieldGenerator(formFields);
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
@@ -156,7 +169,7 @@ class JSONForm extends React.Component{
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
                             <SimpleField id={"name"} defaultText={this.getDefault(this.state.defaultCharacter, "name")} name={"name"} label={"Name"}/>
-
+                            {jsonform}
                             <Button type="submit" primary>
                                 Save
                             </Button>
