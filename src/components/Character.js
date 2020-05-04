@@ -9,6 +9,7 @@ import v4 from 'uuid/v4';
 import {Link, Redirect} from "react-router-dom";
 class Character extends React.Component{
     #isNew = true;
+    #id;
     constructor(props){
         let defaultCharacter = store.getState().editable;
         super(props);
@@ -17,7 +18,7 @@ class Character extends React.Component{
         this.state = {
             customFields: [],
             defaultCharacter: defaultCharacter,
-            isNew:false,
+            isNew: this.#isNew,
             redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -29,7 +30,7 @@ class Character extends React.Component{
         let storeState = store.getState().editable;
         console.log("edit type in store" + storeState.editType);
         let isNew = false;
-        if (storeState !== []) isNew = true;
+        if (storeState !== []) isNew = false;
         if (true || storeState.editType === "characters") { //todo: korjaa tyyppi
             this.setState({
                 defaultCharacter: storeState,
@@ -55,6 +56,7 @@ class Character extends React.Component{
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
+                    console.log("is new tila : " + this.state.isNew);
                     utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.state.isNew);
                     this.setState({redirect: true});
                 } }>

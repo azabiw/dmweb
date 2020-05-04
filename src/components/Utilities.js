@@ -93,7 +93,7 @@ class utilities {
         store.dispatch({type: action,payload:formData});
         //console.log(formData);
         let util = new utilities();
-        if(isNew) util.sendToServer(formData, "post", type); //tehdään uusi hahmo
+        if(!isNew) util.sendToServer(formData, "post", type); //tehdään uusi hahmo
         else {
             util.sendToServer(formData, "PATCH", type); //päivittää palvelimella olevaa arvoa
         }
