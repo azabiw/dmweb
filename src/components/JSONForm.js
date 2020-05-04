@@ -7,6 +7,8 @@ import {Card, Segment, Grid, Button} from "semantic-ui-react";
 import store from "../redux/Store";
 import v4 from 'uuid/v4';
 import {Link, Redirect} from "react-router-dom";
+import SelectorField from "./SelectorField";
+
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -36,6 +38,47 @@ class JSONForm extends React.Component{
             ]
         }
 
+        let settlementEditorFields = {
+            name: "Settlement editor",
+            label: "Settlement",
+            formType: "Settlement",
+            fields: [
+                {
+                    name: "Name",
+                    fieldType: "text"
+                },
+                {
+                    name: "Leader",
+                    fieldType: "selector",
+                    selectionType:"character"
+                },
+                {
+                    name: "Location",
+                    fieldType: "text"
+                },
+                {
+                    name: "Notable features",
+                    fieldType: "text"
+                },
+                {
+                    name: "Population and structure",
+                    fieldType: "text"
+                },
+                {
+                    name: "Level of security",
+                    fieldType: "text"
+                },
+                {
+                    name: "Organisations",
+                    fieldType: "text"
+                },
+                {
+                    name: "Interesting locations",
+                    fieldType: "text"
+                },
+            ]
+        }
+
         this.handleChange = this.handleChange.bind(this);
         store.subscribe(this.handleChange);
     }
@@ -49,6 +92,9 @@ class JSONForm extends React.Component{
         switch (fieldData.fieldType) {
             case "text":
                 return <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "name")} name={fieldData.name} label={fieldData.name} />
+            case "selector":
+                return <SelectorField idOfDefault={this.state.defaultValues["leader"]} properties={this.state.characters} name={"leader"} label={"Leader"} />
+   
             default: 
                 return;
                 
@@ -83,6 +129,22 @@ class JSONForm extends React.Component{
         if (this.state.redirect === true) {
             return <Redirect to="/editor" />
         }
+        let formFields = {
+            name: "Character editor",
+            label: "Character",
+            fields: [
+                {
+                    name: "Name",
+                    fieldType: "text"
+                },
+                {
+                    name: "Class",
+                    fieldType: "text"
+                }
+            ]
+        }
+
+        let form = this.fieldGenerator
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
