@@ -12,13 +12,13 @@ class JSONForm extends React.Component{
     #isNew = true;
     #id;
     constructor(props){
-        let defaultCharacter = store.getState().editable;
+        let defaultValues = store.getState().editable;
         super(props);
-        if (defaultCharacter !== []) this.isNew = false;
+        if (defaultValues !== []) this.isNew = false;
         console.log("is new tila: " + this.#isNew);
         this.state = {
             customFields: [],
-            defaultCharacter: defaultCharacter,
+            defaultValues: defaultValues,
             isNew: this.#isNew,
             redirect: false
         };
@@ -90,9 +90,11 @@ class JSONForm extends React.Component{
     fieldGenerator(fieldData) {
         switch (fieldData.fieldType) {
             case "text":
-                return <SimpleField defaultText={this.getDefault(this.state.defaultCharacter, "name")} name={fieldData.name} label={fieldData.name} />
+                return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
-                return <SelectorField idOfDefault={this.state.defaultValues["leader"]} properties={this.state.characters} name={"leader"} label={"Leader"} />
+                let selectionType = fieldData.selectionType ? fieldData.selectionType : "characters";
+                let defaultValue = fieldData.value;
+                return <SelectorField idOfDefault={defaultValue} properties={this.state[selectionType]} name={fieldData.name} label={fieldData.name} />
    
             default: 
                 return;
@@ -109,7 +111,7 @@ class JSONForm extends React.Component{
    */
     formFromJSON(formData){
         let fields = [];
-        for (let field of formData) {
+        for (let field of formData.fields) {
             fields.push(this.fieldGenerator(field));
         }
 
@@ -157,18 +159,24 @@ class JSONForm extends React.Component{
             ]
         }
 
-        let jsonform = this.fieldGenerator(formFields);
+        let jsonform = this.formFromJSON(formFields);
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
                     console.log("is new tila : " + this.state.isNew);
+                    
+                    let formType = this.props.formType ? this.props.formType : "character"; //käytetään vakioarvoja jos niitä ei oltu propsissa määritelty
+                    let actionType = this.props.actionType ? this.props.actionType : "characters/add";
+                    
                     utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.state.isNew);
+
+                    utilities.handleFormData(formData,this.state.defaultValues, formType, actionType ,this.state.isNew);
                     this.setState({redirect: true});
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
-                            <SimpleField id={"name"} defaultText={this.getDefault(this.state.defaultCharacter, "name")} name={"name"} label={"Name"}/>
+                            <h2>{formFields.name}</h2>
                             {jsonform}
                             <Button type="submit" primary>
                                 Save

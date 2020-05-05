@@ -16,6 +16,7 @@ import Header from "./components/Header";
 import Settlement from "./components/Settlement";
 import Character from "./components/Character";
 import QuestEditor from "./components/QuestEditor";
+import JSONForm from './components/JSONForm';
 //Pääohjelma
 class App extends React.Component {
 
@@ -45,9 +46,15 @@ class App extends React.Component {
                     <Route path="/QuestEditor" >
                         <EditorPage><QuestEditor /> </EditorPage>
                     </Route>
+                    <Route path="/jsonform" > 
+                        <EditorPage><JSONForm /></EditorPage>
+                    </Route>
+
+
                     <Route path="/">
                         <FrontPage />
                     </Route>
+
                 </Switch>
 
             </Router>
