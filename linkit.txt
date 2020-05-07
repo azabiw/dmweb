@@ -61,3 +61,5 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Cond
 https://docs.cypress.io/guides/getting-started/writing-your-first-test.html
 https://thenewstack.io/make-a-restful-json-api-go/
 https://tutorialedge.net/golang/creating-restful-api-with-golang/
+https://tutorialedge.net/golang/parsing-json-with-golang/
+https://github.com/bradtraversy/go_restapi/blob/master/main.go

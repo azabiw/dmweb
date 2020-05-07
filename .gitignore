@@ -27,3 +27,4 @@ yarn-error.log*
 /cypress/integration/examples/
 .vscode/launch.json
 .vscode/
+src/Server/bin/Server.exe
