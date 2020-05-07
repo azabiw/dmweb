@@ -15,6 +15,7 @@ var dataStore DataStore
 type FormData struct {
 	Payload  string `json:"payload"`
 	FormType string `json:"formtype"`
+	ID string `json:"id"`
 }
 
 type DataStore []FormData
@@ -34,7 +35,16 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func save(form FormData) {
+	
+	for i, element := range dataStore { //tarkastetaan onko tietorakenteessa jo samalla ID:llä olevaa lomaketta
+		if element.ID == form.ID {
+			dataStore[i] = form
+			fmt.Println("form edited with ID", form.ID)
+			return
+		} 
+	} 
 	dataStore = append(dataStore, form)
+	fmt.Println("new form added", form.FormType, form.ID)
 }
 
 
@@ -52,18 +62,18 @@ func addForm(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
     var form FormData 
 	json.Unmarshal(reqBody, &form)
-	fmt.Println(form.Payload)
-	fmt.Println(form.FormType)
+	/*fmt.Println(form.Payload)
+	fmt.Println(form.FormType)*/
 
-	save(form) //tallennetaan requestissa tullut lomake tietorakenteeseen
+	go save(form) //tallennetaan requestissa tullut lomake tietorakenteeseen
 
-	json.NewEncoder(w).Encode(form)
+	json.NewEncoder(w).Encode(form) //lähetetään vastauksena sama lomake
 }
 
 func loadData() DataStore {
 	payload := DataStore{
-		FormData{Payload: "testi", FormType: "testi"},
-		FormData{Payload: "toinen tesit", FormType: "testi"},
+		FormData{Payload: "testi", FormType: "testi", ID: "0"},
+		FormData{Payload: "toinen tesit", FormType: "testi", ID: "1"},
 	}
 
 	return payload
@@ -75,6 +85,8 @@ func handleRequests() {
 
 	router.HandleFunc("/api", getAllForms).Methods("GET")
 	router.HandleFunc("/api", addForm).Methods("POST")
+	router.HandleFunc("/api", addForm).Methods("PUT")
+
 	router.HandleFunc("/", homePage)
 
 	fmt.Println("server started", port)
