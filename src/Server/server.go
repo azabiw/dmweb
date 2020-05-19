@@ -102,12 +102,21 @@ func addForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadData() DataStore {
-	testikentta := formField{Name:"asd", Value: "asd", FieldType: "character"}
+	/*testikentta := formField{Name:"asd", Value: "asd", FieldType: "character"}
 	kentat := []formField{testikentta}
 	payload := DataStore{
 		FormData{Payload: kentat, FormType: "testi", ID: "0"},
 		FormData{Payload: kentat, FormType: "testi", ID: "1"},
+	}*/
+
+	file, err := ioutil.ReadFile("datastore.json")
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	payload := DataStore{}
+ 
+	_ = json.Unmarshal([]byte(file), &payload)
 
 	return payload
 }
