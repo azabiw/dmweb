@@ -79,7 +79,9 @@ func removeFormWithID(ID string) {
 //Lähettää asiakkaalle koko dataStoren sisällön
 func getAllForms(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	fmt.Println("Request")
 	json.NewEncoder(w).Encode(dataStore)
+	saveDataStore()
 }
 
 
@@ -96,6 +98,7 @@ func addForm(w http.ResponseWriter, r *http.Request) {
 	go save(form) //tallennetaan requestissa tullut lomake tietorakenteeseen
 
 	json.NewEncoder(w).Encode(form) //lähetetään vastauksena sama lomake
+	saveDataStore()
 }
 
 func loadData() DataStore {
@@ -109,14 +112,26 @@ func loadData() DataStore {
 	return payload
 }
 
+func saveDataStore() {
+	file, _ := json.MarshalIndent(dataStore, "", " ")
+	_ = ioutil.WriteFile("datastore.json", file, 0644)
+}
+
 func handleRequests() {
-	var port string = ":10000"
+	var port string = ":3001"
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api", getAllForms).Methods("GET")
 	router.HandleFunc("/api", addForm).Methods("POST")
 	router.HandleFunc("/api", addForm).Methods("PUT")
 	router.HandleFunc("/api", handleRemove).Methods("DELETE")
+
+	router.HandleFunc("/users", getAllForms).Methods("GET") //TODO: korjaa
+	router.HandleFunc("/users", addForm).Methods("POST")
+	router.HandleFunc("/users", addForm).Methods("PUT")
+	router.HandleFunc("/users", handleRemove).Methods("DELETE")
+
+
 	router.HandleFunc("/", homePage) //catch all
 
 	fmt.Println("Server started", port)
