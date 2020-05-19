@@ -28,5 +28,6 @@ yarn-error.log*
 .vscode/launch.json
 .vscode/
 src/Server/bin/Server.exe
+src/Server/datastore.json
 pkg/
 src/Server/bin/
