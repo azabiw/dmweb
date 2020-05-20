@@ -64,3 +64,4 @@ https://tutorialedge.net/golang/creating-restful-api-with-golang/
 https://tutorialedge.net/golang/parsing-json-with-golang/
 https://github.com/bradtraversy/go_restapi/blob/master/main.go
 https://github.com/gorilla/mux
+https://www.golangprograms.com/golang-read-json-file-into-struct.html

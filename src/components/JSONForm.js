@@ -20,9 +20,10 @@ class JSONForm extends React.Component{
             customFields: [],
             defaultValues: defaultValues,
             isNew: this.#isNew,
+            formFields: [],
             redirect: false
         };
-        let formFields = {
+        /*let formFields = {
             name: "Character editor",
             label: "Character",
             fields: [
@@ -35,7 +36,7 @@ class JSONForm extends React.Component{
                     fieldType: "text"
                 }
             ]
-        }
+        }*/
 
         let settlementEditorFields = {
             name: "Settlement editor",
@@ -78,17 +79,34 @@ class JSONForm extends React.Component{
             ]
         }
 
+        
+        this.loadData();
         this.handleChange = this.handleChange.bind(this);
+        this.loadData = this.loadData.bind(this);
         store.subscribe(this.handleChange);
     }
     
+async loadData() {
+    let response = await fetch('/api', {
+        credentials: "omit",
+        cache: "no-store",
+        method: "get"
+    });
+    let data = await response.json();
+    let form = data[0]; //korjaa
+    console.log(data);
+    console.log("formdata", form);
+    this.setState({formFields: form});
+    return form;
+}
 
     /**
      * 
      * @param {*} fieldData 
      */
     fieldGenerator(fieldData) {
-        switch (fieldData.fieldType) {
+        console.log("fielddata", fieldData);
+        switch (fieldData.fieldtype) {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
@@ -110,11 +128,14 @@ class JSONForm extends React.Component{
    * @param {*} formData Array of forms's fields 
    */
     formFromJSON(formData){
+        console.log("formdata", formData);
+
+        if (formData === null || formData === undefined || formData["fields"] === undefined) return;
         let fields = [];
         for (let field of formData.fields) {
             fields.push(this.fieldGenerator(field));
         }
-
+        console.log("created fields", fields);
         return fields;
     }
 
@@ -159,7 +180,7 @@ class JSONForm extends React.Component{
             ]
         }
 
-        let jsonform = this.formFromJSON(formFields);
+        let jsonform = this.formFromJSON(this.state.formFields);
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>

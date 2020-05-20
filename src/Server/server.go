@@ -21,7 +21,9 @@ type formField struct {
 
 //Yksittäinen lomake esim yksittäisen hahmon tiedot
 type FormData struct {
-	Payload  []formField `json:"payload"`
+	Name string `json:"name"`
+	Label string `json:"label"`
+	Fields  []formField `json:"fields"`
 	FormType string `json:"formtype"`
 	ID string `json:"id"`
 }
@@ -53,6 +55,7 @@ func save(form FormData) {
 	} 
 	dataStore = append(dataStore, form)
 	fmt.Println("new form added", form.FormType, form.ID)
+	saveDataStore()
 }
 
 
@@ -74,6 +77,7 @@ func removeFormWithID(ID string) {
 			dataStore = append(dataStore[:i], dataStore[i+1])
 		}
 	}
+	saveDataStore()
 }
 
 //Lähettää asiakkaalle koko dataStoren sisällön
@@ -81,7 +85,6 @@ func getAllForms(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Println("Request")
 	json.NewEncoder(w).Encode(dataStore)
-	saveDataStore()
 }
 
 
@@ -102,12 +105,25 @@ func addForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadData() DataStore {
-	testikentta := formField{Name:"asd", Value: "asd", FieldType: "character"}
+	filename := "datastore.json"
+	println("Loading data from: ", filename)
+	/*testikentta := formField{Name:"asd", Value: "asd", FieldType: "character"}
 	kentat := []formField{testikentta}
 	payload := DataStore{
 		FormData{Payload: kentat, FormType: "testi", ID: "0"},
 		FormData{Payload: kentat, FormType: "testi", ID: "1"},
+	}*/
+
+	file, err := ioutil.ReadFile(filename)
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	payload := DataStore{}
+ 
+	_ = json.Unmarshal([]byte(file), &payload)
+
+	println("Load complete")
 
 	return payload
 }
