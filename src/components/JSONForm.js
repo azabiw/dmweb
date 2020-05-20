@@ -21,7 +21,8 @@ class JSONForm extends React.Component{
             defaultValues: defaultValues,
             isNew: this.#isNew,
             formFields: [],
-            redirect: false
+            redirect: false,
+            characters: store.getState().characters
         };
         /*let formFields = {
             name: "Character editor",
@@ -110,7 +111,7 @@ async loadData() {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
-                let selectionType = fieldData.selectionType ? fieldData.selectionType : "characters";
+                let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
                 let defaultValue = fieldData.value;
                 return <SelectorField idOfDefault={defaultValue} properties={this.state[selectionType]} name={fieldData.name} label={fieldData.name} />
    
@@ -161,6 +162,21 @@ async loadData() {
             return "";
         }
     }
+
+    handleAddFieldClick(event) {
+        let fields = this.state.formFields;
+        console.log("formfields", fields);
+        let empty = {
+            "name": "asd",
+            "fieldtype": "text",
+            "selectionType": "",
+            "value": "asd"
+            }
+                    
+        fields.fields.push(empty);
+        this.setState({formFields: fields});
+    }
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to="/editor" />
@@ -199,6 +215,8 @@ async loadData() {
                         <form onSubmit={handleSubmit} id="inputForm">
                             <h2>{formFields.name}</h2>
                             {jsonform}
+                            <Button type="button" onClick={e => this.handleAddFieldClick()}>Add a new field</Button>
+
                             <Button type="submit" primary>
                                 Save
                             </Button>
@@ -222,6 +240,5 @@ async loadData() {
         )
     }
 }
-
 
 export default JSONForm;
