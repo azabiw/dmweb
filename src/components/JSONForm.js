@@ -3,7 +3,7 @@ import utilities from "./Utilities";
 import {Form} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
-import {Segment, Button} from "semantic-ui-react";
+import {Segment, Button, Label} from "semantic-ui-react";
 import store from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
@@ -83,6 +83,7 @@ class JSONForm extends React.Component{
         
         this.loadData();
         this.handleChange = this.handleChange.bind(this);
+        this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
         store.subscribe(this.handleChange);
     }
@@ -163,14 +164,14 @@ async loadData() {
         }
     }
 
-    handleAddFieldClick(event) {
+    handleAddFieldClick(name) {
         let fields = this.state.formFields;
         console.log("formfields", fields);
         let empty = {
-            "name": "asd",
+            "name": name,
             "fieldtype": "text",
             "selectionType": "",
-            "value": "asd"
+            "value": ""
             }
                     
         fields.fields.push(empty);
@@ -215,7 +216,7 @@ async loadData() {
                         <form onSubmit={handleSubmit} id="inputForm">
                             <h2>{formFields.name}</h2>
                             {jsonform}
-                            <Button type="button" onClick={e => this.handleAddFieldClick()}>Add a new field</Button>
+                            <AddFieldContainer handleAddFieldClick={this.handleAddFieldClick} />
 
                             <Button type="submit" primary>
                                 Save
@@ -239,6 +240,21 @@ async loadData() {
             </Segment>
         )
     }
+}
+
+const AddFieldContainer = (props) => {
+    let textvalue = "";
+    return (
+        <div className={"addfieldContainer"}>
+            <Label>
+                Field name
+                <input  id={"Fieldname"} onChange={
+                    e => textvalue=e.target.value
+                } />
+            </Label>
+            <Button  type="button" onClick={e => props.handleAddFieldClick(textvalue)}>Add a new field</Button>
+        </div>
+    )
 }
 
 export default JSONForm;
