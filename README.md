@@ -10,7 +10,7 @@ Install dependencies in both base directory and backend-directory with npm. Serv
 
 
 Then start them both: 
-    `npm start`
+    `npm run start`
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
