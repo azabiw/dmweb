@@ -13,13 +13,10 @@ class JSONForm extends React.Component{
     #id;
     constructor(props){
         let defaultValues = store.getState().editable;
-        super(props);
-        if (defaultValues !== []) this.isNew = false;
-        console.log("is new tila: " + this.#isNew);
+        super(props); 
         this.state = {
             customFields: [],
             defaultValues: defaultValues,
-            isNew: this.#isNew,
             formFields: [],
             redirect: false,
             characters: store.getState().characters
@@ -178,39 +175,58 @@ async loadData() {
         this.setState({formFields: fields});
     }
 
+
+
+/**
+ * Lisää lomakeessa syötetyn arvon vastaavaan kenttään lomakkeen muodostamiseen käytettyyn tietorakenteeseen
+ * @param {*} formData Lomakkeessa syötetyt arvot
+ * @param {*} formFields lomakkeen muodostamiseen käytettävä tietorakenne.
+ */
+mapFormValueToField(formData, formFields) {
+    for (let field of formFields.fields) {
+        field.value = formData[field.name];
+    }
+    return formFields
+}
+
+async handleSubmit(form, type, formFields) {
+    const url = "/users";
+    //let body = {};
+    //0body["user"] = "testi";
+    //body["formtype"] = type;
+    let method = "post";
+    console.log("form", form);
+    console.log(formFields);
+    formFields = this.mapFormValueToField(form,formFields);
+    try {
+        const response = await fetch(url, {
+            method: method,
+            body: JSON.stringify(formFields),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
+    }    
+}
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to="/editor" />
         }
-        let formFields = {
-            name: "Character editor",
-            label: "Character",
-            fields: [
-                {
-                    name: "Name",
-                    fieldType: "text"
-                },
-                {
-                    name: "Class",
-                    fieldType: "text"
-                }
-            ]
-        }
+        let formFields = this.state.formFields;
 
         let jsonform = this.formFromJSON(this.state.formFields);
+
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    console.log("is new tila : " + this.state.isNew);
-                    
-                    let formType = this.props.formType ? this.props.formType : "character"; //käytetään vakioarvoja jos niitä ei oltu propsissa määritelty
-                    let actionType = this.props.actionType ? this.props.actionType : "characters/add";
-                    
-                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.state.isNew);
-
-                    utilities.handleFormData(formData,this.state.defaultValues, formType, actionType ,this.state.isNew);
-                    this.setState({redirect: true});
+                    this.handleSubmit(formData, "character", formFields); //korjaa tyypin valinta
+                    console.log(formData);                    
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
