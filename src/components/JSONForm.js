@@ -14,10 +14,11 @@ class JSONForm extends React.Component{
     constructor(props){
         let defaultValues = store.getState().editable;
         super(props); 
+        let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
             defaultValues: defaultValues,
-            formFields: [],
+            formFields: formFields,
             redirect: false,
             characters: store.getState().characters
         };
@@ -86,16 +87,15 @@ class JSONForm extends React.Component{
     }
     
 async loadData() {
-    let response = await fetch('/api', {
+    const formID = 0;
+    let response = await fetch(`/api/${formID}`, {
         credentials: "omit",
         cache: "no-store",
         method: "get"
     });
     let data = await response.json();
     let form = data[0]; //korjaa
-    console.log(data);
-    console.log("formdata", form);
-    this.setState({formFields: form});
+    this.setState({formFields: data});
     return form;
 }
 
