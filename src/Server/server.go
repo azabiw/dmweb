@@ -99,7 +99,7 @@ func addForm(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(form.FormType)*/
 
 	go save(form) //tallennetaan requestissa tullut lomake tietorakenteeseen
-
+	fmt.Println(form)
 	json.NewEncoder(w).Encode(form) //lähetetään vastauksena sama lomake
 	saveDataStore()
 }

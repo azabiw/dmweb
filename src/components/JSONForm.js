@@ -3,7 +3,7 @@ import utilities from "./Utilities";
 import {Form} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
-import {Segment, Button} from "semantic-ui-react";
+import {Segment, Button, Label} from "semantic-ui-react";
 import store from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
@@ -13,15 +13,13 @@ class JSONForm extends React.Component{
     #id;
     constructor(props){
         let defaultValues = store.getState().editable;
-        super(props);
-        if (defaultValues !== []) this.isNew = false;
-        console.log("is new tila: " + this.#isNew);
+        super(props); 
         this.state = {
             customFields: [],
             defaultValues: defaultValues,
-            isNew: this.#isNew,
             formFields: [],
-            redirect: false
+            redirect: false,
+            characters: store.getState().characters
         };
         /*let formFields = {
             name: "Character editor",
@@ -82,6 +80,7 @@ class JSONForm extends React.Component{
         
         this.loadData();
         this.handleChange = this.handleChange.bind(this);
+        this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
         store.subscribe(this.handleChange);
     }
@@ -110,7 +109,7 @@ async loadData() {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
-                let selectionType = fieldData.selectionType ? fieldData.selectionType : "characters";
+                let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
                 let defaultValue = fieldData.value;
                 return <SelectorField idOfDefault={defaultValue} properties={this.state[selectionType]} name={fieldData.name} label={fieldData.name} />
    
@@ -161,44 +160,80 @@ async loadData() {
             return "";
         }
     }
+
+    handleAddFieldClick(name) {
+        let fields = this.state.formFields;
+        console.log("formfields", fields);
+        let empty = {
+            "name": name,
+            "fieldtype": "text",
+            "selectionType": "",
+            "value": ""
+            }
+                    
+        fields.fields.push(empty);
+        this.setState({formFields: fields});
+    }
+
+
+
+/**
+ * Lisää lomakeessa syötetyn arvon vastaavaan kenttään lomakkeen muodostamiseen käytettyyn tietorakenteeseen
+ * @param {*} formData Lomakkeessa syötetyt arvot
+ * @param {*} formFields lomakkeen muodostamiseen käytettävä tietorakenne.
+ */
+mapFormValueToField(formData, formFields) {
+    for (let field of formFields.fields) {
+        field.value = formData[field.name];
+    }
+    return formFields
+}
+
+async handleSubmit(form, type, formFields) {
+    const url = "/users";
+    //let body = {};
+    //0body["user"] = "testi";
+    //body["formtype"] = type;
+    let method = "post";
+    console.log("form", form);
+    console.log(formFields);
+    formFields = this.mapFormValueToField(form,formFields);
+    try {
+        const response = await fetch(url, {
+            method: method,
+            body: JSON.stringify(formFields),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
+    }    
+}
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to="/editor" />
         }
-        let formFields = {
-            name: "Character editor",
-            label: "Character",
-            fields: [
-                {
-                    name: "Name",
-                    fieldType: "text"
-                },
-                {
-                    name: "Class",
-                    fieldType: "text"
-                }
-            ]
-        }
+        let formFields = this.state.formFields;
 
         let jsonform = this.formFromJSON(this.state.formFields);
+
         return (
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    console.log("is new tila : " + this.state.isNew);
-                    
-                    let formType = this.props.formType ? this.props.formType : "character"; //käytetään vakioarvoja jos niitä ei oltu propsissa määritelty
-                    let actionType = this.props.actionType ? this.props.actionType : "characters/add";
-                    
-                    utilities.handleFormData(formData,this.state.defaultCharacter, "character", "characters/add",this.state.isNew);
-
-                    utilities.handleFormData(formData,this.state.defaultValues, formType, actionType ,this.state.isNew);
-                    this.setState({redirect: true});
+                    this.handleSubmit(formData, "character", formFields); //korjaa tyypin valinta
+                    console.log(formData);                    
                 } }>
                     {({handleSubmit}) => (
                         <form onSubmit={handleSubmit} id="inputForm">
                             <h2>{formFields.name}</h2>
                             {jsonform}
+                            <AddFieldContainer handleAddFieldClick={this.handleAddFieldClick} />
+
                             <Button type="submit" primary>
                                 Save
                             </Button>
@@ -223,5 +258,19 @@ async loadData() {
     }
 }
 
+const AddFieldContainer = (props) => {
+    let textvalue = "";
+    return (
+        <div className={"addfieldContainer"}>
+            <Label>
+                Field name
+                <input  id={"Fieldname"} onChange={
+                    e => textvalue=e.target.value
+                } />
+            </Label>
+            <Button  type="button" onClick={e => props.handleAddFieldClick(textvalue)}>Add a new field</Button>
+        </div>
+    )
+}
 
 export default JSONForm;
