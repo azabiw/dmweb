@@ -45,13 +45,30 @@ class utilities {
             cache: "no-store",
             method: "get"
         });
-        let data = await response.json();
-        console.log("Response from server was: ");
-        console.log(data);
+        const data = await response.json();
+        console.log("Response from server was: ", data);
         let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
         let settlements = [];
         let logs = [];
         let quests = [];
+
+        for (let form of data) {
+            switch (form.formtype) {
+                case "character":
+                    chars.push(form);
+                    break;
+                case "settlement":
+                    settlements.push(form);
+                    break;
+                case "quest":
+                    quests.push(form);
+                    break;
+                default:
+                    break;
+    
+            }
+        }
+/* TODO: REMOVE
         for (let i = 0; i < data.length; i++) {
             let char = data[i]; //lisätään lomake vastavaan listaan
             switch (data[i].type) {
@@ -68,7 +85,7 @@ class utilities {
                     break;
             }
 
-        }
+        }*/ 
         store.dispatch({
             type: "initialise",
             payload: {
