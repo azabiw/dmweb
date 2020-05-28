@@ -22,6 +22,8 @@ class JSONForm extends React.Component{
             redirect: false,
             characters: store.getState().characters
         };
+        const id = this.props.id;
+        console.log(`Id${id}`);
         /*let formFields = {
             name: "Character editor",
             label: "Character",
@@ -79,15 +81,20 @@ class JSONForm extends React.Component{
         }
 
         
-        this.loadData();
+        this.loadData(id);
         this.handleChange = this.handleChange.bind(this);
         this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
         store.subscribe(this.handleChange);
     }
     
-async loadData() {
-    const formID = 0;
+
+/**
+ * Lataa palvelimelta annetulla id:llä vastaavasta lomakkeesta tilan. 
+ * @param {*} id haettavan lomakkeen id
+ */
+async loadData(id) {
+    const formID = id;
     let response = await fetch(`/api/${formID}`, {
         credentials: "omit",
         cache: "no-store",

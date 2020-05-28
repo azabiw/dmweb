@@ -5,6 +5,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    useParams
 } from "react-router-dom";
 import FrontPage from "./components/FrontPage";
 import AboutPage from "./components/AboutPage";
@@ -46,8 +47,8 @@ class App extends React.Component {
                     <Route path="/QuestEditor" >
                         <EditorPage><QuestEditor /> </EditorPage>
                     </Route>
-                    <Route path="/jsonform" > 
-                        <EditorPage><JSONForm /></EditorPage>
+                    <Route path="/jsonform/:id" > 
+                        <EditorPage><IDResolverForJsonForm /></EditorPage>
                     </Route>
 
 
@@ -62,6 +63,15 @@ class App extends React.Component {
         );
 
     }
+}
+
+function IDResolverForJsonForm(props) {
+    let { id } = useParams();
+    return (
+        <React.Fragment>
+            <JSONForm id={id} />
+        </React.Fragment>
+    )
 }
 
 export default App;
