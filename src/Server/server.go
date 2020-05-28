@@ -133,16 +133,36 @@ func saveDataStore() {
 	_ = ioutil.WriteFile("datastore.json", file, 0644)
 }
 
+func getSingleForm (w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	key := vars["id"]
+	for _, form := range dataStore {
+		if form.ID == key {
+			json.NewEncoder(w).Encode(form)
+			fmt.Println("Form found with", key)
+
+			return
+		} else {
+			fmt.Println("Form not found with id", key)
+			
+		}
+	}
+}
+
 func handleRequests() {
 	var port string = ":3001"
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api", getAllForms).Methods("GET")
+	router.HandleFunc("/api/{id}", getSingleForm).Methods("GET")
+
 	router.HandleFunc("/api", addForm).Methods("POST")
 	router.HandleFunc("/api", addForm).Methods("PUT")
 	router.HandleFunc("/api", handleRemove).Methods("DELETE")
 
 	router.HandleFunc("/users", getAllForms).Methods("GET") //TODO: korjaa
+	router.HandleFunc("/users/{id}", getSingleForm).Methods("GET")
+
 	router.HandleFunc("/users", addForm).Methods("POST")
 	router.HandleFunc("/users", addForm).Methods("PUT")
 	router.HandleFunc("/users", handleRemove).Methods("DELETE")

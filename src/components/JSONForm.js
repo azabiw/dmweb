@@ -14,13 +14,16 @@ class JSONForm extends React.Component{
     constructor(props){
         let defaultValues = store.getState().editable;
         super(props); 
+        let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
             defaultValues: defaultValues,
-            formFields: [],
+            formFields: formFields,
             redirect: false,
             characters: store.getState().characters
         };
+        const id = this.props.id;
+        console.log(`Id${id}`);
         /*let formFields = {
             name: "Character editor",
             label: "Character",
@@ -78,24 +81,28 @@ class JSONForm extends React.Component{
         }
 
         
-        this.loadData();
+        this.loadData(id);
         this.handleChange = this.handleChange.bind(this);
         this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
         store.subscribe(this.handleChange);
     }
     
-async loadData() {
-    let response = await fetch('/api', {
+
+/**
+ * Lataa palvelimelta annetulla id:llä vastaavasta lomakkeesta tilan. 
+ * @param {*} id haettavan lomakkeen id
+ */
+async loadData(id) {
+    const formID = id;
+    let response = await fetch(`/api/${formID}`, {
         credentials: "omit",
         cache: "no-store",
         method: "get"
     });
     let data = await response.json();
     let form = data[0]; //korjaa
-    console.log(data);
-    console.log("formdata", form);
-    this.setState({formFields: form});
+    this.setState({formFields: data});
     return form;
 }
 
@@ -184,8 +191,11 @@ async loadData() {
  */
 mapFormValueToField(formData, formFields) {
     for (let field of formFields.fields) {
+        if (field.name === "name") formFields.name = field.value;
         field.value = formData[field.name];
     }
+    
+    formFields.name = formFields.fields.name
     return formFields
 }
 
