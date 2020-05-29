@@ -99,6 +99,7 @@ const reducer = createReducer({
        state.characters = action.payload.characters;
        state.settlements = action.payload.settlements;
        state.logs = action.payload.logs;
+       console.log("Setting initial store state to" , action.payload);
     },
     [addQuest]: (state, action) => {
         state.quests.push(action.payload);

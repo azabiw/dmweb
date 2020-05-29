@@ -12,32 +12,27 @@ class JSONForm extends React.Component{
     #isNew = true;
     #id;
     constructor(props){
-        let defaultValues = store.getState().editable;
         super(props); 
+        const id = this.props.id;
+        console.log(`Id${id}`);
+
+        this.loadData(id);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
+        this.loadData = this.loadData.bind(this);
+
+        store.subscribe(this.handleChange);
+        let defaultValues = store.getState().editable;
+        let characters = store.getState().characters;
+
         let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
             defaultValues: defaultValues,
             formFields: formFields,
             redirect: false,
-            characters: store.getState().characters
+            characters: characters
         };
-        const id = this.props.id;
-        console.log(`Id${id}`);
-        /*let formFields = {
-            name: "Character editor",
-            label: "Character",
-            fields: [
-                {
-                    name: "Name",
-                    fieldType: "text"
-                },
-                {
-                    name: "Class",
-                    fieldType: "text"
-                }
-            ]
-        }*/
 
         let settlementEditorFields = {
             name: "Settlement editor",
@@ -80,12 +75,8 @@ class JSONForm extends React.Component{
             ]
         }
 
-        
-        this.loadData(id);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
-        this.loadData = this.loadData.bind(this);
-        store.subscribe(this.handleChange);
+        console.log("list of chars ", store.getState());
+
     }
     
 
@@ -116,9 +107,9 @@ async loadData(id) {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
-                let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
+                //let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
                 let defaultValue = fieldData.value;
-                return <SelectorField idOfDefault={defaultValue} properties={this.state[selectionType]} name={fieldData.name} label={fieldData.name} />
+                return <SelectorField idOfDefault={defaultValue} properties={this.state.properties} name={fieldData.name} label={fieldData.name} />
    
             default: 
                 return;
@@ -146,7 +137,11 @@ async loadData(id) {
     }
 
     handleChange() {
-        let storeState = store.getState().editable;
+
+        let storeState = store.getState();
+        let properties = storeState.characters;
+        this.setState({properties : properties})
+        /*let storeState = store.getState().editable;
         console.log("edit type in store" + storeState.editType);
         let isNew = false;
         if (storeState !== []) isNew = false;
@@ -155,7 +150,7 @@ async loadData(id) {
                 defaultCharacter: storeState,
                 isNew: isNew
             });
-        }
+        }*/
     }
 
     //palauttaa vakioarvon NPC:n ominaisuudelle.
@@ -195,7 +190,7 @@ mapFormValueToField(formData, formFields) {
         field.value = formData[field.name];
     }
     
-    formFields.name = formFields.fields.name
+    formFields.name = formFields.fields.name;
     return formFields
 }
 
