@@ -14,9 +14,6 @@ import HPCounterContainer from "./components/HPCounterContainer";
 import Logbook from "./components/Logbook";
 import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
-import Settlement from "./components/Settlement";
-import Character from "./components/Character";
-import QuestEditor from "./components/QuestEditor";
 import JSONForm from './components/JSONForm';
 //Pääohjelma
 class App extends React.Component {
@@ -29,12 +26,6 @@ class App extends React.Component {
                     <Route path="/about">
                         <AboutPage />
                     </Route>
-                    <Route path="/npceditor">
-                        <EditorPage > <Character/> </EditorPage>
-                    </Route>
-                    <Route path="/settlementeditor">
-                        <EditorPage><Settlement /></EditorPage>
-                    </Route>
                     <Route path={"/editor"}>
                         <EditorPage />
                     </Route>
@@ -43,9 +34,6 @@ class App extends React.Component {
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />
-                    </Route>
-                    <Route path="/QuestEditor" >
-                        <EditorPage><QuestEditor /> </EditorPage>
                     </Route>
                     <Route path="/jsonform/:id" > 
                         <EditorPage><IDResolverForJsonForm /></EditorPage>
