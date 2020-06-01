@@ -173,15 +173,17 @@ async loadData(id) {
 
     handleAddFieldClick(name, fieldType) {
         let fields = this.state.formFields;
+        let selectionType = "";
         console.log("formfields", fields);
+        if (fieldType !== "text") selectionType = fieldType;
         if (name === "") return; //ei lisätä tyhjää kenttää
         let empty = {
             "name": name,
-            "fieldtype": "text",
-            "selectionType": "",
+            "fieldtype": fieldType,
+            "selectionType": selectionType,
             "value": ""
-            }
-                    
+            };
+        console.log("Adding field with ", empty);
         fields.fields.push(empty);
         this.setState({formFields: fields});
     }
