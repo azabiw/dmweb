@@ -1,10 +1,6 @@
 import React from "react";
-import Logbook from "./Logbook";
-import Character from "./Character";
-import Settlement from "./Settlement";
 import Footer from "./Footer";
-import {Container, Grid, Rail, Segment} from "semantic-ui-react";
-import store from "../redux/Store";
+import {Container, Grid} from "semantic-ui-react";
 import PropertyList from "./PropertyList";
 import utilities from "./Utilities";
 
@@ -17,22 +13,7 @@ class EditorPage extends React.Component {
             settlements: [],
             editable: ""
         }; //Valittu editori
-        //this.changeEditor = this.changeEditor.bind(this); //vaaditaan, jotta this toimii oikein
-       /* this.addCharacter = this.addCharacter.bind(this);
-        this.editCharacter = this.editCharacter.bind(this);
-        this.editProperty = this.editProperty.bind(this);
-        this.addProperty = this.addProperty.bind(this); */
     }
-    /** Adds given character to be edited in editor;
-     * todo: remove
-     * @param characterName
-     *//*
-    editCharacter(characterName) {
-        console.log("edit char clicked: "+ characterName);
-        //this.changeEditor("character");
-        this.editProperty(characterName, "characters");
-    }
-*/
 
     /**
      * Fetches all user's data from server and saves them to corresponding states

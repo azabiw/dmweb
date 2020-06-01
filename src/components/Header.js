@@ -11,13 +11,7 @@ class Header extends React.Component {
                     <Button color={"purple"}  as={Link} to="/">DM Web</Button>
                 </Menu.Item>
                 <Menu.Item>
-                    <Button color={"purple"} as={Link} to="/npceditor">NPC Editor</Button>
-                </Menu.Item>
-                <Menu.Item>
-                    <Button color={"purple"} as={Link} to="/settlementeditor">Settlement Editor</Button>
-                </Menu.Item>
-                <Menu.Item>
-                    <Button color={"purple"} as={Link} to="/QuestEditor">Quest Editor</Button>
+                    <Button color={"purple"} as={Link} to="/editor">Editor</Button>
                 </Menu.Item>
                 <Menu.Item>
                     <Button color={"purple"} as={Link} to="/hpc">HP Counter</Button>
