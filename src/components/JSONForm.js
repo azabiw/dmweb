@@ -7,10 +7,11 @@ import {Segment, Button, Label} from "semantic-ui-react";
 import store from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
-
+import AddFieldContainer from "./AddFieldContainer";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
+    unsubscribe;
     constructor(props){
         super(props); 
         const id = this.props.id;
@@ -21,7 +22,7 @@ class JSONForm extends React.Component{
         this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
 
-        store.subscribe(this.handleChange);
+        this.unsubscribe = store.subscribe(this.handleChange);
         let defaultValues = store.getState().editable;
         let characters = store.getState().characters;
 
@@ -78,7 +79,14 @@ class JSONForm extends React.Component{
         console.log("list of chars ", store.getState());
 
     }
+
     
+
+componentWillUnmount() {
+    this.unsubscribe();
+}
+
+
 
 /**
  * Lataa palvelimelta annetulla id:llä vastaavasta lomakkeesta tilan. 
@@ -163,9 +171,10 @@ async loadData(id) {
         }
     }
 
-    handleAddFieldClick(name) {
+    handleAddFieldClick(name, fieldType) {
         let fields = this.state.formFields;
         console.log("formfields", fields);
+        if (name === "") return; //ei lisätä tyhjää kenttää
         let empty = {
             "name": name,
             "fieldtype": "text",
@@ -261,21 +270,6 @@ async handleSubmit(form, type, formFields) {
             </Segment>
         )
     }
-}
-
-const AddFieldContainer = (props) => {
-    let textvalue = "";
-    return (
-        <div className={"addfieldContainer"}>
-            <Label>
-                Field name
-                <input  id={"Fieldname"} onChange={
-                    e => textvalue=e.target.value
-                } />
-            </Label>
-            <Button  type="button" onClick={e => props.handleAddFieldClick(textvalue)}>Add a new field</Button>
-        </div>
-    )
 }
 
 export default JSONForm;
