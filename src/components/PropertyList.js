@@ -32,10 +32,10 @@ class PropertyList extends React.Component {
     }
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li className={styles.ListElement}><Button  as={Link} to={`/jsonform/${char.id}`}>{char.name}</Button></li>
+            <li className={styles.ListElement}><Button  as={Link} to={`/jsonform/${char.id}`}>{char.name ? char.name : "No name"}</Button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
-            <li className={styles.ListElement}><Button  as={Link} to={`/jsonform/${settlement.id}`}>{settlement.name}</Button></li>
+            <li className={styles.ListElement}><Button  as={Link} to={`/jsonform/${settlement.id}`}>{settlement.name ? settlement.name: "No name"}</Button></li>
         );
 
         return (

@@ -11,7 +11,7 @@ import AddFieldContainer from "./AddFieldContainer";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
-    unsubscribe;
+    unsubscribe; //Tilauksen poistamiseen käytettävä funktio
     constructor(props){
         super(props); 
         const id = this.props.id;
@@ -23,13 +23,11 @@ class JSONForm extends React.Component{
         this.loadData = this.loadData.bind(this);
 
         this.unsubscribe = store.subscribe(this.handleChange);
-        let defaultValues = store.getState().editable;
         let characters = store.getState().characters;
 
         let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
-            defaultValues: defaultValues,
             formFields: formFields,
             redirect: false,
             characters: characters
@@ -81,7 +79,10 @@ class JSONForm extends React.Component{
     }
 
     
-
+/**
+ * Käsittelee komponentin elinkaaren lopun.
+ * Poistaa redux-storen tilauksen.
+ */
 componentWillUnmount() {
     this.unsubscribe();
 }
@@ -161,16 +162,11 @@ async loadData(id) {
         }*/
     }
 
-    //palauttaa vakioarvon NPC:n ominaisuudelle.
-    getDefault(defaults, attribute) {
-        if (defaults[attribute] != null) {
-            return defaults[attribute];
-        }
-        else {
-            return "";
-        }
-    }
-
+    /**
+     * Lisää lomakkeeseen uuden kentän annetulla nimellä ja tyypillä
+     * @param {*} name Kentän nimi
+     * @param {*} fieldType kentän tyyppi esim: "text" 
+     */
     handleAddFieldClick(name, fieldType) {
         let fields = this.state.formFields;
         let selectionType = "";

@@ -10,7 +10,7 @@ class AddFieldContainer extends React.Component {
         <div className={"addfieldContainer"}>
             <Label>
                 Field name
-                <input required={true} id={"Fieldname"} onChange={
+                <input id={"Fieldname"} onChange={
                     e => fieldName=e.target.value
                 } />
             </Label>
