@@ -32,10 +32,10 @@ class PropertyList extends React.Component {
     }
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li className={styles.ListElement}><Button  as={Link} to={`/jsonform/${char.id}`}>{char.name ? char.name : "No name"}</Button></li>
+            <li className={styles.ListElement}><Button  as={Link} to={`/editor/${char.id}`}>{char.name ? char.name : "No name"}</Button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
-            <li className={styles.ListElement}><Button  as={Link} to={`/jsonform/${settlement.id}`}>{settlement.name ? settlement.name: "No name"}</Button></li>
+            <li className={styles.ListElement}><Button  as={Link} to={`/editor/${settlement.id}`}>{settlement.name ? settlement.name: "No name"}</Button></li>
         );
 
         return (
@@ -45,8 +45,8 @@ class PropertyList extends React.Component {
                     <ul className={styles.list}>{characterList}</ul>
                     <h3>List of Settlements: </h3>
                     <ul className={styles.list}>{settlementList}</ul>
-                    <Button className={styles.ListElement} as={Link} to="/npceditor" onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add a new Character</Button>
-                    <Button className={styles.ListElement} as={Link} to="/settlementeditor" onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add a new Settlement</Button>
+                    <Button className={styles.ListElement} as={Link} to="/editor" primary >Add a new Character</Button>
+                    <Button className={styles.ListElement} as={Link} to="/editor" onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add a new Settlement</Button>
                 </Segment>
             </Rail>
         )
