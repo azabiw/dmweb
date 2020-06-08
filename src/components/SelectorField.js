@@ -21,7 +21,7 @@ class SelectorField extends React.Component {
     render() {
         let properties = this.state.properties ? this.state.properties : [];
         const propertyList = properties.map((property) =>
-            <option value={property.id}> {property.name} </option>
+            <option value={property.id}> {property.name ? property.name : "No name"} </option>
         );
         return (
             <div>
