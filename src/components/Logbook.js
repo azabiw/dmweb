@@ -1,9 +1,11 @@
 import React from "react";
-import {Container, Card} from "semantic-ui-react";
+import {Container} from "semantic-ui-react";
 import styles from "../styles/Logbook.module.css"
-import {Connect} from "react-redux";
 import store from "../redux/Store";
 class Logbook extends React.Component {
+
+    unsubscribe; //Tilauksen poistamiseen käytettävä funktio
+
     constructor(props) {
         super(props);
         this.addEntry = this.addEntry.bind(this);
@@ -12,8 +14,8 @@ class Logbook extends React.Component {
             entries: []
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleChange = store.subscribe(this.handleChange);
-        this.setState(store.getState());
+        this.unsubscribe =  store.subscribe(this.handleChange);
+        //this.setState(store.getState());
         console.log(this.state);
     }
     handleChange() {
@@ -55,6 +57,15 @@ class Logbook extends React.Component {
         }
 
     }
+
+/**
+ * Käsittelee komponentin elinkaaren lopun.
+ * Poistaa redux-storen tilauksen.
+ */
+componentWillUnmount() {
+    this.unsubscribe();
+}
+
 
     render() {
         let  formValue = "";

@@ -7,10 +7,11 @@ import {Segment, Button, Label} from "semantic-ui-react";
 import store from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
-
+import AddFieldContainer from "./AddFieldContainer";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
+    unsubscribe; //Tilauksen poistamiseen käytettävä funktio
     constructor(props){
         super(props); 
         const id = this.props.id;
@@ -21,14 +22,12 @@ class JSONForm extends React.Component{
         this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
 
-        store.subscribe(this.handleChange);
-        let defaultValues = store.getState().editable;
+        this.unsubscribe = store.subscribe(this.handleChange);
         let characters = store.getState().characters;
 
         let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
-            defaultValues: defaultValues,
             formFields: formFields,
             redirect: false,
             characters: characters
@@ -78,7 +77,17 @@ class JSONForm extends React.Component{
         console.log("list of chars ", store.getState());
 
     }
+
     
+/**
+ * Käsittelee komponentin elinkaaren lopun.
+ * Poistaa redux-storen tilauksen.
+ */
+componentWillUnmount() {
+    this.unsubscribe();
+}
+
+
 
 /**
  * Lataa palvelimelta annetulla id:llä vastaavasta lomakkeesta tilan. 
@@ -153,26 +162,24 @@ async loadData(id) {
         }*/
     }
 
-    //palauttaa vakioarvon NPC:n ominaisuudelle.
-    getDefault(defaults, attribute) {
-        if (defaults[attribute] != null) {
-            return defaults[attribute];
-        }
-        else {
-            return "";
-        }
-    }
-
-    handleAddFieldClick(name) {
+    /**
+     * Lisää lomakkeeseen uuden kentän annetulla nimellä ja tyypillä
+     * @param {*} name Kentän nimi
+     * @param {*} fieldType kentän tyyppi esim: "text" 
+     */
+    handleAddFieldClick(name, fieldType) {
         let fields = this.state.formFields;
+        let selectionType = "";
         console.log("formfields", fields);
+        if (fieldType !== "text") selectionType = fieldType;
+        if (name === "") return; //ei lisätä tyhjää kenttää
         let empty = {
             "name": name,
-            "fieldtype": "text",
-            "selectionType": "",
+            "fieldtype": fieldType,
+            "selectionType": selectionType,
             "value": ""
-            }
-                    
+            };
+        console.log("Adding field with ", empty);
         fields.fields.push(empty);
         this.setState({formFields: fields});
     }
@@ -186,11 +193,13 @@ async loadData(id) {
  */
 mapFormValueToField(formData, formFields) {
     for (let field of formFields.fields) {
-        if (field.name === "name") formFields.name = field.value;
+        if (field.name === "name") {
+            formFields.name = field.value;
+            console.log("name set to: ", field.value);
+        }
+
         field.value = formData[field.name];
     }
-    
-    formFields.name = formFields.fields.name;
     return formFields
 }
 
@@ -261,21 +270,6 @@ async handleSubmit(form, type, formFields) {
             </Segment>
         )
     }
-}
-
-const AddFieldContainer = (props) => {
-    let textvalue = "";
-    return (
-        <div className={"addfieldContainer"}>
-            <Label>
-                Field name
-                <input  id={"Fieldname"} onChange={
-                    e => textvalue=e.target.value
-                } />
-            </Label>
-            <Button  type="button" onClick={e => props.handleAddFieldClick(textvalue)}>Add a new field</Button>
-        </div>
-    )
 }
 
 export default JSONForm;

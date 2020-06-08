@@ -15,6 +15,7 @@ import Logbook from "./components/Logbook";
 import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
+import {v4} from "uuid";
 //Pääohjelma
 class App extends React.Component {
 
@@ -26,19 +27,18 @@ class App extends React.Component {
                     <Route path="/about">
                         <AboutPage />
                     </Route>
-                    <Route path={"/editor"}>
-                        <EditorPage />
-                    </Route>
                     <Route path="/logbook">
                         <Logbook />
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />
                     </Route>
-                    <Route path="/jsonform/:id" > 
+                    <Route path="/editor/:id" > 
                         <EditorPage><IDResolverForJsonForm /></EditorPage>
                     </Route>
-
+                    <Route path={"/editor"}>
+                        <EditorPage />
+                    </Route>
 
                     <Route path="/">
                         <FrontPage />
