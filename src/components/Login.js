@@ -1,10 +1,13 @@
 import "firebase";
 import React from "react";
 import store from "../redux/Store";
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
 import { Button} from "semantic-ui-react";
-import {firebaseConfig} from "../other/firebaseConfig";
-
+import {
+    AuthCheck,
+    useUser,
+    useAuth,
+  } from 'reactfire';
 class LoginContainer extends React.Component {
     unsubscribe;
     constructor(props) {
@@ -13,6 +16,7 @@ class LoginContainer extends React.Component {
         this.state = {
             loggedIn: false
         }
+        store.dispatch({type: "firebase/initialise"});
         this.unsubscribe = store.subscribe(this.handleChange);
     }
 
@@ -23,10 +27,10 @@ class LoginContainer extends React.Component {
 
 
     googleLogin() {
-        const app = firebase.initializeApp(firebaseConfig);
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const auth = useAuth();
+        const provider = auth.GoogleAuthProvider();
 
-        firebase.auth().signInWithPopup(provider).then(result => {
+        auth.auth().signInWithPopup(provider).then(result => {
             const user = result.user;  
             const displayname = user.displayName;
             this.setState({
@@ -41,11 +45,25 @@ class LoginContainer extends React.Component {
     }
 
     render() {
-        return (
-           <div className={"loginContainer"}>
-               <Button onClick={e => this.googleLogin()}>Login with Google</Button>
-           </div> 
-        )
+        if (!this.state.loggedIn) {
+            return (
+                <div className={"loginContainer"}>
+                    <Button onClick={e => this.googleLogin()}>Login with Google</Button>
+                </div> 
+             )
+        }
+        else {
+            return (
+                <div className={"loginContainer"}>
+                    <h2>Logged in as: {this.state.username}</h2>
+                </div> 
+            )
+        }
     }
 } 
+
+function LoginButton(props) {
+    return <Button onClick={props.googleLogin}>Login with Google</Button>
+}
+
 export default LoginContainer;

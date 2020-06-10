@@ -1,6 +1,7 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
 import * as firebase from "firebase";
+import {firebaseConfig} from "../firebaseConfig";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
@@ -108,6 +109,7 @@ const reducer = createReducer({
     },
     [initialiseFirebase]: (state, action) => {
         if (state["firebase"] !== undefined) return; //jos firebase on jo alustettu storeen, ei luoda enää uusia kopioita siitä
+        firebase.initializeApp(firebaseConfig)
         state["firebase"] = firebase.app;
         console.log(state.firebase);
     }

@@ -10,8 +10,14 @@ service cloud.firestore {
     //
     // Make sure to write security rules for your app before that time, or else
     // your app will lose access to your Firestore database
-    match /{document=**} {
-      allow read, write: if false;
+    //match /{document=**} {
+    //  allow read, write: if false;
+    //}
+    //Sallii käyttäjän pääsyn vain omiin tíedostoihin
+    match /users/{userId} {
+      allow read, update, delete: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
     }
+
   }
 }
