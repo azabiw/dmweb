@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import styles from "../styles/Header.module.css";
 import {Button, Container, Menu} from "semantic-ui-react";
+import LoginContainer from "./Login";
 class Header extends React.Component {
 
     render() {
@@ -21,6 +22,9 @@ class Header extends React.Component {
                 </Menu.Item>
                 <Menu.Item>
                     <Button color={"purple"} as={Link} to="/about">About</Button>
+                </Menu.Item>
+                <Menu.Item>
+                    <LoginContainer />
                 </Menu.Item>
             </Menu>
         )

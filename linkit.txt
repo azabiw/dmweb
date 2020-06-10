@@ -65,3 +65,4 @@ https://tutorialedge.net/golang/parsing-json-with-golang/
 https://github.com/bradtraversy/go_restapi/blob/master/main.go
 https://github.com/gorilla/mux
 https://www.golangprograms.com/golang-read-json-file-into-struct.html
+https://www.youtube.com/watch?v=9kRgVxULbag

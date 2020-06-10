@@ -1,6 +1,7 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
-
+import * as firebase from "firebase";
+import {firebaseConfig} from "../firebaseConfig";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
@@ -30,6 +31,8 @@ const setEditable = createAction("editable/set", function prepare(editable){
        editType: editable.type
    }
 });
+
+const initialiseFirebase = createAction("firebase/initalise")
 
 const updateCharacter = createAction("characters/update");
 
@@ -103,7 +106,14 @@ const reducer = createReducer({
     },
     [addQuest]: (state, action) => {
         state.quests.push(action.payload);
+    },
+    [initialiseFirebase]: (state, action) => {
+        if (state["firebase"] !== undefined) return; //jos firebase on jo alustettu storeen, ei luoda enää uusia kopioita siitä
+        firebase.initializeApp(firebaseConfig)
+        state["firebase"] = firebase.app;
+        console.log(state.firebase);
     }
+
 });
 
 
@@ -121,6 +131,7 @@ function getFormDataWithID(id, type) {
     let forms = store.getState()[type];
     return forms[getCharacterIndexWithID(forms, id)];
 }
+
 
 export default store;
 export {getCharacterIndexWithID};
