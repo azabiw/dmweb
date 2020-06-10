@@ -1,14 +1,16 @@
 import "firebase";
-import React from "react";
+import React, { Suspense } from "react";
 import store from "../redux/Store";
-//import * as firebase from "firebase";
+import * as firebase from "firebase";
 import { Button} from "semantic-ui-react";
 import {
     AuthCheck,
     useUser,
     useAuth,
+    SuspenseWithPerf,
+    useFirebaseApp
   } from 'reactfire';
-class LoginContainer extends React.Component {
+class LoginComponent extends React.Component {
     unsubscribe;
     constructor(props) {
         super(props);
@@ -27,10 +29,10 @@ class LoginContainer extends React.Component {
 
 
     googleLogin() {
-        const auth = useAuth();
-        const provider = auth.GoogleAuthProvider();
+        const auth = this.props.auth;
+        const provider = new firebase.auth.GoogleAuthProvider();
 
-        auth.auth().signInWithPopup(provider).then(result => {
+        auth.signInWithPopup(provider).then(result => {
             const user = result.user;  
             const displayname = user.displayName;
             this.setState({
@@ -62,8 +64,17 @@ class LoginContainer extends React.Component {
     }
 } 
 
-function LoginButton(props) {
-    return <Button onClick={props.googleLogin}>Login with Google</Button>
-}
+function AuthResolver() {
+    const auth = useAuth();
+    return(
+        <LoginComponent auth={auth}  />
+    ) 
+  }
+
+ function LoginContainer() {
+   return <SuspenseWithPerf fallback={"loading"}>
+        <AuthResolver />
+    </SuspenseWithPerf>
+ }
 
 export default LoginContainer;
