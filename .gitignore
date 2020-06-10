@@ -31,3 +31,4 @@ src/Server/bin/Server.exe
 src/Server/datastore.json
 pkg/
 src/Server/bin/
+src/other/firebaseConfig.js

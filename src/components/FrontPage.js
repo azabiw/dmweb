@@ -12,6 +12,8 @@ class FrontPage extends React.Component {
        return (
            <Container>
                <h1 className={styles.Title}>DM Web</h1>
+               <h2>Currently not functional at all so please save yourself from trouble caused by trying to use this.</h2>
+               <p>This is a Work-in-Progress build of a tool for tabletop gamemasters.</p>
            </Container>
 
        )
