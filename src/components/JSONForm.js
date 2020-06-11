@@ -22,14 +22,8 @@ class JSONForm extends React.Component{
         if (!isNew) this.loadData(id);
         else {
             console.log("Creating a new form");
-            const templateField = { 
-                    "name": "name",
-                    "fieldtype": "text",
-                    "selectionType": "",
-                    "value": "No name"               
-            }
             if (formFields.length < 1) {
-                formFields = new FormTemplate("name", "character", [])
+                formFields = new FormTemplate("name", "character", []);
             }
         }
         this.handleChange = this.handleChange.bind(this);

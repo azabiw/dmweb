@@ -3,11 +3,11 @@ class FormField {
     name;
     selectiontype;
     defaultValue;
-    constructor(name, defaultValue,  fieldType, selectiontype) {
+    constructor(name, value,  fieldtype, selectiontype) {
         this.name = name;
-        this.fieldType = fieldType;
+        this.fieldtype = fieldtype;
         this.selectiontype = selectiontype;
-        this.defaultValue = defaultValue;
+        this.value = value;
     }
 }
 
@@ -18,7 +18,7 @@ class FormTemplate {
     name; 
     formType;
     fields;
-    
+
     /**
      * 
      * @param {String} name 
@@ -29,6 +29,9 @@ class FormTemplate {
         this.fields = fields || [];
         this.name = name;
         this.formType = formType;
+
+        this.addField = this.addField.bind(this);
+        this.addField("name", "No name", "text", "");
     } 
 
     addField(name, defaultValue, type, selectiontype) {
