@@ -8,6 +8,7 @@ import store from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
 import AddFieldContainer from "./AddFieldContainer";
+import { FormTemplate } from "../other/FormBase";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -28,11 +29,7 @@ class JSONForm extends React.Component{
                     "value": "No name"               
             }
             if (formFields.length < 1) {
-                let fields = {
-                    fields:[]
-                }
-                fields.fields.push(templateField);
-                formFields.push(fields);
+                formFields = new FormTemplate("name", "character", [])
             }
         }
         this.handleChange = this.handleChange.bind(this);
