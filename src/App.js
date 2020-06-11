@@ -33,6 +33,11 @@ class App extends React.Component {
                     <Route path="/hpc">
                         <HPCounterContainer />
                     </Route>
+                    <Route path={"/editor/new"}>
+                        <EditorPage > 
+                            <JSONForm id={v4()}  isNew={true}/>    
+                        </EditorPage>
+                    </Route>
                     <Route path="/editor/:id" > 
                         <EditorPage><IDResolverForJsonForm /></EditorPage>
                     </Route>

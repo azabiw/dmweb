@@ -16,8 +16,25 @@ class JSONForm extends React.Component{
         super(props); 
         const id = this.props.id;
         console.log(`Id${id}`);
-
-        this.loadData(id);
+        const isNew = this.props.isNew || false;
+        let formFields = this.props.formFields || []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
+        if (!isNew) this.loadData(id);
+        else {
+            console.log("Creating a new form");
+            const templateField = { 
+                    "name": "name",
+                    "fieldtype": "text",
+                    "selectionType": "",
+                    "value": "No name"               
+            }
+            if (formFields.length < 1) {
+                let fields = {
+                    fields:[]
+                }
+                fields.fields.push(templateField);
+                formFields.push(fields);
+            }
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
@@ -25,7 +42,6 @@ class JSONForm extends React.Component{
         this.unsubscribe = store.subscribe(this.handleChange);
         let characters = store.getState().characters;
 
-        let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
             formFields: formFields,
@@ -102,6 +118,7 @@ async loadData(id) {
     });
     let data = await response.json();
     let form = data[0]; //korjaa
+    console.log("data" , data);
     this.setState({formFields: data});
     return form;
 }
@@ -168,7 +185,7 @@ async loadData(id) {
      * @param {*} fieldType kentän tyyppi esim: "text" 
      */
     handleAddFieldClick(name, fieldType) {
-        let fields = this.state.formFields;
+        let fields = this.state.formFields || [];
         let selectionType = "";
         console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
@@ -180,7 +197,7 @@ async loadData(id) {
             "value": ""
             };
         console.log("Adding field with ", empty);
-        fields.fields.push(empty);
+        fields["fields"].push(empty);
         this.setState({formFields: fields});
     }
 
