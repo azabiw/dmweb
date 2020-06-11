@@ -2,6 +2,7 @@ import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
 import * as firebase from "firebase";
 import {firebaseConfig} from "../firebaseConfig";
+import { act } from "react-test-renderer";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
@@ -10,7 +11,11 @@ const addCharacter = createAction("characters/add", function prepare(character) 
         }
     }
 });
-
+const setUser = createAction("user/set", function prepare(user) {
+    return {
+        payload: user
+    }
+});
 
 const addSettlement = createAction("settlements/add", function prepare(settlement) {
     return {
@@ -112,8 +117,10 @@ const reducer = createReducer({
         firebase.initializeApp(firebaseConfig)
         state["firebase"] = firebase.app;
         console.log(state.firebase);
+    },
+    [setUser]: (state, action) => {
+        state["user"] = action.payload;
     }
-
 });
 
 

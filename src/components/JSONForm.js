@@ -9,6 +9,7 @@ import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
 import AddFieldContainer from "./AddFieldContainer";
 import { FormTemplate } from "../other/FormBase";
+import * as firebase from "firebase";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -216,11 +217,11 @@ async handleSubmit(form, type, formFields) {
     //let body = {};
     //0body["user"] = "testi";
     //body["formtype"] = type;
-    let method = "post";
+    let method = "post"; 
     console.log("form", form);
     console.log(formFields);
     formFields = this.mapFormValueToField(form,formFields);
-    try {
+    /*try {
         const response = await fetch(url, {
             method: method,
             body: JSON.stringify(formFields),
@@ -232,7 +233,20 @@ async handleSubmit(form, type, formFields) {
         console.log('Success:', JSON.stringify(json));
     } catch (error) {
         console.error('Error:', error);
-    }    
+    }    */
+
+    const db = firebase.firestore();
+        // Add a new document in collection "cities"
+        let firebaseFriendlyForm = formFields.toFirebase();
+    db.collection("users").doc(firebase.User.uid).set(firebaseFriendlyForm)
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+    
 }
 
     render() {

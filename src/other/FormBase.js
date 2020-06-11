@@ -17,6 +17,14 @@ class FormField {
         this.selectiontype = selectiontype;
         this.value = value;
     }
+    toFirebase() {
+        return {
+            name: this.name,
+            fieldtype: this.fieldType,
+            selectiontype: this.selectiontype,
+            value: this.value
+        }
+    } 
 }
 
 /**name, formType, fields
@@ -39,6 +47,7 @@ class FormTemplate {
         this.formType = formType;
 
         this.addField = this.addField.bind(this);
+        this.toFirebase = this.toFirebase.bind(this);
         this.addField("name", "No name", "text", "");
     } 
 
@@ -47,6 +56,23 @@ class FormTemplate {
         let field = new FormField(name, defaultValue, type, selectiontype);
         this.fields.push(field);
     }
-}
+    toFirebase() {
+        let fields = [];
+        for (let field of this.fields) {
+            fields.push({
+                name: field.name || "no name",
+                fieldtype: field.fieldType || "text",
+                selectiontype: field.selectiontype || "",
+                value: field.value || ""
+    
+            });
+        }
+        return {
+            fields: fields,
+            name: this.name,
+            formType: this.formType
+        }
+    }
+} 
 export  {FormTemplate, FormField};
 
