@@ -3,6 +3,14 @@ class FormField {
     name;
     selectiontype;
     defaultValue;
+
+    /**
+     * 
+     * @param {string} name Name of the field
+     * @param {string} value default value
+     * @param {string} fieldtype type  of the field. example: "text"
+     * @param {string} selectiontype type of listable properties for selection. Default "".
+     */
     constructor(name, value,  fieldtype, selectiontype) {
         this.name = name;
         this.fieldtype = fieldtype;
