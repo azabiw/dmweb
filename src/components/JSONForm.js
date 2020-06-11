@@ -236,9 +236,11 @@ async handleSubmit(form, type, formFields) {
     }    */
 
     const db = firebase.firestore();
+    const uid = store.getState().user;
+    if (!uid) return; //TODO: parempi tapa 
         // Add a new document in collection "cities"
         let firebaseFriendlyForm = formFields.toFirebase();
-    db.collection("users").doc(firebase.User.uid).set(firebaseFriendlyForm)
+    db.collection("users").doc(uid).set(firebaseFriendlyForm)
     .then(function() {
         console.log("Document successfully written!");
     })

@@ -18,7 +18,7 @@ class LoginComponent extends React.Component {
         this.state = {
             loggedIn: false
         }
-        store.dispatch({type: "firebase/initialise"});
+        //store.dispatch({type: "firebase/initialise"});
         this.unsubscribe = store.subscribe(this.handleChange);
     }
 
@@ -40,7 +40,10 @@ class LoginComponent extends React.Component {
                 username: displayname
              });
             console.log(user);
-
+             store.dispatch({
+                 type: "user/set",
+                 payload: user.uid
+             })
         });
 
 
