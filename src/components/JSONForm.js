@@ -8,6 +8,8 @@ import store from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
 import AddFieldContainer from "./AddFieldContainer";
+import { FormTemplate } from "../other/FormBase";
+import * as firebase from "firebase";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -16,8 +18,15 @@ class JSONForm extends React.Component{
         super(props); 
         const id = this.props.id;
         console.log(`Id${id}`);
-
-        this.loadData(id);
+        const isNew = this.props.isNew || false;
+        let formFields = this.props.formFields || []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
+        if (!isNew) this.loadData(id);
+        else {
+            console.log("Creating a new form");
+            if (formFields.length < 1) {
+                formFields = new FormTemplate("name", "character", []);
+            }
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleAddFieldClick = this.handleAddFieldClick.bind(this);
         this.loadData = this.loadData.bind(this);
@@ -25,7 +34,6 @@ class JSONForm extends React.Component{
         this.unsubscribe = store.subscribe(this.handleChange);
         let characters = store.getState().characters;
 
-        let formFields = this.props.formFields ? this.props.formFields : []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         this.state = {
             customFields: [],
             formFields: formFields,
@@ -102,6 +110,7 @@ async loadData(id) {
     });
     let data = await response.json();
     let form = data[0]; //korjaa
+    console.log("data" , data);
     this.setState({formFields: data});
     return form;
 }
@@ -168,7 +177,7 @@ async loadData(id) {
      * @param {*} fieldType kentän tyyppi esim: "text" 
      */
     handleAddFieldClick(name, fieldType) {
-        let fields = this.state.formFields;
+        let fields = this.state.formFields || [];
         let selectionType = "";
         console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
@@ -180,7 +189,7 @@ async loadData(id) {
             "value": ""
             };
         console.log("Adding field with ", empty);
-        fields.fields.push(empty);
+        fields["fields"].push(empty);
         this.setState({formFields: fields});
     }
 
@@ -208,11 +217,11 @@ async handleSubmit(form, type, formFields) {
     //let body = {};
     //0body["user"] = "testi";
     //body["formtype"] = type;
-    let method = "post";
+    let method = "post"; 
     console.log("form", form);
     console.log(formFields);
     formFields = this.mapFormValueToField(form,formFields);
-    try {
+    /*try {
         const response = await fetch(url, {
             method: method,
             body: JSON.stringify(formFields),
@@ -224,7 +233,22 @@ async handleSubmit(form, type, formFields) {
         console.log('Success:', JSON.stringify(json));
     } catch (error) {
         console.error('Error:', error);
-    }    
+    }    */
+
+    const db = firebase.firestore();
+    const uid = store.getState().user;
+    if (!uid) return; //TODO: parempi tapa 
+        // Add a new document in collection "cities"
+        let firebaseFriendlyForm = formFields.toFirebase();
+    db.collection("users").doc(uid).set(firebaseFriendlyForm)
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+    
 }
 
     render() {
