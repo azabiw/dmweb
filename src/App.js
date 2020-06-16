@@ -5,7 +5,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    useParams
+    useParams,
+    Redirect
 } from "react-router-dom";
 import FrontPage from "./components/FrontPage";
 import AboutPage from "./components/AboutPage";
@@ -75,9 +76,7 @@ class App extends React.Component {
 }
 
 function LoginPromt(props) {
-    return <React.Fragment>
-        Please login
-    </React.Fragment>
+    return <Redirect to="/" />
 }
 
 function IDResolverForJsonForm(props) {

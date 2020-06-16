@@ -10,6 +10,7 @@ import SelectorField from "./SelectorField";
 import AddFieldContainer from "./AddFieldContainer";
 import { FormTemplate } from "../other/FormBase";
 import * as firebase from "firebase";
+import { v4 } from "uuid";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -221,6 +222,8 @@ async handleSubmit(form, type, formFields) {
     console.log("form", form);
     console.log(formFields);
     formFields = this.mapFormValueToField(form,formFields);
+    if (!formFields["id"]) formFields["id"] = this.props.id || v4(); //jos ID:tä ei annettu propseina asetetaan v4 UUID 
+
     /*try {
         const response = await fetch(url, {
             method: method,
