@@ -32,20 +32,20 @@ class FormField {
  */
 class FormTemplate {
     name; 
-    formType;
+    formtype;
     fields;
-
+    id;
     /**
      * 
      * @param {String} name 
-     * @param {string} formType 
+     * @param {string} formtype 
      * @param {Array} fields 
      */
-    constructor(name, formType, fields) {
+    constructor(name, formtype, fields, id) {
         this.fields = fields || [];
         this.name = name;
-        this.formType = formType;
-
+        this.formtype = formtype;
+        this.id = id;
         this.addField = this.addField.bind(this);
         this.toFirebase = this.toFirebase.bind(this);
         this.addField("name", "No name", "text", "");
@@ -70,7 +70,8 @@ class FormTemplate {
         return {
             fields: fields,
             name: this.name,
-            formType: this.formType
+            formtype: this.formtype,
+            id: this.id
         }
     }
 } 
