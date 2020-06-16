@@ -69,12 +69,15 @@ class LoginComponent extends React.Component {
 
 function AuthResolver() {
     const auth = useAuth();
-    const uid = useUser().uid;
-
-    store.dispatch({
+    const user = useUser();
+    const uid = user ? user.uid : "";
+    
+    if (!uid) {
+        store.dispatch({
         type:"user/set",
         payload: uid
-    })
+    }) 
+    }
     return(
         <LoginComponent auth={auth}  />
     ) 
