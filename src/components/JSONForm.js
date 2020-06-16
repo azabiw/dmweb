@@ -239,8 +239,8 @@ async handleSubmit(form, type, formFields) {
     const uid = store.getState().user;
     if (!uid) return; //TODO: parempi tapa 
         // Add a new document in collection "cities"
-        let firebaseFriendlyForm = formFields.toFirebase();
-    db.collection("users").doc(uid).set(firebaseFriendlyForm)
+    let firebaseFriendlyForm = formFields.toFirebase();
+    db.collection("users").doc(uid).collection("forms").add(firebaseFriendlyForm)
     .then(function() {
         console.log("Document successfully written!");
     })

@@ -16,11 +16,20 @@ import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
 import {v4} from "uuid";
+import store from "./redux/Store";
+import { AuthCheck, SuspenseWithPerf } from 'reactfire';
+import * as firebase from "firebase";
+
 //Pääohjelma
 class App extends React.Component {
-
+    constructor(props) {
+        super(props);
+        const perf = firebase.performance();
+        const analytics = firebase.analytics();
+    }
     render() {
         return (
+            <SuspenseWithPerf fallback={"loading"} traceId={"mainApp"}>
             <Router >
                 <Header />
                 <Switch>
@@ -34,16 +43,23 @@ class App extends React.Component {
                         <HPCounterContainer />
                     </Route>
                     <Route path={"/editor/new"}>
+                        <AuthCheck fallback={<LoginPromt />}>
                         <EditorPage > 
                             <JSONForm id={v4()}  isNew={true}/>    
                         </EditorPage>
+                        </AuthCheck>
                     </Route>
                     <Route path="/editor/:id" > 
-                        <EditorPage><IDResolverForJsonForm /></EditorPage>
+                        <AuthCheck fallback={<LoginPromt />}>
+                            <EditorPage><IDResolverForJsonForm /></EditorPage>
+                        </AuthCheck>
                     </Route>
                     <Route path={"/editor"}>
-                        <EditorPage />
+                        <AuthCheck fallback={<LoginPromt />}>
+                            <EditorPage />
+                        </AuthCheck>
                     </Route>
+
 
                     <Route path="/">
                         <FrontPage />
@@ -52,10 +68,16 @@ class App extends React.Component {
                 </Switch>
 
             </Router>
-
+            </SuspenseWithPerf>
         );
 
     }
+}
+
+function LoginPromt(props) {
+    return <React.Fragment>
+        Please login
+    </React.Fragment>
 }
 
 function IDResolverForJsonForm(props) {

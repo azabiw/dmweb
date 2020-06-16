@@ -4,7 +4,7 @@
 //lähettää lomakkeen sisällön palvelimelle
 import store from "../redux/Store";
 import v4 from "uuid/v4";
-
+import * as firebase from "firebase";
 class utilities {
 
     //todo: tee staattinen
@@ -40,18 +40,63 @@ class utilities {
     }
 
     static async initializeStore() {
-        let response = await fetch('/users', {
+        /*let response = await fetch('/users', {
             credentials: "omit",
             cache: "no-store",
             method: "get"
         });
         const data = await response.json();
-        console.log("Response from server was: ", data);
-        let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
-        let settlements = [];
-        let logs = [];
-        let quests = [];
+        console.log("Response from server was: ", data);*/
 
+        const uid = store.getState().user || null;
+        if (uid === null) console.log("no uid"); 
+        const db = firebase.firestore();
+
+
+
+        let ref = db.collection("users").doc(uid).collection("forms");
+        ref.get().then(querySnapshot => {
+            let chars = [];     //hakee palvelimelta kaikki käyttäjän kaupungit ja hahmot
+            let settlements = [];
+            let logs = [];
+            let quests = [];
+    
+            console.log(querySnapshot);
+            querySnapshot.forEach(doc => {
+                console.log(doc.id, " => ", doc.data());
+
+                let form  = doc.data();
+                console.log("form", form);
+                switch (form.formtype) {
+                    case "character":
+                        chars.push(form);
+                        break;
+                    case "settlement":
+                        settlements.push(form);
+                        break;
+                    case "quest":
+                        quests.push(form);
+                        break;
+                    default:
+                        break;
+        
+                }
+    
+            });
+
+            store.dispatch({
+                type: "initialise",
+                payload: {
+                    characters: chars,
+                    settlements: settlements,
+                    logs: logs,
+                    quests: quests
+                }
+            });
+    
+        });
+
+        /*
         for (let form of data) {
             switch (form.formtype) {
                 case "character":
@@ -86,15 +131,6 @@ class utilities {
             }
 
         }*/ 
-        store.dispatch({
-            type: "initialise",
-            payload: {
-                characters: chars,
-                settlements: settlements,
-                logs: logs,
-                quests: quests
-            }
-        });
 
     }
 

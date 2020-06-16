@@ -69,13 +69,19 @@ class LoginComponent extends React.Component {
 
 function AuthResolver() {
     const auth = useAuth();
+    const uid = useUser().uid;
+
+    store.dispatch({
+        type:"user/set",
+        payload: uid
+    })
     return(
         <LoginComponent auth={auth}  />
     ) 
   }
 
  function LoginContainer() {
-   return <SuspenseWithPerf fallback={"loading"}>
+   return <SuspenseWithPerf fallback={"loading"} traceId={"loginFlow"}>
         <AuthResolver />
     </SuspenseWithPerf>
  }

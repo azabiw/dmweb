@@ -14,7 +14,7 @@ service cloud.firestore {
     //  allow read, write: if false;
     //}
     //Sallii käyttäjän pääsyn vain omiin tíedostoihin
-    match /users/{userId} {
+    match /users/{userId}/{document=**} {
       allow read, update, delete: if request.auth != null && request.auth.uid == userId;
       allow create: if request.auth != null;
     }
