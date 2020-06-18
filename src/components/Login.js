@@ -43,7 +43,10 @@ class LoginComponent extends React.Component {
              store.dispatch({
                  type: "user/set",
                  payload: user.uid
-             })
+             });
+             store.dispatch({
+                type:"store/initialize"
+             });
         });
 
 
@@ -69,12 +72,18 @@ class LoginComponent extends React.Component {
 
 function AuthResolver() {
     const auth = useAuth();
-    const uid = useUser().uid;
+    const user = useUser();
+    console.log("user", user);
+    if (auth.currentUser !== null) {
+        let uid = auth.currentUser.uid;
+       
+            store.dispatch({
+            type:"user/set",
+            payload: uid
+        });
+    
+    }
 
-    store.dispatch({
-        type:"user/set",
-        payload: uid
-    })
     return(
         <LoginComponent auth={auth}  />
     ) 

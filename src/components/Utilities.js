@@ -49,7 +49,10 @@ class utilities {
         console.log("Response from server was: ", data);*/
 
         const uid = store.getState().user || null;
-        if (uid === null) console.log("no uid"); 
+        if (uid === null || uid === "") {
+            console.log("no uid"); 
+            return;
+        }
         const db = firebase.firestore();
 
 

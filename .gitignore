@@ -34,3 +34,4 @@ src/Server/bin/
 src/other/firebaseConfig.js
 src/firebaseConfig.js
 .firebase/
+firebase-debug.log

@@ -7,7 +7,7 @@ class PropertyList extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.handleChange = store.subscribe(this.handleChange);
+       this.unsubscribe = store.subscribe(this.handleChange);
         this.state = {
             characters: store.getState().characters,
             settlements: store.getState().settlements,
@@ -15,7 +15,9 @@ class PropertyList extends React.Component {
         }
 
     }
-
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
     handleChange() {
         console.log(store.getState().characters);
         this.setState({

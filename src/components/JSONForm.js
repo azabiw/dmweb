@@ -4,12 +4,13 @@ import {Form} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
 import {Segment, Button, Label} from "semantic-ui-react";
-import store from "../redux/Store";
+import store, {getFormDataWithID} from "../redux/Store";
 import {Redirect} from "react-router-dom";
 import SelectorField from "./SelectorField";
 import AddFieldContainer from "./AddFieldContainer";
 import { FormTemplate } from "../other/FormBase";
 import * as firebase from "firebase";
+import { v4 } from "uuid";
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -92,6 +93,7 @@ class JSONForm extends React.Component{
  * Poistaa redux-storen tilauksen.
  */
 componentWillUnmount() {
+    this.setState({formFields: []});
     this.unsubscribe();
 }
 
@@ -102,7 +104,7 @@ componentWillUnmount() {
  * @param {*} id haettavan lomakkeen id
  */
 async loadData(id) {
-    const formID = id;
+    /*const formID = id;
     let response = await fetch(`/api/${formID}`, {
         credentials: "omit",
         cache: "no-store",
@@ -110,9 +112,27 @@ async loadData(id) {
     });
     let data = await response.json();
     let form = data[0]; //korjaa
-    console.log("data" , data);
-    this.setState({formFields: data});
-    return form;
+    console.log("data" , data);*/
+
+    const db = firebase.firestore();
+    const uid = store.getState().user;
+    if (!uid) return; //TODO: parempi tapa 
+        // Add a new document in collection "cities"
+    db.collection("users").doc(uid).collection("forms").where("id", "==", id).get()
+    .then(querySnapshot =>  {
+        querySnapshot.forEach(doc => {
+            this.setState({formFields: doc.data()});
+            console.log("Document found!");
+
+        }) 
+
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+   
+   // return form;
 }
 
     /**
@@ -221,6 +241,8 @@ async handleSubmit(form, type, formFields) {
     console.log("form", form);
     console.log(formFields);
     formFields = this.mapFormValueToField(form,formFields);
+    if (!formFields["id"]) formFields["id"] = this.props.id || v4(); //jos ID:tä ei annettu propseina asetetaan v4 UUID 
+
     /*try {
         const response = await fetch(url, {
             method: method,
@@ -239,8 +261,14 @@ async handleSubmit(form, type, formFields) {
     const uid = store.getState().user;
     if (!uid) return; //TODO: parempi tapa 
         // Add a new document in collection "cities"
-    let firebaseFriendlyForm = formFields.toFirebase();
-    db.collection("users").doc(uid).collection("forms").add(firebaseFriendlyForm)
+    let firebaseFriendlyForm;
+    try {
+        firebaseFriendlyForm = formFields.toFirebase();
+    } catch (e) {
+        console.log("error ", e);
+        firebaseFriendlyForm = formFields;
+    }
+    db.collection("users").doc(uid).collection("forms").doc(formFields["id"]).set(firebaseFriendlyForm)
     .then(function() {
         console.log("Document successfully written!");
     })
