@@ -276,6 +276,10 @@ async handleSubmit(form, type, formFields) {
         console.error("Error writing document: ", error);
     });
 
+    store.dispatch({
+        type: "characters/add",
+        payload: firebaseFriendlyForm
+    })
     
 }
 
