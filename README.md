@@ -1,6 +1,6 @@
 # DMWEB
 This is a work-in-progress project to make a simple web  program to help tabletop RPG game masters. 
-Currently it's not ready for any use so please don't expect it to work at all. I am currently remaking the backend in go so the old Node.js based backend is not currently functional. 
+Currently it's not ready for any use so please don't expect it to work at all. I am currently moving all functionality to Firebase. Most of the stuff is still in early work-in-progress.
 
 ### Installation
 
