@@ -140,5 +140,6 @@ function getFormDataWithID(id, type) {
 }
 
 
+
 export default store;
-export {getCharacterIndexWithID};
+export {getCharacterIndexWithID, getFormDataWithID};
