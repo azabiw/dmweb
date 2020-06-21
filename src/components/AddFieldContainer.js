@@ -1,6 +1,5 @@
 import React from "react";
-import {Segment, Button, Label} from "semantic-ui-react";
-import SelectorField from "./SelectorField";
+import { Button, Label} from "semantic-ui-react";
 
 class AddFieldContainer extends React.Component {
     render () {

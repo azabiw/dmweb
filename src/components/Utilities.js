@@ -99,41 +99,6 @@ class utilities {
     
         });
 
-        /*
-        for (let form of data) {
-            switch (form.formtype) {
-                case "character":
-                    chars.push(form);
-                    break;
-                case "settlement":
-                    settlements.push(form);
-                    break;
-                case "quest":
-                    quests.push(form);
-                    break;
-                default:
-                    break;
-    
-            }
-        }
-/* TODO: REMOVE
-        for (let i = 0; i < data.length; i++) {
-            let char = data[i]; //lisätään lomake vastavaan listaan
-            switch (data[i].type) {
-                case "character":
-                    chars.push(char);
-                    break;
-                case "settlement":
-                    settlements.push(char);
-                    break;
-                case "quest":
-                    quests.push(char);
-                    break;
-                default:
-                    break;
-            }
-
-        }*/ 
 
     }
 

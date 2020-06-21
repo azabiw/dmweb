@@ -2,7 +2,6 @@ import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
 import * as firebase from "firebase";
 import {firebaseConfig} from "../firebaseConfig";
-import { act } from "react-test-renderer";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
@@ -44,7 +43,6 @@ const updateCharacter = createAction("characters/update");
 const removeCharacter = createAction("characters/remove");
 
 
-const removeSettlement = createAction("settlements/remove");
 
 const setInitialValues = createAction("initialise", function prepare(editable){
     return {

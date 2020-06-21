@@ -1,13 +1,7 @@
 import React from "react";
-import Header from "./Header";
 import {Container} from "semantic-ui-react";
 
 class AboutPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     render() {
         return (
             <Container text>
