@@ -1,14 +1,12 @@
 import "firebase";
-import React, { Suspense } from "react";
+import React from "react";
 import store from "../redux/Store";
 import * as firebase from "firebase";
 import { Button} from "semantic-ui-react";
 import {
-    AuthCheck,
     useUser,
     useAuth,
     SuspenseWithPerf,
-    useFirebaseApp
   } from 'reactfire';
 class LoginComponent extends React.Component {
     unsubscribe;
