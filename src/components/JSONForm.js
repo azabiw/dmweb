@@ -42,47 +42,6 @@ class JSONForm extends React.Component{
             characters: characters
         };
 
-        let settlementEditorFields = {
-            name: "Settlement editor",
-            label: "Settlement",
-            formType: "Settlement",
-            fields: [
-                {
-                    name: "Name",
-                    fieldType: "text"
-                },
-                {
-                    name: "Leader",
-                    fieldType: "selector",
-                    selectionType:"character"
-                },
-                {
-                    name: "Location",
-                    fieldType: "text"
-                },
-                {
-                    name: "Notable features",
-                    fieldType: "text"
-                },
-                {
-                    name: "Population and structure",
-                    fieldType: "text"
-                },
-                {
-                    name: "Level of security",
-                    fieldType: "text"
-                },
-                {
-                    name: "Organisations",
-                    fieldType: "text"
-                },
-                {
-                    name: "Interesting locations",
-                    fieldType: "text"
-                },
-            ]
-        }
-
         console.log("list of chars ", store.getState());
 
     }
@@ -140,7 +99,7 @@ async loadData(id) {
      * @param {*} fieldData 
      */
     fieldGenerator(fieldData) {
-        console.log("fielddata", fieldData);
+        //console.log("fielddata", fieldData);
         switch (fieldData.fieldtype) {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
@@ -163,14 +122,14 @@ async loadData(id) {
    * @param {*} formData Array of forms's fields 
    */
     formFromJSON(formData){
-        console.log("formdata", formData);
+       // console.log("formdata", formData);
 
         if (formData === null || formData === undefined || formData["fields"] === undefined) return;
         let fields = [];
         for (let field of formData.fields) {
             fields.push(this.fieldGenerator(field));
         }
-        console.log("created fields", fields);
+       // console.log("created fields", fields);
         return fields;
     }
 
@@ -199,9 +158,12 @@ async loadData(id) {
     handleAddFieldClick(name, fieldType) {
         let fields = this.state.formFields || [];
         let selectionType = "";
-        console.log("formfields", fields);
+        //console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
-        if (name === "") return; //ei lisätä tyhjää kenttää
+        if (name === "" || typeof name !== "number" || typeof name !== "string"){ //estetään sopimattoman tyyppisten kenttien lisääminen
+            console.log("Incorrect field name");
+            return; //ei lisätä tyhjää kenttää
+        } 
         let empty = {
             "name": name,
             "fieldtype": fieldType,
@@ -223,12 +185,13 @@ async loadData(id) {
 mapFormValueToField(formData, formFields) {
     for (let field of formFields.fields) {
         if (field.name === "name") {
-            formFields.name = field.value;
+            formFields["name"] = field.value;
             console.log("name set to: ", field.value);
         }
 
         field.value = formData[field.name];
     }
+
     return formFields
 }
 
