@@ -67,3 +67,4 @@ https://github.com/gorilla/mux
 https://www.golangprograms.com/golang-read-json-file-into-struct.html
 https://www.youtube.com/watch?v=9kRgVxULbag
 https://firebase.google.com/docs/firestore/query-data/get-data?authuser=0
+https://firebase.google.com/docs/firestore/manage-data/delete-data?authuser=0#web

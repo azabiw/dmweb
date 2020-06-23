@@ -247,6 +247,23 @@ async handleSubmit(form, type, formFields) {
     
 }
 
+removeForm(id) {
+    const db = firebase.firestore();
+    const uid = store.getState().user;
+    if (!uid) return; //TODO: parempi tapa 
+    
+    db.collection("users").doc(uid).collection("forms").doc(id).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    }).finally(e => {
+        this.setState({redirect: true}); //poistutaan sivulta.
+    });
+
+    
+
+}
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to="/editor" />
@@ -272,15 +289,7 @@ async handleSubmit(form, type, formFields) {
                                 Save
                             </Button>
                             <Button type="button" onClick={event => {
-                                let util = new utilities();
-                                let name = document.getElementById("name").value;
-                                console.log(name);
-                                let charToDelete = {
-                                    name: name
-                                };
-                                util.sendToServer(charToDelete,"DELETE");
-                                utilities.initializeStore();
-                                this.setState({redirect: true}); //poistutaan sivulta.
+                                this.removeForm(this.props.id)
                             }}  color="red">
                                 Remove
                             </Button>
