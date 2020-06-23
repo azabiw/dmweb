@@ -184,12 +184,13 @@ async loadData(id) {
  */
 mapFormValueToField(formData, formFields) {
     for (let field of formFields.fields) {
+        field.value = formData[field.name];
+
         if (field.name === "name") {
             formFields["name"] = field.value;
             console.log("name set to: ", field.value);
         }
 
-        field.value = formData[field.name];
     }
 
     return formFields
