@@ -42,4 +42,10 @@ describe("Hp counter works", () => {
         cy.get(':nth-child(1) > :nth-child(2) > .segment').contains(npc);
         cy.get(':nth-child(1) > :nth-child(2) > .segment').contains(testHP);
     } )
+    it("HP calculation works", () =>{
+        const testHP = "123";
+        cy.get(':nth-child(1) > :nth-child(2) > .segment > [placeholder="Modifier"]').type("-10").should('have.value', "-10");
+        cy.get(':nth-child(2) > .segment > .primary').click();
+        cy.get(':nth-child(1) > :nth-child(2) > .segment').contains("113");
+    })
 })
