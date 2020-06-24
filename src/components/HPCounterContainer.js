@@ -8,10 +8,11 @@ class HPCounterContainer extends React.Component {
         this.state = {counters: []};
         this.addCounter = this.addCounter.bind(this);
     }
-    addCounter(name, value) {
+    addCounter(name, fieldValue) {
+        let value = parseInt(fieldValue, 10);
         let counters = this.state.counters;
-        if (typeof Number(value) !== "number") {
-            console.error("incorrect field value", value);
+        if (isNaN(value)) {
+            console.error("incorrect field value", fieldValue);
             this.clearFields();
             return;
         }

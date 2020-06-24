@@ -160,10 +160,11 @@ async loadData(id) {
         let selectionType = "";
         //console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
-        if (name === "" || typeof name !== "number" || typeof name !== "string"){ //estetään sopimattoman tyyppisten kenttien lisääminen
+        if (name === ""){ //estetään sopimattoman tyyppisten kenttien lisääminen
             console.log("Incorrect field name");
             return; //ei lisätä tyhjää kenttää
         } 
+        
         let empty = {
             "name": name,
             "fieldtype": fieldType,
