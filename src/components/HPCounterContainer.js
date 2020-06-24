@@ -10,12 +10,33 @@ class HPCounterContainer extends React.Component {
     }
     addCounter(name, value) {
         let counters = this.state.counters;
+        if (typeof Number(value) !== "number") {
+            console.error("incorrect field value", value);
+            this.clearFields();
+            return;
+        }
         const counter = <HPCounter label={name} initialValue={value} />;
         counters.push(counter);
         this.setState({counters: counters});
         console.log("counter added");
         console.log(this.state.counters);
+        this.clearFields();
     }
+
+
+    /**
+     * Tyhjentää kentät
+     */
+    clearFields() {  
+       let fields =  ["nameField", "hpField"];
+       for (let id of fields) {
+        let field = document.getElementById(id);
+        field.value = "";
+       }
+        
+    
+    }
+
     render(){
         let label = "New Character";
         let value = 10; //default value
@@ -25,8 +46,8 @@ class HPCounterContainer extends React.Component {
                     <div>{this.state.counters}</div>
                     <h3>Add a new HP counter</h3>
                     <p>These counters are local only and will not be synced with the server.</p>
-                    <input placeholder="Name" onChange={event => label = event.target.value} />
-                    <input placeholder="HP" onChange={event => value = event.target.value}/>
+                    <input id="nameField" placeholder="Name" onChange={event => label = event.target.value} />
+                    <input id="hpField" placeholder="HP" onChange={event => value = event.target.value}/>
                     <button className={styles.button} onClick={event => this.addCounter(label,value)}>Add a New Character</button>
                 </Segment>
             </Container>
