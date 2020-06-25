@@ -18,7 +18,6 @@ import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
 import {v4} from "uuid";
 import { AuthCheck, SuspenseWithPerf } from 'reactfire';
-import * as firebase from "firebase";
 
 //Pääohjelma
 class App extends React.Component {
