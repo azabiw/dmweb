@@ -1,5 +1,4 @@
 import React from "react";
-import utilities from "./Utilities";
 import {Form} from "react-final-form";
 import SimpleField from "./SimpleField";
 import styles from "../styles/characterform.module.css";
@@ -36,7 +35,6 @@ class JSONForm extends React.Component{
         let characters = store.getState().characters;
 
         this.state = {
-            customFields: [],
             formFields: formFields,
             redirect: false,
             characters: characters
@@ -106,7 +104,7 @@ async loadData(id) {
             case "selector":
                 //let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
                 let defaultValue = fieldData.value;
-                return <SelectorField idOfDefault={defaultValue} properties={this.state.properties} name={fieldData.name} label={fieldData.name} />
+                return <SelectorField idOfDefault={defaultValue} properties={this.state.characters} name={fieldData.name} label={fieldData.name} />
    
             default: 
                 return;
@@ -160,10 +158,11 @@ async loadData(id) {
         let selectionType = "";
         //console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
-        if (name === "" || typeof name !== "number" || typeof name !== "string"){ //estetään sopimattoman tyyppisten kenttien lisääminen
+        if (name === ""){ //estetään sopimattoman tyyppisten kenttien lisääminen
             console.log("Incorrect field name");
             return; //ei lisätä tyhjää kenttää
         } 
+        
         let empty = {
             "name": name,
             "fieldtype": fieldType,
@@ -197,29 +196,10 @@ mapFormValueToField(formData, formFields) {
 }
 
 async handleSubmit(form, type, formFields) {
-    const url = "/users";
-    //let body = {};
-    //0body["user"] = "testi";
-    //body["formtype"] = type;
-    let method = "post"; 
     console.log("form", form);
     console.log(formFields);
     formFields = this.mapFormValueToField(form,formFields);
     if (!formFields["id"]) formFields["id"] = this.props.id || v4(); //jos ID:tä ei annettu propseina asetetaan v4 UUID 
-
-    /*try {
-        const response = await fetch(url, {
-            method: method,
-            body: JSON.stringify(formFields),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const json = await response.json();
-        console.log('Success:', JSON.stringify(json));
-    } catch (error) {
-        console.error('Error:', error);
-    }    */
 
     const db = firebase.firestore();
     const uid = store.getState().user;
@@ -243,7 +223,7 @@ async handleSubmit(form, type, formFields) {
     store.dispatch({
         type: "characters/add",
         payload: firebaseFriendlyForm
-    })
+    });
     
 }
 

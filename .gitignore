@@ -35,3 +35,5 @@ src/other/firebaseConfig.js
 src/firebaseConfig.js
 .firebase/
 firebase-debug.log
+.firebase/hosting.YnVpbGQ.cache
+*.cache

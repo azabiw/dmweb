@@ -17,17 +17,10 @@ import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
 import {v4} from "uuid";
-import store from "./redux/Store";
 import { AuthCheck, SuspenseWithPerf } from 'reactfire';
-import * as firebase from "firebase";
 
 //Pääohjelma
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        const perf = firebase.performance();
-        const analytics = firebase.analytics();
-    }
     render() {
         return (
             <SuspenseWithPerf fallback={"loading"} traceId={"mainApp"}>

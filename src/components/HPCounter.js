@@ -10,6 +10,13 @@ class HPCounter extends React.Component {
     }
 
     modify(value) {
+        value = parseInt(value, 10);
+        if (isNaN(value)) {
+            console.error("incorrect field value", value);
+            this.clearField();
+            return;
+        }
+
         let newValue = this.state.value + value;
         this.setState({value: newValue});
         console.log("value");
@@ -29,7 +36,7 @@ class HPCounter extends React.Component {
                 <Segment className={styles.Paper}>
                     <h3>{this.label}</h3>
                     {this.state.value}
-                    <input id={this.label} defaultValue={""} onChange={event => modifier = parseInt(event.target.value)} placeholder="Modifier" />
+                    <input className="modifier" id={this.label} defaultValue={""} onChange={event => modifier = parseInt(event.target.value)} placeholder="Modifier" />
                     <Button primary onClick={event => this.modify(modifier)}>Apply</Button>
                     <Button secondary onClick={event => this.clearField()}>Clear</Button>
                </Segment>
