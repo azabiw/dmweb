@@ -10,6 +10,13 @@ class HPCounter extends React.Component {
     }
 
     modify(value) {
+        value = parseInt(value, 10);
+        if (isNaN(value)) {
+            console.error("incorrect field value", value);
+            this.clearField();
+            return;
+        }
+
         let newValue = this.state.value + value;
         this.setState({value: newValue});
         console.log("value");
