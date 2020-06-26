@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import styles from "../styles/Header.module.css";
+//import styles from "../styles/Header.module.css";
 import {Button,  Menu} from "semantic-ui-react";
 import LoginContainer from "./Login";
 class Header extends React.Component {

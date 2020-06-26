@@ -3,6 +3,8 @@ import React from "react";
 import {Rail, Segment, Button} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import styles from "../styles/PropertyList.module.css";
+import AddNewFormButton from "./AddNewFormButton";
+
 class PropertyList extends React.Component {
     constructor(props) {
         super(props);
@@ -47,8 +49,10 @@ class PropertyList extends React.Component {
                     <ul className={styles.list}>{characterList}</ul>
                     <h3>List of Settlements: </h3>
                     <ul className={styles.list}>{settlementList}</ul>
-                    <Button className={styles.ListElement} as={Link} to="/editor/new" primary >Add a new Character</Button>
-                    <Button className={styles.ListElement} as={Link} to="/editor" onClick={(event => store.dispatch({type:"editable/set", payload: []}))} primary >Add a new Settlement</Button>
+                    
+                    
+                    <AddNewFormButton />
+
                 </Segment>
             </Rail>
         )
