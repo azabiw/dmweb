@@ -158,7 +158,8 @@ async loadData(id) {
         let selectionType = "";
         //console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
-        if (name === ""){ //estetään sopimattoman tyyppisten kenttien lisääminen
+        let testForNumbers = parseInt(name);
+        if (name === "" || !isNaN(testForNumbers)){ //estetään sopimattoman tyyppisten kenttien lisääminen
             console.log("Incorrect field name");
             return; //ei lisätä tyhjää kenttää
         } 
