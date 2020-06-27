@@ -1,7 +1,5 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
-import * as firebase from "firebase";
-import {firebaseConfig} from "../firebaseConfig";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
