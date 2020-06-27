@@ -36,7 +36,6 @@ const setEditable = createAction("editable/set", function prepare(editable){
    }
 });
 
-const initialiseFirebase = createAction("firebase/initalise")
 
 const updateCharacter = createAction("characters/update");
 
@@ -109,12 +108,6 @@ const reducer = createReducer({
     },
     [addQuest]: (state, action) => {
         state.quests.push(action.payload);
-    },
-    [initialiseFirebase]: (state, action) => {
-        if (state["firebase"] !== undefined) return; //jos firebase on jo alustettu storeen, ei luoda enää uusia kopioita siitä
-        firebase.initializeApp(firebaseConfig)
-        state["firebase"] = firebase.app;
-        console.log(state.firebase);
     },
     [setUser]: (state, action) => {
         state["user"] = action.payload;

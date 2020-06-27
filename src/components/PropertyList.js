@@ -13,7 +13,6 @@ class PropertyList extends React.Component {
         this.state = {
             characters: store.getState().characters,
             settlements: store.getState().settlements,
-            redirect: false
         }
 
     }
