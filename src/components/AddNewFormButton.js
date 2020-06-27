@@ -1,5 +1,5 @@
 import React from "react";
-import { Button,  Modal, Label } from 'semantic-ui-react'
+import { Button,  Modal } from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 import store from "../redux/Store";
 
@@ -9,19 +9,36 @@ class AddNewFormButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            formtype:"character"
+            formtype:"character",
+            typeOptions: ["character", "settlement"],
+            newType: "",
+            showNewTypeInput: false
         }
-        console.log("lisäämisnappi renderöity");
         this.onTypeChange = this.onTypeChange.bind(this);
+        this.onNewTypeChange = this.onNewTypeChange.bind(this);
+
     }
     
     onTypeChange(newType) {
-        this.setState({formtype:newType});
+        let showNewTypeInput = false;
+        if (newType === "new") {
+            showNewTypeInput = true;
+        }       
+        this.setState({
+            formtype:newType,
+            showNewTypeInput: showNewTypeInput
+        });
+
+    }
+
+    onNewTypeChange(value) {
+        this.setState({
+            newType: value
+        });
     }
 
     render() {
-        const typeOptions = ["character", "settlement"];
-        let typeSelector = typeOptions.map(type => <option>{type}</option> );
+        let typeSelector = this.state.typeOptions.map(type => <option>{type}</option> );
         return (
         <React.Fragment>
 
@@ -30,18 +47,23 @@ class AddNewFormButton extends React.Component {
                 <Modal.Content >
                 <Modal.Description>
 
-                <Label>Select field type
+                <label>Select field type
                     <select value={this.state.formtype} onChange={e => this.onTypeChange(e.target.value)}>
+                        <option value="new">New Type</option>
                         {typeSelector}
                     </select>
-                </Label>
+                </label>
+
+                <NewTypeInput value={this.state.newType} visible={this.state.showNewTypeInput} onChange={this.onNewTypeChange}/>
 
                 </Modal.Description>
                 <Button onClick={
                     event => {
+                        let type = this.state.formtype;
+                        if(this.state.newType !== "") type = this.state.newType;
                         store.dispatch({
                             type: "formtype/set",
-                            payload: this.state.formtype
+                            payload: type
                         })
                 }} as={Link} to="/editor/new" primary >Add a new Form</Button>
 
@@ -52,4 +74,19 @@ class AddNewFormButton extends React.Component {
     }
 }
 
+class NewTypeInput extends React.Component {
+
+    render() {
+        if (!this.props.visible) {
+            return <React.Fragment></React.Fragment>
+        } else {
+           return <React.Fragment>
+            New form type: 
+            <input value={this.props.value} onChange={event => this.props.onChange(event.target.value)} type="text" placeholder="New form type" ></input>
+            </React.Fragment> 
+
+        }
+    }
+
+}
 export default AddNewFormButton;
