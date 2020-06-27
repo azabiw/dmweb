@@ -4,6 +4,9 @@ import {Link} from "react-router-dom";
 import store from "../redux/Store";
 
 
+/**
+ * Käsittelee uuden lomakkeen lisäämisen
+ */
 class AddNewFormButton extends React.Component {
 
     constructor(props) {
@@ -19,6 +22,12 @@ class AddNewFormButton extends React.Component {
 
     }
     
+    /**
+     * Käsittelee tyypinvalitan dropdown valikon muutokset valmiiksi tunnetuille tyypeille
+     * Jos tyyppinä on new muuttaa tilaa näyttämään input-kentän, johon käyttäjä voi lisätä oman tyypin.
+     * 
+     * @param {string} newType valmiiksi tunnettu tyyppi, joka on valittuna drop down -valikossa.
+     */
     onTypeChange(newType) {
         let showNewTypeInput = false;
         if (newType === "new") {
@@ -74,6 +83,11 @@ class AddNewFormButton extends React.Component {
     }
 }
 
+
+/**
+ * Uuden lomaketyypin lisäämiseen käytettävä komponentti
+ * Propseina annettava visible määrittelee näkyvyyden
+ */
 class NewTypeInput extends React.Component {
 
     render() {
