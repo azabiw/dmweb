@@ -20,11 +20,13 @@ class JSONForm extends React.Component{
         console.log(`Id${id}`);
         const isNew = this.props.isNew || false;
         let formFields = this.props.formFields || []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
+        const formtype = store.getState().currentFormtype;
+        console.log("formtype", formtype);
         if (!isNew) this.loadData(id);
         else {
             console.log("Creating a new form");
             if (formFields.length < 1) {
-                formFields = new FormTemplate("name", "character", []);
+                formFields = new FormTemplate("name", formtype, []);
             }
         }
         this.handleChange = this.handleChange.bind(this);
@@ -33,11 +35,11 @@ class JSONForm extends React.Component{
 
         this.unsubscribe = store.subscribe(this.handleChange);
         let characters = store.getState().characters;
-
         this.state = {
             formFields: formFields,
             redirect: false,
-            characters: characters
+            characters: characters,
+            formtype: formtype
         };
 
         console.log("list of chars ", store.getState());
@@ -134,8 +136,12 @@ async loadData(id) {
     handleChange() {
 
         let storeState = store.getState();
-        let properties = storeState.characters;
-        this.setState({properties : properties})
+        const formtype = storeState.currentFormtype;
+        const properties = storeState.characters;
+        this.setState({
+            characters : properties,
+            formtype: formtype
+        });
         /*let storeState = store.getState().editable;
         console.log("edit type in store" + storeState.editType);
         let isNew = false;
@@ -158,7 +164,8 @@ async loadData(id) {
         let selectionType = "";
         //console.log("formfields", fields);
         if (fieldType !== "text") selectionType = fieldType;
-        if (name === ""){ //estetään sopimattoman tyyppisten kenttien lisääminen
+        let testForNumbers = parseInt(name);
+        if (name === "" || !isNaN(testForNumbers)){ //estetään sopimattoman tyyppisten kenttien lisääminen
             console.log("Incorrect field name");
             return; //ei lisätä tyhjää kenttää
         } 
@@ -206,9 +213,11 @@ async handleSubmit(form, type, formFields) {
     if (!uid) return; //TODO: parempi tapa 
         // Add a new document in collection "cities"
     let firebaseFriendlyForm;
-    try {
+    try { //uusi lomake
         firebaseFriendlyForm = formFields.toFirebase();
-    } catch (e) {
+        firebaseFriendlyForm.formtype = store.getState().currentFormtype; //asetetaan lomakkeen tyyppi vastaamaan storessa olevaa tyyppiä TODO: tee parempi tapa
+
+    } catch (e) {  //vanha lomake
         console.log("error ", e);
         firebaseFriendlyForm = formFields;
     }
@@ -256,7 +265,7 @@ removeForm(id) {
             <Segment className={styles.editor}>
                 <h3>Edit NPC</h3>
                 <Form onSubmit={(formData) => {
-                    this.handleSubmit(formData, "character", formFields); //korjaa tyypin valinta
+                    this.handleSubmit(formData, this.state.formtype, formFields); //korjaa tyypin valinta
                     console.log(formData);                    
                 } }>
                     {({handleSubmit}) => (

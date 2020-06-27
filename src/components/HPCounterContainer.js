@@ -48,7 +48,7 @@ class HPCounterContainer extends React.Component {
                     <h3>Add a new HP counter</h3>
                     <p>These counters are local only and will not be synced with the server.</p>
                     <input id="nameField" placeholder="Name" onChange={event => label = event.target.value} />
-                    <input id="hpField" placeholder="HP" onChange={event => value = event.target.value}/>
+                    <input type="number" id="hpField" placeholder="HP" onChange={event => value = event.target.value}/>
                     <button className={styles.button} onClick={event => this.addCounter(label,value)}>Add a New Character</button>
                 </Segment>
             </Container>

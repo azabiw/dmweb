@@ -9,15 +9,6 @@ import {
   } from 'reactfire';
 
 class EditorPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: "character",
-            characters: [],
-            settlements: [],
-            editable: ""
-        }; //Valittu editori
-    }
 
     /**
      * Fetches all user's data from server and saves them to corresponding states
