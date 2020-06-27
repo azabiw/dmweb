@@ -34,6 +34,11 @@ const setEditable = createAction("editable/set", function prepare(editable){
    }
 });
 
+const setCurrentFormType = createAction("formtype/set", function prepare(formtype){
+    return {
+        payload: formtype
+    }
+});
 
 const updateCharacter = createAction("characters/update");
 
@@ -67,7 +72,8 @@ const reducer = createReducer({
     settlements: [],
     logs: [],
     editable: [],
-    quests: []
+    quests: [],
+    currentFormtype: "character"
 }, {
    [addCharacter]:  (state, action) => {
        let index = getCharacterIndexWithID(state.characters, action.payload.id);
@@ -109,6 +115,9 @@ const reducer = createReducer({
     },
     [setUser]: (state, action) => {
         state["user"] = action.payload;
+    },
+    [setCurrentFormType]: (state, action) => {
+        state["currentFormtype"] = action.payload;
     }
 });
 

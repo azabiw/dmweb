@@ -1,6 +1,7 @@
 import React from "react";
 import { Button,  Modal, Label } from 'semantic-ui-react'
 import {Link} from "react-router-dom";
+import store from "../redux/Store";
 
 
 class AddNewFormButton extends React.Component {
@@ -36,7 +37,13 @@ class AddNewFormButton extends React.Component {
                 </Label>
 
                 </Modal.Description>
-                <Button as={Link} to="/editor/new" primary >Add a new Character</Button>
+                <Button onClick={
+                    event => {
+                        store.dispatch({
+                            type: "formtype/set",
+                            payload: this.state.formtype
+                        })
+                }} as={Link} to="/editor/new" primary >Add a new Form</Button>
 
                 </Modal.Content>
              </Modal> 
