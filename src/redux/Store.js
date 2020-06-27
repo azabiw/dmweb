@@ -44,6 +44,11 @@ const updateCharacter = createAction("characters/update");
 
 const removeCharacter = createAction("characters/remove");
 
+const addForm = createAction("form/add", function prepare(form){
+    return {
+        payload: form
+    }
+} )
 
 
 const setInitialValues = createAction("initialise", function prepare(editable){
@@ -73,6 +78,7 @@ const reducer = createReducer({
     logs: [],
     editable: [],
     quests: [],
+    forms:[],
     currentFormtype: "character"
 }, {
    [addCharacter]:  (state, action) => {
@@ -107,6 +113,7 @@ const reducer = createReducer({
     [setInitialValues]: (state, action) => {
        state.characters = action.payload.characters;
        state.settlements = action.payload.settlements;
+       state["forms"] = action.payload.forms ?? [];
        state.logs = action.payload.logs;
        console.log("Setting initial store state to" , action.payload);
     },
@@ -118,6 +125,14 @@ const reducer = createReducer({
     },
     [setCurrentFormType]: (state, action) => {
         state["currentFormtype"] = action.payload;
+    },
+    [addForm]: (state, action) => {
+        try { 
+            state.forms[action.payload.formtype].push(action.payload);
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 });
 
