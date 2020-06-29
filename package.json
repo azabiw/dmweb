@@ -27,7 +27,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "test-coverage": "npm test -- --coverage"
+    "test-coverage": "npm test -- --coverage",
+    "cypress": "npx cypress open"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {

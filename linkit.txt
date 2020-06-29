@@ -69,3 +69,5 @@ https://www.youtube.com/watch?v=9kRgVxULbag
 https://firebase.google.com/docs/firestore/query-data/get-data?authuser=0
 https://firebase.google.com/docs/firestore/manage-data/delete-data?authuser=0#web
 https://github.com/prescottprue/cypress-firebase
+https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json
+https://react.semantic-ui.com/modules/modal/#types-controlled

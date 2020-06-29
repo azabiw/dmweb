@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 /// <reference types="Cypress" />
+
+
 describe('Different pages work', () => {
     it('frontpage opens', () => {
         cy.visit('127.0.0.1:3000');
@@ -51,8 +53,24 @@ describe("Hp counter works", () => {
     })
 })
 
-describe("Some Test", () => {
-    it("Adds document to test_hello_world collection of Firestore", () => {
-      cy.callFirestore("add", "test_hello_world", { some: "value" });
-    });
-  });
+describe("Editor page works", () => {
+    it("Editor page opens", () => {
+        cy.login();
+        cy.visit("127.0.0.1:3000/editor");
+    })
+    it("New form can be added", () => {
+        const testNPC = {
+            name: "testNPC"
+        }
+        cy.login();
+        cy.get('#leftList > .ui').click({force: true});
+        cy.contains("Add a New Form");
+        cy.get('.content > .ui').click({force: true});
+        cy.contains("Add a new field");
+        cy.get('#name').clear(); //tyhjennetään kenttä ennen muokkaamista, jotta vakioarvo ei tule mukaan
+        cy.get('#name').type(testNPC.name).should('have.value', testNPC.name);
+        cy.get('#inputForm > .primary').click();
+        cy.get('#leftList').contains(testNPC.name).click();
+        cy.get('.red').click();
+    })
+})
