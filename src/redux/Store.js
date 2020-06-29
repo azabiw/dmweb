@@ -1,5 +1,6 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
+import { act } from "react-test-renderer";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
@@ -57,7 +58,14 @@ const setInitialValues = createAction("initialise", function prepare(editable){
     }
 });
 
-
+/**
+ * Poistaa storesta lomakkeen annetulla ID:llä
+ */
+const removeForm = createAction("form/remove", function prepare(id, type){
+    return {
+        payload: {id,type}
+    }
+})
 /**
  * Returns either given characters index from char list or -1 if not found
  * @param characterList
@@ -133,6 +141,19 @@ const reducer = createReducer({
         } catch (error) {
             console.error(error);
         }
+    },
+    [removeForm]: (state, action) => {
+        try {
+            const type = action.payload.type;
+            state.forms[type].array.forEach((element, i) => {
+                if (element.id === action.payload.id){
+                    console.log("Removing form with id", element.id);
+                    delete state.forms[type][i];
+                } 
+            });
+        } catch (error) {
+            console.log(error);
+        }    
     }
 });
 

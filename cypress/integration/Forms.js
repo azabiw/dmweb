@@ -58,7 +58,7 @@ describe("Editor page works", () => {
         cy.login();
         cy.visit("127.0.0.1:3000/editor");
     })
-    it("New form can be added", () => {
+    it("New character form can be added", () => {
         const testNPC = {
             name: "testNPC"
         }
@@ -72,5 +72,6 @@ describe("Editor page works", () => {
         cy.get('#inputForm > .primary').click();
         cy.get('#leftList').contains(testNPC.name).click();
         cy.get('.red').click();
+        cy.contains(testNPC.name).should('not.exist'); //testataan löytyykö luotu lomake
     })
 })

@@ -40,3 +40,6 @@ firebase-debug.log
 serviceAccount.json
 .env
 cypress.env.json
+cypress/videos/
+cypress/screenshots/
+cypress/screenshots/All Specs/my-image.png

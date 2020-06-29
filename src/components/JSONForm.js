@@ -236,11 +236,17 @@ async handleSubmit(form, type, formFields) {
     
 }
 
-removeForm(id) {
+removeForm(id, type) {
     const db = firebase.firestore();
     const uid = store.getState().user;
     if (!uid) return; //TODO: parempi tapa 
-    
+    store.dispatch({
+        type: "form/remove",
+        payload: {
+            type, 
+            id
+        }
+    })
     db.collection("users").doc(uid).collection("forms").doc(id).delete().then(function() {
         console.log("Document successfully deleted!");
     }).catch(function(error) {
@@ -249,7 +255,7 @@ removeForm(id) {
         this.setState({redirect: true}); //poistutaan sivulta.
     });
 
-    
+
 
 }
 
@@ -278,7 +284,7 @@ removeForm(id) {
                                 Save
                             </Button>
                             <Button type="button" onClick={event => {
-                                this.removeForm(this.props.id)
+                                this.removeForm(this.props.id, this.state.formtype)
                             }}  color="red">
                                 Remove
                             </Button>
