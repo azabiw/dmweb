@@ -1,38 +1,12 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
 
-const addCharacter = createAction("characters/add", function prepare(character) {
-    return {
-        payload: {
-            character : character
-        }
-    }
-});
 const setUser = createAction("user/set", function prepare(user) {
     return {
         payload: user
     }
 });
 
-const addSettlement = createAction("settlements/add", function prepare(settlement) {
-    return {
-        payload: settlement,
-        id: v4()
-    }
-});
-
-const addQuest = createAction("quest/add", function prepare(quest) {
-    return {
-        payload: quest,
-    }
-});
-
-const setEditable = createAction("editable/set", function prepare(editable){
-   return {
-       payload: editable,
-       editType: editable.type
-   }
-});
 
 const setCurrentFormType = createAction("formtype/set", function prepare(formtype){
     return {
@@ -40,9 +14,6 @@ const setCurrentFormType = createAction("formtype/set", function prepare(formtyp
     }
 });
 
-const updateCharacter = createAction("characters/update");
-
-const removeCharacter = createAction("characters/remove");
 
 const addForm = createAction("form/add", function prepare(form){
     return {
@@ -83,44 +54,12 @@ const reducer = createReducer({
     forms:[],
     currentFormtype: "character"
 }, {
-   [addCharacter]:  (state, action) => {
-       let index = getCharacterIndexWithID(state.forms.characters, action.payload.id);
-       if (index !== -1) {
-           state.forms.characters[index] = action.payload;
-       }
-       else state.forms.characters.push(action.payload);
-   },
-    [updateCharacter]: (state, action) => {
-        for (let i = 0; i < state.forms.characters.length; i++) {
-            if (state.forms.characters[i].id === state.editable.id) {
-                state.forms.characters[i] = action.payload;
-                return;
-            }
-        }
-    },
-   [addSettlement]: (state, action) => {
-       state.forms.settlements.push(action.payload)
-   },
-    [setEditable]: (state, action) => {
-       state.editable = action.payload;
-    },
-    [removeCharacter]: (state, action) => {
-        for (let i = 0; i < state.forms.characters.length; i++) {
-            if (state.forms.characters[i].id === action.payload) {
-                console.log("deleted character with id: " + action.payload);
-                delete state.forms.characters[i];
-            }
-        }
-    },
     [setInitialValues]: (state, action) => {
        /*state.characters = action.payload.characters;
        state.settlements = action.payload.settlements;*/
        state["forms"] = action.payload ?? [];
        state.logs = action.payload.logs;
        console.log("Setting initial store state to" , action.payload);
-    },
-    [addQuest]: (state, action) => {
-        state.quests.push(action.payload);
     },
     [setUser]: (state, action) => {
         state["user"] = action.payload;
@@ -130,7 +69,9 @@ const reducer = createReducer({
     },
     [addForm]: (state, action) => {
         try { 
-            state.forms[action.payload.formtype].push(action.payload);
+            const formtype = action.payload.formtype;
+            console.log("adding form with formtype:", formtype);
+            state.forms[formtype].push(action.payload);
 
         } catch (error) {
             console.error(error);

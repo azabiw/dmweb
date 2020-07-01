@@ -90,8 +90,8 @@ class utilities {
             store.dispatch({
                 type: "initialise",
                 payload: {
-                    characters: chars,
-                    settlements: settlements,
+                    character: chars,
+                    settlement: settlements,
                     logs: logs,
                     quests: quests
                 }

@@ -34,11 +34,11 @@ class JSONForm extends React.Component{
         this.loadData = this.loadData.bind(this);
 
         this.unsubscribe = store.subscribe(this.handleChange);
-        let characters = store.getState().characters;
+        let character = store.getState().character;
         this.state = {
             formFields: formFields,
             redirect: false,
-            characters: characters,
+            character: character,
             formtype: formtype
         };
 
@@ -104,9 +104,8 @@ async loadData(id) {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
-                //let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
                 let defaultValue = fieldData.value;
-                return <SelectorField idOfDefault={defaultValue} properties={this.state.characters} name={fieldData.name} label={fieldData.name} />
+                return <SelectorField idOfDefault={defaultValue} properties={this.state.character} name={fieldData.name} label={fieldData.name} />
    
             default: 
                 return;
@@ -135,23 +134,13 @@ async loadData(id) {
 
     handleChange() {
 
-        let storeState = store.getState();
+        let storeState = store.getState().forms;
         const formtype = storeState.currentFormtype;
-        const properties = storeState.characters;
+        const properties = storeState.character;
         this.setState({
-            characters : properties,
+            character : properties,
             formtype: formtype
         });
-        /*let storeState = store.getState().editable;
-        console.log("edit type in store" + storeState.editType);
-        let isNew = false;
-        if (storeState !== []) isNew = false;
-        if (true || storeState.editType === "characters") { //todo: korjaa tyyppi
-            this.setState({
-                defaultCharacter: storeState,
-                isNew: isNew
-            });
-        }*/
     }
 
     /**
@@ -230,7 +219,7 @@ async handleSubmit(form, type, formFields) {
     });
 
     store.dispatch({
-        type: "characters/add",
+        type: "form/add",
         payload: firebaseFriendlyForm
     });
     
