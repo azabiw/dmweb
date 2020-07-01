@@ -21,7 +21,6 @@ class JSONForm extends React.Component{
         const isNew = this.props.isNew || false;
         let formFields = this.props.formFields || []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         const formtype = store.getState().currentFormtype;
-        console.log("formtype", formtype);
         if (!isNew) this.loadData(id);
         else {
             console.log("Creating a new form");
@@ -42,7 +41,6 @@ class JSONForm extends React.Component{
             formtype: formtype
         };
 
-        console.log("list of chars ", store.getState());
 
     }
 

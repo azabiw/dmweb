@@ -1,5 +1,4 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
-import v4 from 'uuid/v4';
 
 const setUser = createAction("user/set", function prepare(user) {
     return {
