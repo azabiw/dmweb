@@ -10,6 +10,21 @@ import {
 
 class EditorPage extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            hasError: false
+        };
+    }
+
+    //Napataan lapsikomponenttien virheet ja renderöidään tilalle viesti
+    static getDerivedStateFromError(error) {  
+          // Update state so the next render will show the fallback UI.    
+          console.error(error);
+          return {
+               hasError: true 
+            };  
+        }
     /**
      * Fetches all user's data from server and saves them to corresponding states
      * @returns {Promise<void>}
@@ -19,6 +34,11 @@ class EditorPage extends React.Component {
     }
 
     render() {
+        if (this.state.hasError) {
+            return <Container fluid>
+                <h2>Something went wrong</h2>
+            </Container>
+        }
         return (
             <Container fluid>
                 <Grid centered columns={2}>
