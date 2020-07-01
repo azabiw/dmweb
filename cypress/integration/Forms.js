@@ -46,7 +46,6 @@ describe("Hp counter works", () => {
         cy.get(':nth-child(1) > :nth-child(2) > .segment').contains(testHP);
     } )
     it("HP calculation works", () =>{
-        const testHP = "123";
         cy.get(':nth-child(1) > :nth-child(2) > .segment > [placeholder="Modifier"]').type("-10").should('have.value', "-10");
         cy.get(':nth-child(2) > .segment > .primary').click();
         cy.get(':nth-child(1) > :nth-child(2) > .segment').contains("113");
@@ -72,6 +71,6 @@ describe("Editor page works", () => {
         cy.get('#inputForm > .primary').click();
         cy.get('#leftList').contains(testNPC.name).click();
         cy.get('.red').click();
-        cy.contains(testNPC.name).should('not.exist'); //testataan löytyykö luotu lomake
+        cy.contains(testNPC.name).should('not.exist'); //testataan löytyykö luotu lomake. jos löytyy heitetään virhe
     })
 })

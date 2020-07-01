@@ -42,4 +42,4 @@ serviceAccount.json
 cypress.env.json
 cypress/videos/
 cypress/screenshots/
-cypress/screenshots/All Specs/my-image.png
+
