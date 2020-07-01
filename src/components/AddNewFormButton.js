@@ -15,13 +15,19 @@ class AddNewFormButton extends React.Component {
             formtype:"character",
             typeOptions: ["character", "settlement"],
             newType: "",
-            showNewTypeInput: false
+            showNewTypeInput: false,
+            isVisible: false
         }
         this.onTypeChange = this.onTypeChange.bind(this);
         this.onNewTypeChange = this.onNewTypeChange.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
 
     }
-    
+    handleOpen = () => this.setState({ isVisible: true })
+
+    handleClose = () => this.setState({ isVisible: false })
+  
     /**
      * Käsittelee tyypinvalitan dropdown valikon muutokset valmiiksi tunnetuille tyypeille
      * Jos tyyppinä on new muuttaa tilaa näyttämään input-kentän, johon käyttäjä voi lisätä oman tyypin.
@@ -51,7 +57,10 @@ class AddNewFormButton extends React.Component {
         return (
         <React.Fragment>
 
-                <Modal trigger={<Button primary>Add a New Form</Button>}>
+                <Modal trigger={<Button onClick={this.handleOpen} primary>Add a New Form</Button>}
+                        open={this.state.isVisible}
+                        onClose={this.handleClose}
+                >
                 <Modal.Header>Add a New Form</Modal.Header>
                 <Modal.Content >
                 <Modal.Description>
@@ -74,6 +83,7 @@ class AddNewFormButton extends React.Component {
                             type: "formtype/set",
                             payload: type
                         })
+                        this.handleClose();
                 }} as={Link} to="/editor/new" primary >Add a new Form</Button>
 
                 </Modal.Content>

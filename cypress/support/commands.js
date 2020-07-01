@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +24,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
+import "firebase/firestore";
+import { attachCustomCommands } from "cypress-firebase";
+import {firebaseConfig} from "../../src/firebaseConfig.js";
+firebase.initializeApp(firebaseConfig);
+
+attachCustomCommands({ Cypress, cy, firebase });

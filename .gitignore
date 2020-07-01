@@ -37,3 +37,9 @@ src/firebaseConfig.js
 firebase-debug.log
 .firebase/hosting.YnVpbGQ.cache
 *.cache
+serviceAccount.json
+.env
+cypress.env.json
+cypress/videos/
+cypress/screenshots/
+

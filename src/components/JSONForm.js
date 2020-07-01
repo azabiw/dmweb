@@ -21,7 +21,6 @@ class JSONForm extends React.Component{
         const isNew = this.props.isNew || false;
         let formFields = this.props.formFields || []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         const formtype = store.getState().currentFormtype;
-        console.log("formtype", formtype);
         if (!isNew) this.loadData(id);
         else {
             console.log("Creating a new form");
@@ -34,15 +33,14 @@ class JSONForm extends React.Component{
         this.loadData = this.loadData.bind(this);
 
         this.unsubscribe = store.subscribe(this.handleChange);
-        let characters = store.getState().characters;
+        let character = store.getState().character;
         this.state = {
             formFields: formFields,
             redirect: false,
-            characters: characters,
+            character: character,
             formtype: formtype
         };
 
-        console.log("list of chars ", store.getState());
 
     }
 
@@ -104,9 +102,8 @@ async loadData(id) {
             case "text":
                 return <SimpleField id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
-                //let selectionType = fieldData.selectiontype ? fieldData.selectiontype : "characters";
                 let defaultValue = fieldData.value;
-                return <SelectorField idOfDefault={defaultValue} properties={this.state.characters} name={fieldData.name} label={fieldData.name} />
+                return <SelectorField idOfDefault={defaultValue} properties={this.state.character} name={fieldData.name} label={fieldData.name} />
    
             default: 
                 return;
@@ -135,23 +132,13 @@ async loadData(id) {
 
     handleChange() {
 
-        let storeState = store.getState();
+        let storeState = store.getState().forms;
         const formtype = storeState.currentFormtype;
-        const properties = storeState.characters;
+        const properties = storeState.character;
         this.setState({
-            characters : properties,
+            character : properties,
             formtype: formtype
         });
-        /*let storeState = store.getState().editable;
-        console.log("edit type in store" + storeState.editType);
-        let isNew = false;
-        if (storeState !== []) isNew = false;
-        if (true || storeState.editType === "characters") { //todo: korjaa tyyppi
-            this.setState({
-                defaultCharacter: storeState,
-                isNew: isNew
-            });
-        }*/
     }
 
     /**
@@ -230,17 +217,23 @@ async handleSubmit(form, type, formFields) {
     });
 
     store.dispatch({
-        type: "characters/add",
+        type: "form/add",
         payload: firebaseFriendlyForm
     });
     
 }
 
-removeForm(id) {
+removeForm(id, type) {
     const db = firebase.firestore();
     const uid = store.getState().user;
     if (!uid) return; //TODO: parempi tapa 
-    
+    store.dispatch({
+        type: "form/remove",
+        payload: {
+            type, 
+            id
+        }
+    })
     db.collection("users").doc(uid).collection("forms").doc(id).delete().then(function() {
         console.log("Document successfully deleted!");
     }).catch(function(error) {
@@ -249,7 +242,7 @@ removeForm(id) {
         this.setState({redirect: true}); //poistutaan sivulta.
     });
 
-    
+
 
 }
 
@@ -278,7 +271,7 @@ removeForm(id) {
                                 Save
                             </Button>
                             <Button type="button" onClick={event => {
-                                this.removeForm(this.props.id)
+                                this.removeForm(this.props.id, this.state.formtype)
                             }}  color="red">
                                 Remove
                             </Button>
