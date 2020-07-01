@@ -11,8 +11,8 @@ class PropertyList extends React.Component {
         this.handleChange = this.handleChange.bind(this);
        this.unsubscribe = store.subscribe(this.handleChange);
         this.state = {
-            characters: store.getState().characters,
-            settlements: store.getState().settlements,
+            characters: store.getState().forms.characters ?? [],
+            settlements: store.getState().forms.settlements ?? [],
         }
 
     }
@@ -20,10 +20,9 @@ class PropertyList extends React.Component {
         this.unsubscribe();
     }
     handleChange() {
-        console.log(store.getState().characters);
         this.setState({
-            characters: store.getState().characters,
-            settlements: store.getState().settlements
+            characters: store.getState().forms.characters ?? [],
+            settlements: store.getState().forms.settlements ?? []
         });
         console.log("got data from store");
         //console.log(store.getState());

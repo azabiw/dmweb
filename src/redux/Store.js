@@ -1,6 +1,5 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
 import v4 from 'uuid/v4';
-import { act } from "react-test-renderer";
 
 const addCharacter = createAction("characters/add", function prepare(character) {
     return {
@@ -81,47 +80,42 @@ function getCharacterIndexWithID(characterList, id) {
     return -1;
 }
 const reducer = createReducer({
-    characters: [],
-    settlements: [],
-    logs: [],
-    editable: [],
-    quests: [],
     forms:[],
     currentFormtype: "character"
 }, {
    [addCharacter]:  (state, action) => {
-       let index = getCharacterIndexWithID(state.characters, action.payload.id);
+       let index = getCharacterIndexWithID(state.forms.characters, action.payload.id);
        if (index !== -1) {
-           state.characters[index] = action.payload;
+           state.forms.characters[index] = action.payload;
        }
-       else state.characters.push(action.payload);
+       else state.forms.characters.push(action.payload);
    },
     [updateCharacter]: (state, action) => {
-        for (let i = 0; i < state.characters.length; i++) {
-            if (state.characters[i].id === state.editable.id) {
-                state.characters[i] = action.payload;
+        for (let i = 0; i < state.forms.characters.length; i++) {
+            if (state.forms.characters[i].id === state.editable.id) {
+                state.forms.characters[i] = action.payload;
                 return;
             }
         }
     },
    [addSettlement]: (state, action) => {
-       state.settlements.push(action.payload)
+       state.forms.settlements.push(action.payload)
    },
     [setEditable]: (state, action) => {
        state.editable = action.payload;
     },
     [removeCharacter]: (state, action) => {
-        for (let i = 0; i < state.characters.length; i++) {
-            if (state.characters[i].id === action.payload) {
+        for (let i = 0; i < state.forms.characters.length; i++) {
+            if (state.forms.characters[i].id === action.payload) {
                 console.log("deleted character with id: " + action.payload);
-                delete state.characters[i];
+                delete state.forms.characters[i];
             }
         }
     },
     [setInitialValues]: (state, action) => {
-       state.characters = action.payload.characters;
-       state.settlements = action.payload.settlements;
-       state["forms"] = action.payload.forms ?? [];
+       /*state.characters = action.payload.characters;
+       state.settlements = action.payload.settlements;*/
+       state["forms"] = action.payload ?? [];
        state.logs = action.payload.logs;
        console.log("Setting initial store state to" , action.payload);
     },
@@ -169,7 +163,7 @@ const store =  configureStore({
  * @returns {number}
  */
 function getFormDataWithID(id, type) {
-    let forms = store.getState()[type];
+    let forms = store.getState().forms[type];
     return forms[getCharacterIndexWithID(forms, id)];
 }
 
