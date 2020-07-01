@@ -77,14 +77,17 @@ const reducer = createReducer({
         }
     },
     [removeForm]: (state, action) => {
+        const formtype = action.payload.type;
+        
         try {
-            const type = action.payload.type;
-            state.forms[type].array.forEach((element, i) => {
-                if (element.id === action.payload.id){
-                    console.log("Removing form with id", element.id);
-                    delete state.forms[type][i];
+            for (let i = 0; i < state.forms[formtype].length; i++) {
+                if (state.forms[formtype][i].id === action.payload.id){
+                    console.log("Removing form with id", state.forms[formtype][i]);
+                    delete state.forms[formtype][i];
+                    break;
                 } 
-            });
+
+            }
         } catch (error) {
             console.log(error);
         }    

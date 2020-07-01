@@ -227,6 +227,7 @@ removeForm(id, type) {
     const db = firebase.firestore();
     const uid = store.getState().user;
     if (!uid) return; //TODO: parempi tapa 
+    console.log("type was", type);
     store.dispatch({
         type: "form/remove",
         payload: {
