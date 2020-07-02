@@ -220,6 +220,10 @@ async handleSubmit(form, type, formFields) {
         type: "form/add",
         payload: firebaseFriendlyForm
     });
+    const targetURL = `/editor/${firebaseFriendlyForm.id}`; //Asetetaan ohjaamaan luotuun lomakkeeseen
+    this.setState({ 
+        redirect:targetURL
+    })
     
 }
 
@@ -240,7 +244,7 @@ removeForm(id, type) {
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     }).finally(e => {
-        this.setState({redirect: true}); //poistutaan sivulta.
+        this.setState({redirect: "/editor"}); //poistutaan sivulta.
     });
 
 
@@ -248,8 +252,8 @@ removeForm(id, type) {
 }
 
     render() {
-        if (this.state.redirect === true) {
-            return <Redirect to="/editor" />
+        if (this.state.redirect !== false) {
+            return <Redirect to={this.state.redirect} />
         }
         let formFields = this.state.formFields;
 
