@@ -172,7 +172,7 @@ async loadData(id) {
 
 /**
  * Lisää lomakeessa syötetyn arvon vastaavaan kenttään lomakkeen muodostamiseen käytettyyn tietorakenteeseen
- * @param {*} formData Lomakkeessa syötetyt arvot
+ * @param {*} formData Lomakkeessa syötetyt arvot   
  * @param {*} formFields lomakkeen muodostamiseen käytettävä tietorakenne.
  */
 mapFormValueToField(formData, formFields) {
@@ -208,13 +208,19 @@ async handleSubmit(form, type, formFields) {
         console.log("error ", e);
         firebaseFriendlyForm = formFields;
     }
-    db.collection("users").doc(uid).collection("forms").doc(formFields["id"]).set(firebaseFriendlyForm)
-    .then(function() {
-        console.log("Document successfully written!");
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+    console.log("form was ", firebaseFriendlyForm);
+    try {
+        db.collection("users").doc(uid).collection("forms").doc(formFields["id"]).set(firebaseFriendlyForm)
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    
+    } catch (error) {
+        console.error(error);
+    }
 
     store.dispatch({
         type: "form/add",

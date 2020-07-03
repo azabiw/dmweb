@@ -6,7 +6,9 @@ class AddFieldContainer extends React.Component {
         super(props);
         this.state = {
             fieldType: "text",
-            selectiontype: ""
+            selectiontype: "",
+            fieldName: ""
+
         }
         this.onSelectionTypeChange = this.onSelectionTypeChange.bind(this);
     }
@@ -18,12 +20,10 @@ class AddFieldContainer extends React.Component {
     onSelectionTypeChange(newSelectionType) {
         this.setState({
             selectiontype: newSelectionType,
-            fieldType:"text"
         });
     }
 
     render () {
-        let fieldName = "";
         const supportedTypes =  ["character", "settlement"]; //TODO: muuta dynaamiseksi
 
     return (
@@ -31,16 +31,16 @@ class AddFieldContainer extends React.Component {
             <Label>
                 Field name
                 <input id={"Fieldname"} onChange={
-                    e => fieldName=e.target.value
+                    e => this.setState({fieldName:e.target.value})
                 } />
             </Label>
             <label for="fieldTypeSelector">Field type</label>
             <select value={this.state.fieldType} id="fieldTypeSelector" onChange={e => this.setState({fieldType:e.target.value})}> 
                 <option value="text">Text</option>
-                <option value="selection">Selection</option>
+                <option value="selector">Selection</option>
             </select>
-            <SelectorFieldTypeSelector value={this.state.selectiontype} onChange={this.onSelectionTypeChange} options={supportedTypes} visible={(this.state.fieldType === "selection")}/>
-            <Button  type="button" onClick={e => this.props.handleAddFieldClick(fieldName, this.state.fieldType, this.state.selectiontype)}>Add a new field</Button>
+            <SelectorFieldTypeSelector value={this.state.selectiontype} onChange={this.onSelectionTypeChange} options={supportedTypes} visible={(this.state.fieldType === "selector")}/>
+            <Button  type="button" onClick={e => this.props.handleAddFieldClick(this.state.fieldName, this.state.fieldType, this.state.selectiontype)}>Add a new field</Button>
         </div>
     )
 }
