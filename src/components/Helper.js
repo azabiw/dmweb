@@ -7,8 +7,12 @@ class Helper extends React.Component {
         return (
             <React.Fragment>
                 <Popup key={v4()}
+                circular
                 content={this.props.hint ?? "Hint not set"}
-                trigger={<Icon name="info" />}
+                trigger={<Icon name="info" 
+                    circular 
+                    inverted
+                    color="blue"/>}
                 />
 
                 
