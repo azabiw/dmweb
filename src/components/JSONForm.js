@@ -145,15 +145,15 @@ async loadData(id) {
      * Lisää lomakkeeseen uuden kentän annetulla nimellä ja tyypillä
      * @param {*} name Kentän nimi
      * @param {*} fieldType kentän tyyppi esim: "text" 
+     * @param {*} selectiontype jos kenttä on valintakenttä, valinnan tyyppi: esimerkiksi "character" tai "settlement" 
      */
-    handleAddFieldClick(name, fieldType) {
+    handleAddFieldClick(name, fieldType, selectionType) {
         let fields = this.state.formFields || [];
-        let selectionType = "";
+        if (fieldType === "text") selectionType = ""; // Estetetään kentänvalinnan asettaminen, jos kentään tyyppinä on "text"
         //console.log("formfields", fields);
-        if (fieldType !== "text") selectionType = fieldType;
         let testForNumbers = parseInt(name);
         if (name === "" || !isNaN(testForNumbers)){ //estetään sopimattoman tyyppisten kenttien lisääminen
-            console.log("Incorrect field name");
+            console.log("Incorrect field name", name);
             return; //ei lisätä tyhjää kenttää
         } 
         
