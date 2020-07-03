@@ -2,6 +2,7 @@ import React from "react";
 import { Button,  Modal } from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 import store from "../redux/Store";
+import Helper from "./Helper";
 
 
 /**
@@ -65,13 +66,13 @@ class AddNewFormButton extends React.Component {
                 <Modal.Content >
                 <Modal.Description>
 
-                <label>Select field type
+                <label>Select form type
                     <select value={this.state.formtype} onChange={e => this.onTypeChange(e.target.value)}>
                         <option value="new">New Type</option>
                         {typeSelector}
                     </select>
                 </label>
-
+                <Helper hint="Sets the type of your new form. Form type is used to group forms by type and include forms in other forms" />
                 <NewTypeInput value={this.state.newType} visible={this.state.showNewTypeInput} onChange={this.onNewTypeChange}/>
 
                 </Modal.Description>

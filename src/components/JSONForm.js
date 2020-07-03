@@ -93,8 +93,8 @@ async loadData(id) {
 }
 
     /**
-     * 
-     * @param {*} fieldData 
+     * Palauttaa yksittäisen input komponentin lomakkeeseen
+     * @param {*} fieldData Muodostettavan lomakkeen tiedot
      */
     fieldGenerator(fieldData) {
         //console.log("fielddata", fieldData);
