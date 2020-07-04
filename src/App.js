@@ -30,9 +30,6 @@ class App extends React.Component {
                     <Route path="/about">
                         <AboutPage />
                     </Route>
-                    <Route path="/logbook">
-                        <Logbook />
-                    </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />
                     </Route>
