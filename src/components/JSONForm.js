@@ -145,7 +145,7 @@ async loadData(id) {
      * Lisää lomakkeeseen uuden kentän annetulla nimellä ja tyypillä
      * @param {*} name Kentän nimi
      * @param {*} fieldType kentän tyyppi esim: "text" 
-     * @param {*} selectiontype jos kenttä on valintakenttä, valinnan tyyppi: esimerkiksi "character" tai "settlement" 
+     * @param {*} selectiontype jos kenttä on valintakenttä,    valinnan tyyppi: esimerkiksi "character" tai "settlement" 
      */
     handleAddFieldClick(name, fieldType, selectionType) {
         let fields = this.state.formFields || [];
