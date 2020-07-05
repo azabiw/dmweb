@@ -12,7 +12,6 @@ import FrontPage from "./components/FrontPage";
 import AboutPage from "./components/AboutPage";
 import EditorPage from "./components/EditorPage";
 import HPCounterContainer from "./components/HPCounterContainer";
-import Logbook from "./components/Logbook";
 import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
