@@ -93,8 +93,8 @@ async loadData(id) {
 }
 
     /**
-     * 
-     * @param {*} fieldData 
+     * Palauttaa yksittäisen input komponentin lomakkeeseen
+     * @param {*} fieldData Muodostettavan lomakkeen tiedot
      */
     fieldGenerator(fieldData) {
         //console.log("fielddata", fieldData);
@@ -145,22 +145,22 @@ async loadData(id) {
      * Lisää lomakkeeseen uuden kentän annetulla nimellä ja tyypillä
      * @param {*} name Kentän nimi
      * @param {*} fieldType kentän tyyppi esim: "text" 
+     * @param {*} selectiontype jos kenttä on valintakenttä,    valinnan tyyppi: esimerkiksi "character" tai "settlement" 
      */
-    handleAddFieldClick(name, fieldType) {
+    handleAddFieldClick(name, fieldType, selectionType) {
         let fields = this.state.formFields || [];
-        let selectionType = "";
+        if (fieldType === "text") selectionType = ""; // Estetetään kentänvalinnan asettaminen, jos kentään tyyppinä on "text"
         //console.log("formfields", fields);
-        if (fieldType !== "text") selectionType = fieldType;
         let testForNumbers = parseInt(name);
         if (name === "" || !isNaN(testForNumbers)){ //estetään sopimattoman tyyppisten kenttien lisääminen
-            console.log("Incorrect field name");
+            console.log("Incorrect field name", name);
             return; //ei lisätä tyhjää kenttää
         } 
         
         let empty = {
             "name": name,
             "fieldtype": fieldType,
-            "selectionType": selectionType,
+            "selectiontype": selectionType,
             "value": ""
             };
         console.log("Adding field with ", empty);
@@ -172,7 +172,7 @@ async loadData(id) {
 
 /**
  * Lisää lomakeessa syötetyn arvon vastaavaan kenttään lomakkeen muodostamiseen käytettyyn tietorakenteeseen
- * @param {*} formData Lomakkeessa syötetyt arvot
+ * @param {*} formData Lomakkeessa syötetyt arvot   
  * @param {*} formFields lomakkeen muodostamiseen käytettävä tietorakenne.
  */
 mapFormValueToField(formData, formFields) {
@@ -208,13 +208,19 @@ async handleSubmit(form, type, formFields) {
         console.log("error ", e);
         firebaseFriendlyForm = formFields;
     }
-    db.collection("users").doc(uid).collection("forms").doc(formFields["id"]).set(firebaseFriendlyForm)
-    .then(function() {
-        console.log("Document successfully written!");
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+    console.log("form was ", firebaseFriendlyForm);
+    try {
+        db.collection("users").doc(uid).collection("forms").doc(formFields["id"]).set(firebaseFriendlyForm)
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    
+    } catch (error) {
+        console.error(error);
+    }
 
     store.dispatch({
         type: "form/add",

@@ -12,7 +12,6 @@ import FrontPage from "./components/FrontPage";
 import AboutPage from "./components/AboutPage";
 import EditorPage from "./components/EditorPage";
 import HPCounterContainer from "./components/HPCounterContainer";
-import Logbook from "./components/Logbook";
 import 'semantic-ui-less/semantic.less'
 import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
@@ -29,9 +28,6 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/about">
                         <AboutPage />
-                    </Route>
-                    <Route path="/logbook">
-                        <Logbook />
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />

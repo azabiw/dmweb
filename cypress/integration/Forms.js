@@ -73,4 +73,36 @@ describe("Editor page works", () => {
         cy.get('.red').click();
         cy.contains(testNPC.name).should('not.exist'); //testataan löytyykö luotu lomake. jos löytyy heitetään virhe
     })
+    it("Selectorfields work", () => {
+        cy.login(); 
+        const testValues= {
+            name:"testNPC",
+            fieldname: "testikenttä",
+            fieldtype: "character"
+        
+        }
+        //lisätään uusi hahmo
+        cy.get('#leftList > .ui').click({force: true});
+        cy.contains("Add a New Form");
+        cy.get('.content > .ui').click({force: true});
+        cy.contains("Add a new field");
+        cy.get('#name').clear(); //tyhjennetään kenttä ennen muokkaamista, jotta vakioarvo ei tule mukaan
+        cy.get('#name').type(testValues.name).should('have.value', testValues.name); 
+
+        //Testataan uuden valintakentän lisäämistä
+
+        cy.get('#Fieldname').type(testValues.fieldname).should("have.value", testValues.fieldname); //kirjoitetaan kenttään
+        cy.get('#fieldTypeSelector').select("Selection"); //Valitsee kentän valintakentäksi
+        cy.get('#selectionTypeSelector').select(testValues.fieldtype);
+        cy.contains("Add a new field").click(); //lisätään kenttä lomakkeeseen
+
+        cy.get('#Fieldname').clear(); //tyhjennetään nimikenttä
+        cy.get('#inputForm').contains(testValues.fieldname);
+
+        cy.get('#inputForm > .primary').click();
+        cy.get('#leftList').contains(testValues.name).click();
+        cy.get('.red').click();
+        //cy.contains(testValues.name).should('not.exist'); //testataan löytyykö luotu lomake. jos löytyy heitetään virhe
+
+    })
 })
