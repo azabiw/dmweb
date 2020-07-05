@@ -229,7 +229,7 @@ async handleSubmit(form, type, formFields) {
     const targetURL = `/editor/${firebaseFriendlyForm.id}`; //Asetetaan ohjaamaan luotuun lomakkeeseen
     this.setState({ 
         redirect:targetURL
-    })
+    });
     
 }
 
