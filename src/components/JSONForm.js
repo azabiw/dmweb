@@ -160,7 +160,7 @@ async loadData(id) {
         let empty = {
             "name": name,
             "fieldtype": fieldType,
-            "selectionType": selectionType,
+            "selectiontype": selectionType,
             "value": ""
             };
         console.log("Adding field with ", empty);
