@@ -11,16 +11,17 @@ class SelectorField extends React.Component {
     constructor(props) {
         super(props);
         let idOfDefault = ( this.props.idOfDefault != null) ? this.props.idOfDefault : "Not selected";
+        let properties = this.props.properties;
+        console.log("proops", properties);
         this.state = {
-            properties: this.props.properties,
+            properties: properties,
             idOfDefault: idOfDefault
         }
         //properties for example characters or settlements
     }
 
     render() {
-        let properties = this.state.properties ? this.state.properties : [];
-        const propertyList = properties.map((property) =>
+        const propertyList = this.props.properties.map((property) =>
             <option value={property.id}> {property.name ? property.name : "No name"} </option>
         );
         return (
