@@ -18,7 +18,7 @@ class LoginComponent extends React.Component {
         let displayName = this.props.displayName || "";
         this.state = {
             loggedIn: loggedIn,
-            displayName: displayName
+            username: displayName
         }
         //store.dispatch({type: "firebase/initialise"});
         this.unsubscribe = store.subscribe(this.handleChange);
