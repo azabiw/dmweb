@@ -57,13 +57,13 @@ class LoginComponent extends React.Component {
 
     logout() {
         const auth = this.props.auth;
+        this.setState({
+            loggedIn: false
+        });
         auth.signOut().then(function() {
             store.dispatch({
                 type: "user/set",
                 payload: ""
-            });
-            this.setState({
-                loggedIn: false
             });
             console.log("logged out");
           }).catch(function(error) {
