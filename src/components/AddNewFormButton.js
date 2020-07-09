@@ -54,7 +54,7 @@ class AddNewFormButton extends React.Component {
     }
 
     render() {
-        let typeSelector = this.state.typeOptions.map(type => <option>{type}</option> );
+        let typeSelector = this.state.typeOptions.map(type => <option value={type} key={type}>{type}</option> );
         return (
         <React.Fragment>
 

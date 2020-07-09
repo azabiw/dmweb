@@ -34,7 +34,7 @@ class AddFieldContainer extends React.Component {
                     e => this.setState({fieldName:e.target.value})
                 } />
             </Label>
-            <label for="fieldTypeSelector">Field type</label>
+            <label htmlFor="fieldTypeSelector">Field type</label>
             <select value={this.state.fieldType} id="fieldTypeSelector" onChange={e => this.setState({fieldType:e.target.value})}> 
                 <option value="text">Text</option>
                 <option value="selector">Selection</option>

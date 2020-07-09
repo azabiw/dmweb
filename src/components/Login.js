@@ -14,8 +14,11 @@ class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
         this.googleLogin = this.googleLogin.bind(this);
+        let loggedIn = this.props.loggedIn || false;
+        let displayName = this.props.displayName || "";
         this.state = {
-            loggedIn: false
+            loggedIn: loggedIn,
+            displayName: displayName
         }
         //store.dispatch({type: "firebase/initialise"});
         this.unsubscribe = store.subscribe(this.handleChange);
@@ -76,11 +79,13 @@ function AuthResolver() {
     console.log("user", user);
     if (auth.currentUser !== null) {
         let uid = auth.currentUser.uid;
-       
-            store.dispatch({
+        store.dispatch({
             type:"user/set",
             payload: uid
         });
+        return (
+            <LoginComponent auth={auth} loggedIn={true} displayName={user.displayName} />
+        )
     
     }
 

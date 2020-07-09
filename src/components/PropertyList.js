@@ -34,10 +34,10 @@ class PropertyList extends React.Component {
     }
     render() {
         const characterList = this.state.characters.map((char) =>
-            <li className={styles.ListElement}><Button  as={Link} to={`/editor/${char.id}`}>{char.name ? char.name : "No name"}</Button></li>
+            <li key={char.id} className={styles.ListElement}><Button  as={Link} to={`/editor/${char.id}`}>{char.name ? char.name : "No name"}</Button></li>
         );
         const settlementList = this.state.settlements.map((settlement) =>
-            <li className={styles.ListElement}><Button  as={Link} to={`/editor/${settlement.id}`}>{settlement.name ? settlement.name: "No name"}</Button></li>
+            <li key={settlement.id} className={styles.ListElement}><Button  as={Link} to={`/editor/${settlement.id}`}>{settlement.name ? settlement.name: "No name"}</Button></li>
         );
 
         return (
@@ -49,7 +49,7 @@ class PropertyList extends React.Component {
                     <ul className={styles.list}>{settlementList}</ul>
                     
                     
-                    <AddNewFormButton />
+                    <AddNewFormButton key={"newFormBTN"} />
 
                 </Segment>
             </Rail>

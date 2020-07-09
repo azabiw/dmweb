@@ -38,7 +38,7 @@ class SelectorField extends React.Component {
         let propertyList;
         if (this.state.properties !== undefined) {
             propertyList = this.state.properties.map((property) =>
-            <option value={property.id}> {property.name ? property.name : "No name"} </option>
+            <option key={property.id} value={property.id}> {property.name ? property.name : "No name"} </option>
             );
         } else {
             return <div>
