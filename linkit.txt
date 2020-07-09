@@ -74,3 +74,4 @@ https://react.semantic-ui.com/modules/modal/#types-controlled
 https://reactjs.org/docs/error-boundaries.html
 https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
 https://developmentarc.gitbooks.io/react-indepth/content/life_cycle/update/component_will_receive_props.html
+https://firebase.google.com/docs/auth/web/password-auth

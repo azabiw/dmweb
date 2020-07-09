@@ -22,6 +22,7 @@ class LoginComponent extends React.Component {
         }
         //store.dispatch({type: "firebase/initialise"});
         this.unsubscribe = store.subscribe(this.handleChange);
+        this.logout = this.logout.bind(this);
     }
 
 
@@ -54,6 +55,25 @@ class LoginComponent extends React.Component {
 
     }
 
+    logout() {
+        const auth = this.props.auth;
+        auth.signOut().then(function() {
+            store.dispatch({
+                type: "user/set",
+                payload: ""
+            });
+            this.setState({
+                loggedIn: false
+            });
+            console.log("logged out");
+          }).catch(function(error) {
+            // An error happened.
+            console.error("Error while logging out", error);
+          });
+          
+
+    }
+
     render() {
         if (!this.state.loggedIn) {
             return (
@@ -67,6 +87,7 @@ class LoginComponent extends React.Component {
             return (
                 <div className={"loginContainer"}>
                     <h2>Logged in as: {this.state.username}</h2>
+                    <Button onClick={e => this.logout()}>Log out</Button>
                 </div> 
             )
         }

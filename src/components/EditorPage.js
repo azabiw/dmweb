@@ -62,12 +62,17 @@ class EditorPage extends React.Component {
 
 function SetUserID(props) {
     const user = useUser();
-    let uid = user.uid;
-    if (!uid) {
-        store.dispatch({
-        type:"user/set",
-        payload: uid
-    }) 
+    try {
+        let uid = user.uid;
+        if (!uid) {
+            store.dispatch({
+            type:"user/set",
+            payload: uid
+        }) 
+        }
+    
+    } catch (e) {
+        console.error(e);
     }
     return <React.Fragment >
         
