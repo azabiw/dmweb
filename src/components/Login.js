@@ -8,6 +8,7 @@ import {
     useAuth,
     SuspenseWithPerf,
   } from 'reactfire';
+import Helper from "./Helper";
 class LoginComponent extends React.Component {
     unsubscribe;
     constructor(props) {
@@ -55,6 +56,7 @@ class LoginComponent extends React.Component {
             return (
                 <div className={"loginContainer"}>
                     <Button onClick={e => this.googleLogin()}>Login with Google</Button>
+                    <Helper hint="Registers a new account if you don't already have one." />
                 </div> 
              )
         }

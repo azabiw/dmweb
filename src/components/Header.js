@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 //import styles from "../styles/Header.module.css";
 import {Button,  Menu} from "semantic-ui-react";
 import LoginContainer from "./Login";
+import Helper from "./Helper";
 class Header extends React.Component {
 
     render() {
@@ -13,6 +14,7 @@ class Header extends React.Component {
                 </Menu.Item>
                 <Menu.Item>
                     <Button color={"purple"} as={Link} to="/editor">Editor</Button>
+                    <Helper hint={"Only works while logged in."} />
                 </Menu.Item>
                 <Menu.Item>
                     <Button color={"purple"} as={Link} to="/hpc">HP Counter</Button>
