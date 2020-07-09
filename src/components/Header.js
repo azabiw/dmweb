@@ -22,7 +22,7 @@ class Header extends React.Component {
                 <Menu.Item>
                     <Button color={"purple"} as={Link} to="/about">About</Button>
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item position="right">
                     <LoginContainer />
                 </Menu.Item>
             </Menu>
