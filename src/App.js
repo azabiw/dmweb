@@ -72,7 +72,7 @@ function IDResolverForJsonForm(props) {
     let { id } = useParams();
     return (
         <React.Fragment>
-            <JSONForm id={id} />
+            <JSONForm key={id} id={id} />
         </React.Fragment>
     )
 }
