@@ -103,7 +103,7 @@ async loadData(id) {
                 return <SimpleField key={fieldData.name} id={fieldData.name} defaultText={fieldData.value ? fieldData.value : ""} name={fieldData.name} label={fieldData.name} />
             case "selector":
                 let defaultValue = fieldData.value;
-                return <SelectorField key={fieldData.name} idOfDefault={defaultValue} properties={this.state.character } name={fieldData.name} label={fieldData.name} />
+                return <SelectorField key={fieldData.name} idOfDefault={defaultValue} selectiontype={fieldData.selectiontype } name={fieldData.name} label={fieldData.name} />
    
             default: 
                 return;

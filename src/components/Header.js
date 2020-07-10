@@ -8,7 +8,7 @@ class Header extends React.Component {
 
     render() {
         return (
-            <Menu inverted color={"purple"}>
+            <Menu size="small" fluid inverted color={"purple"}>
                 <Menu.Item>
                     <Button color={"purple"}  as={Link} to="/">DM Web</Button>
                 </Menu.Item>

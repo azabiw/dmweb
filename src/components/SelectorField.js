@@ -1,5 +1,6 @@
 import React from "react";
 import {Field} from "react-final-form";
+import store from "../redux/Store";
 
 /**
  * Required props:
@@ -10,28 +11,30 @@ import {Field} from "react-final-form";
 class SelectorField extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props);
         let idOfDefault = ( this.props.idOfDefault != null) ? this.props.idOfDefault : "Not selected";
-        let properties = this.props.properties ?? [];
-        console.log("proops", properties);
+        this.selectiontype = this.props.selectiontype;
+        let properties = store.getState().forms[this.selectiontype];
+        console.log("props for selector field", properties);
         this.state = {
-            properties: properties,
-            idOfDefault: idOfDefault
+            idOfDefault: idOfDefault,
+            properties:properties
         }
         //properties for example characters or settlements
+        this.handleChange = this.handleChange.bind(this);
 
-        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+        this.unsubscribe = store.subscribe(this.handleChange);
     }
 
-    /** TODO: KORJAA
-     * workaround tilan muuttamiseksi. 
-     * Tämä ei ole tehon kannalta suositeltava ratkaisu, mutta ottaen huomioon lomakkeiden määrän, vaikutus ei ole kovinkaan vakava.
-     * Voidaan ratkaista hakemalla redux storesta arvot, mutta se lisää muistin käyttöä vastaavassa määrin.
-     * @param {} nextProps 
-     */
-    componentWillReceiveProps(nextProps){
+    handleChange() {
+        let properties = store.getState().forms[this.selectiontype];
         this.setState({
-            properties: nextProps.properties
-        })
+            properties:properties
+        });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     render() {
