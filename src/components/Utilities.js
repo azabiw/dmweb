@@ -64,12 +64,12 @@ class utilities {
             let logs = [];
             let quests = [];
     
-            console.log(querySnapshot);
+            //console.log(querySnapshot);
             querySnapshot.forEach(doc => {
-                console.log(doc.id, " => ", doc.data());
+                //console.log(doc.id, " => ", doc.data());
 
                 let form  = doc.data();
-                console.log("form", form);
+                //console.log("form", form);
                 switch (form.formtype) {
                     case "character":
                         chars.push(form);
@@ -110,7 +110,7 @@ class utilities {
             console.log("asetettu id " + id);
             formData["id"] = id;
         }
-        console.log("lomakkeen id" + formData.id);
+        //console.log("lomakkeen id" + formData.id);
         store.dispatch({type: action,payload:formData});
         //console.log(formData);
         let util = new utilities();
