@@ -70,7 +70,14 @@ const reducer = createReducer({
         try { 
             const formtype = action.payload.formtype;
             console.log("adding form with formtype:", formtype);
-            state.forms[formtype].push(action.payload);
+
+            const index = getCharacterIndexWithID(state.forms[formtype], action.payload.id);
+            if (index !== -1) {
+                state.forms[formtype][index] = action.payload;
+            } else {
+                state.forms[formtype].push(action.payload);
+            }
+            
 
         } catch (error) {
             console.error(error);
@@ -93,6 +100,7 @@ const reducer = createReducer({
         }    
     }
 });
+
 
 
 const store =  configureStore({
