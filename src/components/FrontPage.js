@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "../styles/FrontPage.module.css"
 import {Container} from "semantic-ui-react";
+
+/**
+ * Projektin etusivu.
+ */
 class FrontPage extends React.Component {
 
    render() {

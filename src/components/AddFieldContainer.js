@@ -1,6 +1,11 @@
 import React from "react";
 import { Button, Label} from "semantic-ui-react";
 
+/**
+ * Sisältää JSONForm-lomakkeeseen uuden kentän lisäämiseen käytetyt komponentit. 
+ * 
+ */
+
 class AddFieldContainer extends React.Component {
     constructor(props) {
         super(props);

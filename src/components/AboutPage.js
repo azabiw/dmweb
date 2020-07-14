@@ -1,6 +1,8 @@
 import React from "react";
 import {Container} from "semantic-ui-react";
-
+/**
+ * Sisältää lisätietojasivun sisällön.
+ */
 class AboutPage extends React.Component {
     render() {
         return (

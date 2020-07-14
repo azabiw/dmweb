@@ -1,10 +1,11 @@
-//todo: virheenkäsittely
-//lähettää lomakkeen sisällön palvelimelle
-//todo: virheenkäsittely
-//lähettää lomakkeen sisällön palvelimelle
 import store from "../redux/Store";
 import v4 from "uuid/v4";
 import * as firebase from "firebase";
+
+/**
+ * Apufunktiot.
+ * Alustaa redux -storen kutsuttaessa.
+ */
 class utilities {
 
     //todo: tee staattinen
@@ -38,7 +39,10 @@ class utilities {
             console.error('Error:', error);
         }
     }
-
+/**
+ *  Alustaa storen.
+ * Lataa kaiken käyttäjän datan firestoresta ja lisää ne redux-storeen.
+ */
     static async initializeStore() {
         /*let response = await fetch('/users', {
             credentials: "omit",

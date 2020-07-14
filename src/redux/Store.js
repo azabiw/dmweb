@@ -1,5 +1,8 @@
 import {configureStore, createAction, createReducer} from "@reduxjs/toolkit";
-
+/**
+ * Sisältää redux-storen ominaisuudet. 
+ * Käytetään komponenttien väliseen tilan jakamiseen. 
+ */
 const setUser = createAction("user/set", function prepare(user) {
     return {
         payload: user
@@ -49,6 +52,10 @@ function getCharacterIndexWithID(characterList, id) {
     }
     return -1;
 }
+
+/**
+ * Käsittelee storen tilanmuutokset.
+ */
 const reducer = createReducer({
     forms:[],
     currentFormtype: "character"

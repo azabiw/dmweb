@@ -2,10 +2,7 @@ import {Field} from "react-final-form";
 import React from "react";
 import styles from "../styles/SimpleField.module.css";
 /**
- *
- * @param props label, defaultText, name and id
- * @returns {*}
- * @constructor
+ * Yksittäinen tekstikenttä otsikolla. 
  */
 const SimpleField = (props ) => {
     return (

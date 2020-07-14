@@ -5,6 +5,11 @@ import {Link} from "react-router-dom";
 import styles from "../styles/PropertyList.module.css";
 import AddNewFormButton from "./AddNewFormButton";
 
+/**
+ * Editorin vasemmassa reunassa näkyvä lomakkeiden listaus. 
+ * Nimetty harhaanjohtavasti. 
+ *  
+ */
 class PropertyList extends React.Component {
     constructor(props) {
         super(props);

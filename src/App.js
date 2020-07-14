@@ -18,7 +18,9 @@ import JSONForm from './components/JSONForm';
 import {v4} from "uuid";
 import { AuthCheck, SuspenseWithPerf } from 'reactfire';
 
-//Pääohjelma
+/**Pääohjelma
+ * Sisältää react-routerin, joka renderöi URL:n pohjalta vaadittavan sivun. 
+ */
 class App extends React.Component {
     render() {
         return (
@@ -63,11 +65,20 @@ class App extends React.Component {
 
     }
 }
-
+/**
+ * Fallback komponentti, jota käytetään jos käyttäjä ei ole kirjautunut.
+ * Tällä hetkellä uudelleenohjaa etusivulle
+ * @param {*} props 
+ */
 function LoginPromt(props) {
     return <Redirect to="/" />
 }
 
+/**
+ * Selvittää URL:sta pyydetyn ID:n ja renderöi sen pohjalta lomakkeen.
+ * Tätä komponettia tarvitaan, koska reactin koukkuja (hooks) ei voida käyttää luokkakomponenteissa ja React Router ei tarjoa niille tukea.
+ * @param {*} props 
+ */
 function IDResolverForJsonForm(props) {
     let { id } = useParams();
     return (

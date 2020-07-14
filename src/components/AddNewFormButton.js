@@ -6,7 +6,8 @@ import Helper from "./Helper";
 
 
 /**
- * Käsittelee uuden lomakkeen lisäämisen
+ * Käsittelee uuden lomakkeen lisäämisen ja sisältää siihen tarvittavat komponentit. 
+ * Käytetään tällä hetkellä vain editorin vasemmassa palkissa eli PropertyListissä
  */
 class AddNewFormButton extends React.Component {
 

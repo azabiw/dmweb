@@ -11,11 +11,11 @@ import store from "../redux/Store";
 class SelectorField extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
+        //console.log(this.props);
         let idOfDefault = ( this.props.idOfDefault != null) ? this.props.idOfDefault : "Not selected";
         this.selectiontype = this.props.selectiontype;
         let properties = store.getState().forms[this.selectiontype];
-        console.log("props for selector field", properties);
+        //console.log("props for selector field", properties);
         this.state = {
             idOfDefault: idOfDefault,
             properties:properties

@@ -4,6 +4,10 @@ import {Link} from "react-router-dom";
 import {Button,  Menu} from "semantic-ui-react";
 import LoginContainer from "./Login";
 import Helper from "./Helper";
+
+/**
+ * Sivun yläpalkki, joka sisältää linkit sivuille ja näyttää kirjautumiskomponentin
+ */
 class Header extends React.Component {
 
     render() {

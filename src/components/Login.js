@@ -9,6 +9,12 @@ import {
     SuspenseWithPerf,
   } from 'reactfire';
 import Helper from "./Helper";
+
+/**
+ * Kirjautumiskomponentti. 
+ * Renderöi Google -kirjautumispainikkeen tai käyttäjän nimen, riippuen kirjautumisen tilasta.
+ *  Tallentaa käyttäjän userID:n redux -storeen.
+ */
 class LoginComponent extends React.Component {
     unsubscribe;
     constructor(props) {

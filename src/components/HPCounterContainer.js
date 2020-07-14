@@ -2,6 +2,10 @@ import React from "react";
 import HPCounter from "./HPCounter";
 import {Container, Segment} from "semantic-ui-react";
 import styles from "../styles/HPCounterContainer.module.css";
+
+/**
+ * Elämälaskuri, jolla voidaan lisätä dynaamisesti uusia laskureita annetuilla nimillä ja elämän määrillä.
+ */
 class HPCounterContainer extends React.Component {
     constructor(props) {
         super(props);

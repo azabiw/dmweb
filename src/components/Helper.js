@@ -1,6 +1,11 @@
 import React from "react";
 import {Popup, Icon } from 'semantic-ui-react'
 import v4 from "uuid";
+
+/**
+ * Infopallo. Näyttää hiirellä hoveratessa tarvittavaa tietoa lähellä olevista komponenteista. 
+ * Ottaa propseina ohjeen.
+ */
 class Helper extends React.Component {
 
     render() {

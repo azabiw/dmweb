@@ -10,6 +10,11 @@ import AddFieldContainer from "./AddFieldContainer";
 import { FormTemplate } from "../other/FormBase";
 import * as firebase from "firebase";
 import { v4 } from "uuid";
+
+/**
+ * Pääasiallinen lomakesivu. Ottaa vastaan propseina ladattavan lomakkeen id:n ja tekee sen pohjalta dynaamisesti lomakkeen.
+ */
+
 class JSONForm extends React.Component{
     #isNew = true;
     #id;
@@ -17,7 +22,7 @@ class JSONForm extends React.Component{
     constructor(props){
         super(props); 
         const id = this.props.id;
-        console.log(`Id${id}`);
+        //console.log(`Id${id}`);
         const isNew = this.props.isNew || false;
         let formFields = this.props.formFields || []; //jos propseina ei jostain syystä anneta lomakkeelle kenttiä, tehdään tyhjä lomake.
         const formtype = store.getState().currentFormtype;

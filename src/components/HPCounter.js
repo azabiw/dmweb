@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "../styles/HPCounter.module.css";
 import {Button, Segment} from "semantic-ui-react";
+
+/**
+ * Yksittäinen elämien laskemiseen käytetty työkalu.
+ * Käytetään vain HPCounterContainerissa, joka lisää yksittäisiä laskureita tarvittaessa dynaamisesti.
+ */
 class HPCounter extends React.Component {
     #id;
     constructor(props) {

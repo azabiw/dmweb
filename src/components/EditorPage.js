@@ -8,6 +8,11 @@ import {
     useUser,
   } from 'reactfire';
 
+/**
+ * Ohjelman pääasiallinen sisältö eli editori.
+ * Ottaa vastaan propsina käytettävän editorin ja lisää sen lapsiomponentiksi.
+ * Käsittelee alempien komponenttien virheet ja ilmoittaa niistä.
+ */
 class EditorPage extends React.Component {
 
     constructor(props) {
