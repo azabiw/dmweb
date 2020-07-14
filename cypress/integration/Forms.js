@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 /// <reference types="Cypress" />
 
-
+/**
+ * Cypress-intergraatitestit
+ */
 describe('Different pages work', () => {
     it('frontpage opens', () => {
         cy.visit('127.0.0.1:3000');

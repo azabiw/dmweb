@@ -5,7 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseAppProvider } from 'reactfire';
 import {firebaseConfig} from "./firebaseConfig.js";
-
+/**
+ * Renderöi ohjelman DOMiin ja tarjoaa firebasen alemmille komponenteille.
+ */
 ReactDOM.render( <FirebaseAppProvider firebaseConfig={firebaseConfig}>
     <App />
   </FirebaseAppProvider>, document.getElementById('root'));

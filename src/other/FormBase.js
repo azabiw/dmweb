@@ -1,3 +1,8 @@
+/**
+ * Lomakkeen muodostamiseen käytettävä pohja.
+ * 
+ */
+
 class FormField {
     fieldType;
     name;
@@ -56,6 +61,10 @@ class FormTemplate {
         let field = new FormField(name, defaultValue, type, selectiontype);
         this.fields.push(field);
     }
+
+    /**
+     * Palauttaa sisällön yksittäisenä JSON-objektina, joka voidaan tallentaa Googlen Firebaseen. 
+     */
     toFirebase() {
         let fields = [];
         for (let field of this.fields) {
