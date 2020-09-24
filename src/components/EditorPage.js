@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "./Footer";
 import {Container, Grid} from "semantic-ui-react";
 import PropertyList from "./PropertyList";
 import utilities from "./Utilities";
@@ -19,7 +18,6 @@ class EditorPage extends React.Component {
 
     //Napataan lapsikomponenttien virheet ja renderöidään tilalle viesti
     static getDerivedStateFromError(error) {  
-          // Update state so the next render will show the fallback UI.    
           console.error(error);
           return {
                hasError: true 
@@ -49,9 +47,6 @@ class EditorPage extends React.Component {
                            this.props.children
                         }</Container>
                     </Grid.Column>
-                    <div>
-                        <Footer />
-                    </div>
                 </Grid>
             </Container>
 
