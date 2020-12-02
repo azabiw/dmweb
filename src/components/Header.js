@@ -20,6 +20,9 @@ class Header extends React.Component {
                     <Button color={"purple"} as={Link} to="/hpc">HP Counter</Button>
                 </Menu.Item>
                 <Menu.Item>
+                    <Button color={"purple"} as={Link} to="/spellbook">Spell Book</Button>
+                </Menu.Item>
+                <Menu.Item>
                     <Button color={"purple"} as={Link} to="/about">About</Button>
                 </Menu.Item>
                 <Menu.Item position="right">
