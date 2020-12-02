@@ -6,6 +6,7 @@ import { Container } from "semantic-ui-react";
  */
 class Spell {
     isSpent = false;
+    selected = true;
     constructor (name,isLimited, description, effects) {
         this.name = name;
         this.isLimited = isLimited;
@@ -26,6 +27,7 @@ class SpellBook extends React.Component {
             spells
         };
 
+        this.AddSpell = this.AddSpell.bind(this);
     }
     
     loadSpells () {
@@ -35,6 +37,15 @@ class SpellBook extends React.Component {
         return spells;
     }
 
+    AddSpell(spell) {
+        console.log("adding spell");    
+        if (spell === undefined) return; 
+        let spells = this.state.spells;
+        spells.push(spell);
+        this.setState({
+            spells:spells
+        })
+    }
 
     render() {
         let list = this.state?.spells?.map((elem, i) => {
@@ -46,9 +57,19 @@ class SpellBook extends React.Component {
         }
 
         return <Container >
+            <h2> Known spells: </h2>
             {list}
+            <AddSpellForm AddSpell={this.AddSpell} />
         </Container>
     }
+}
+
+const AddSpellForm = (props) => {
+    return <div >
+        <button onClick={e=> props.AddSpell()}>
+            Add a new spell
+        </button>
+    </div> 
 }
 
 export {SpellBook}
