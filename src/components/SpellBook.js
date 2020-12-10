@@ -1,6 +1,6 @@
-import React from "react";
-import { Container } from "semantic-ui-react";
-
+import React , { useState } from "react";
+import { Container, Form, Modal, Button, Header } from "semantic-ui-react";
+import {useFirestore} from "reactfire";
 /**
  * Yksinkertainen placeholder spell.
  */
@@ -19,57 +19,108 @@ class Spell {
     }
 }
 
-class SpellBook extends React.Component {
-    constructor(props) {
-        super(props);
-        let spells = this.loadSpells();
-        this.state = {
-            spells
-        };
-
-        this.AddSpell = this.AddSpell.bind(this);
-    }
-    
-    loadSpells () {
+function SpellBook(props) {
+    const firestore = useFirestore();       
+    const loadSpells = () => {
         let spells = [];
         let tempSpell = new Spell("testi", false,"testitaika","kuvaus");
         spells.push(tempSpell);
         return spells;
     }
 
-    AddSpell(spell) {
+
+    
+    //let spells = this.loadSpells();
+        const [spells, setSpells] = useState(loadSpells());
+       // setSpells(loadSpells());
+    
+    
+    const AddSpell = (spell) => {
         console.log("adding spell");    
         if (spell === undefined) return; 
-        let spells = this.state.spells;
-        spells.push(spell);
-        this.setState({
-            spells:spells
-        })
+        let spellcopy = Array.from(spells);
+        spellcopy.push(spell);
+        setSpells(spellcopy);
     }
 
-    render() {
-        let list = this.state?.spells?.map((elem, i) => {
-            return <button key={elem.name + i} onClick={e =>console.log(elem)}>{elem.name}</button>
+ 
+        let list = spells?.map((elem, i) => {
+            return <ShowSpellModal spell={elem}/>
         });
 
         if (list === undefined || list.length < 1) {
             return <Container>No spells entered</Container>
-        }
-
-        return <Container >
+        } else {
+            return <Container >
             <h2> Known spells: </h2>
             {list}
-            <AddSpellForm AddSpell={this.AddSpell} />
+            <AddSpellForm AddSpell={e => AddSpell(e)} />
         </Container>
-    }
+
+        }
+
+    
 }
 
+const ShowSpellModal = (props) => {
+    const [open, setOpen] = React.useState(false)
+
+    return (
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+    trigger={<Button>{props.spell.name ?? "Unkown spell"}</Button>}
+      >
+        <Modal.Header>{props.spell.name ?? "Unknown spell"}</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <Header>{props.spell.name ?? "Unknown spell"}</Header>
+            <p>
+                {props.spell.description ?? "No description given."}
+            </p>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='black' onClick={() => setOpen(false)}>
+            Nope
+          </Button>
+          <Button
+            content="Ok"
+            labelPosition='right'
+            icon='checkmark'
+            onClick={() => setOpen(false)}
+            positive
+          />
+        </Modal.Actions>
+      </Modal>
+    )
+  }
+
 const AddSpellForm = (props) => {
-    return <div >
-        <button onClick={e=> props.AddSpell()}>
-            Add a new spell
-        </button>
-    </div> 
+    const [name, setName] = useState();
+    const [description, setDescrion] = useState();
+
+
+
+    return <Form>
+        <Form.Group>
+            <Form.Input 
+                placeholder={"Spell name"}
+                name="name"
+                value={name ?? ""} 
+                onChange={e=>setName(e.target.value)}/>
+            <Form.Input 
+                placeholder={"Spell description"}
+                name="description"
+                value={description ?? ""} 
+                onChange={e=>setDescrion(e.target.value)}/>
+            <button onClick={e=> props.AddSpell( new Spell(name, false, description, "asd"))}>
+                Add a new spell
+            </button>
+        </Form.Group>
+        
+    </Form> 
 }
 
 export {SpellBook}
