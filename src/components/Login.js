@@ -42,7 +42,7 @@ class LoginComponent extends React.Component {
                 loggedIn: true,
                 username: displayname
              });
-            console.log(user);
+           // console.log(user);
              store.dispatch({
                  type: "user/set",
                  payload: user.uid
