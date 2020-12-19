@@ -112,9 +112,8 @@ const ShowSpellModal = (props) => {
 
 const AddSpellForm = (props) => {
     const [name, setName] = useState();
-    const [description, setDescrion] = useState();
-
-
+    const [description, setDescription] = useState();
+    const [limited, setLimited] = useState(false);
 
     return <Form>
         <Form.Group>
@@ -127,8 +126,13 @@ const AddSpellForm = (props) => {
                 placeholder={"Spell description"}
                 name="description"
                 value={description ?? ""} 
-                onChange={e=>setDescrion(e.target.value)}/>
-            <button onClick={e=> props.AddSpell( new Spell(name, false, description, "asd"))}>
+                onChange={e=>setDescription(e.target.value)}/>
+              <Form.Checkbox 
+                label="Limited"
+                name="isLimited"
+                checked={limited}
+                onChange={e=> setLimited(limited ? false : true)} />
+            <button onClick={e=> props.AddSpell( new Spell(name, limited, description, "asd"))}>
                 Add a new spell
             </button>
         </Form.Group>
