@@ -17,6 +17,8 @@ import Header from "./components/Header";
 import JSONForm from './components/JSONForm';
 import {v4} from "uuid";
 import { AuthCheck, SuspenseWithPerf } from 'reactfire';
+import {SpellBook} from "./components/SpellBook";
+
 
 //Pääohjelma
 class App extends React.Component {
@@ -31,6 +33,9 @@ class App extends React.Component {
                     </Route>
                     <Route path="/hpc">
                         <HPCounterContainer />
+                    </Route>
+                    <Route path="/spellbook">
+                        <SpellBook />
                     </Route>
                     <Route path={"/editor/new"}>
                         <AuthCheck fallback={<LoginPromt />}>

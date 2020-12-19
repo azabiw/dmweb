@@ -42,7 +42,7 @@ class LoginComponent extends React.Component {
                 loggedIn: true,
                 username: displayname
              });
-            console.log(user);
+           // console.log(user);
              store.dispatch({
                  type: "user/set",
                  payload: user.uid
@@ -97,7 +97,7 @@ class LoginComponent extends React.Component {
 function AuthResolver() {
     const auth = useAuth();
     const user = useUser();
-    console.log("user", user);
+    //console.log("user", user);
     if (auth.currentUser !== null) {
         let uid = auth.currentUser.uid;
         store.dispatch({
