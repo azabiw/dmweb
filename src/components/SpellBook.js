@@ -42,14 +42,14 @@ function SpellBook(props) {
      */
     const loadSpells = () => { 
         let spells = [];
-        let tempSpell = new Spell("testi", true,"testitaika","kuvaus");
+        //let tempSpell = new Spell("testi", true,"testitaika","kuvaus");
         db.collection("users").doc(uid).collection("spells").get().then(snapshot => {
           snapshot.forEach(doc => {
             spells.push(new Spell(doc.name, doc.isLimited, doc.description, doc.effects)); // TODO TÄLLE PAREMPI TAPA
           })
         })
         
-        spells.push(tempSpell);
+        //spells.push(tempSpell);
         return spells;
     }
 
@@ -80,7 +80,7 @@ function SpellBook(props) {
         });
 
         if (list === undefined || list.length < 1) {
-            return <Container>No spells entered</Container>
+            return <Container><AddSpellForm AddSpell={e => AddSpell(e)} /></Container>
         } else {
             return <Container >
             <h2> Known spells: </h2>
