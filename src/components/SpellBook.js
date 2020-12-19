@@ -13,7 +13,12 @@ class Spell {
         this.description = description;
         this.effects = effects;
     }
+    
+    /**
+     * TODO: KORJAA 
+     */
     castSpell() {
+      console.log("casting spell");
         if (this.isLimited) this.isSpent = true;
         return this.effects;
     }
@@ -23,16 +28,12 @@ function SpellBook(props) {
     const firestore = useFirestore();       
     const loadSpells = () => {
         let spells = [];
-        let tempSpell = new Spell("testi", false,"testitaika","kuvaus");
+        let tempSpell = new Spell("testi", true,"testitaika","kuvaus");
         spells.push(tempSpell);
         return spells;
     }
 
-
-    
-    //let spells = this.loadSpells();
-        const [spells, setSpells] = useState(loadSpells());
-       // setSpells(loadSpells());
+    const [spells, setSpells] = useState(loadSpells());
     
     
     const AddSpell = (spell) => {
@@ -45,7 +46,7 @@ function SpellBook(props) {
 
  
         let list = spells?.map((elem, i) => {
-            return <ShowSpellModal spell={elem}/>
+            return <ShowSpellModal key={elem.name+i + elem.isLimited + ""} spell={elem}/>
         });
 
         if (list === undefined || list.length < 1) {
@@ -64,36 +65,48 @@ function SpellBook(props) {
 
 const ShowSpellModal = (props) => {
     const [open, setOpen] = React.useState(false)
+    const [disabled, setDisabled] = React.useState(props.spell.isSpent || false);
 
     return (
+      <div> 
+
+      <Button attached={"left"} disabled={disabled} onClick={e=>{
+        if (props.spell.isLimited === true) setDisabled(true);
+        props.spell.castSpell()
+      } }>
+        Cast
+      </Button>
+
       <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-    trigger={<Button>{props.spell.name ?? "Unkown spell"}</Button>}
-      >
-        <Modal.Header>{props.spell.name ?? "Unknown spell"}</Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <Header>{props.spell.name ?? "Unknown spell"}</Header>
-            <p>
-                {props.spell.description ?? "No description given."}
-            </p>
-          </Modal.Description>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color='black' onClick={() => setOpen(false)}>
-            Nope
-          </Button>
-          <Button
-            content="Ok"
-            labelPosition='right'
-            icon='checkmark'
-            onClick={() => setOpen(false)}
-            positive
-          />
-        </Modal.Actions>
-      </Modal>
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          trigger={<Button attached={"right"}>{props.spell.name ?? "Unkown spell"}</Button>}
+        >
+          <Modal.Header>{props.spell.name ?? "Unknown spell"}</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <Header>{props.spell.name ?? "Unknown spell"}</Header>
+              <p>
+                  {props.spell.description ?? "No description given."}
+              </p>
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='black' onClick={() => setOpen(false)}>
+              Nope
+            </Button>
+            <Button
+              content="Ok"
+              labelPosition='right'
+              icon='checkmark'
+              onClick={() => setOpen(false)}
+              positive
+            />
+          </Modal.Actions>
+        </Modal>
+
+      </div>
     )
   }
 
