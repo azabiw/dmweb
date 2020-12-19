@@ -1,6 +1,6 @@
 import React , { useState } from "react";
 import { Container, Form, Modal, Button, Header } from "semantic-ui-react";
-import {useFirestore} from "reactfire";
+import {useFirestore, useUser} from "reactfire";
 /**
  * Yksinkertainen placeholder spell.
  */
@@ -22,29 +22,59 @@ class Spell {
         if (this.isLimited) this.isSpent = true;
         return this.effects;
     }
+
+    toJSON() {
+      return {
+        name:this.name,
+        isLimited: this.isLimited,
+        description: this.description,
+        effects: this.effects
+      }
+    }
 }
 
 function SpellBook(props) {
-    const firestore = useFirestore();       
-    const loadSpells = () => {
+    const db = useFirestore();
+    const uid = useUser().uid;       
+
+    /**
+     * Lataa tiedot firebasesta ja palauttaa ne 
+     */
+    const loadSpells = () => { 
         let spells = [];
         let tempSpell = new Spell("testi", true,"testitaika","kuvaus");
+        db.collection("users").doc(uid).collection("spells").get().then(snapshot => {
+          snapshot.forEach(doc => {
+            spells.push(new Spell(doc.name, doc.isLimited, doc.description, doc.effects)); // TODO TÄLLE PAREMPI TAPA
+          })
+        })
+        
         spells.push(tempSpell);
         return spells;
     }
 
     const [spells, setSpells] = useState(loadSpells());
-    
-    
+        
     const AddSpell = (spell) => {
         console.log("adding spell");    
         if (spell === undefined) return; 
         let spellcopy = Array.from(spells);
         spellcopy.push(spell);
         setSpells(spellcopy);
+
+        const spellref = db.collection("users").doc(uid).collection("spells");
+        spellref.add(spell.toJSON());
     }
 
- 
+    //TODO KORJAA ui:n päivittyminen
+    const resetCastStatus = () => {
+      let spellcopy = Array.from(spells);
+      spellcopy.forEach((spell, i) => {
+        spell.isSpent = false;
+      });
+      setSpells(spellcopy);
+    }
+
         let list = spells?.map((elem, i) => {
             return <ShowSpellModal key={elem.name+i + elem.isLimited + ""} spell={elem}/>
         });
@@ -55,6 +85,9 @@ function SpellBook(props) {
             return <Container >
             <h2> Known spells: </h2>
             {list}
+            <p>
+              <Button onClick={e => resetCastStatus()}>Long rest | reset cast status</Button>
+            </p>
             <AddSpellForm AddSpell={e => AddSpell(e)} />
         </Container>
 
@@ -65,12 +98,12 @@ function SpellBook(props) {
 
 const ShowSpellModal = (props) => {
     const [open, setOpen] = React.useState(false)
-    const [disabled, setDisabled] = React.useState(props.spell.isSpent || false);
+    const [disabled, setDisabled] = React.useState(props.spell.isSpent);
 
     return (
       <div> 
 
-      <Button attached={"left"} disabled={disabled} onClick={e=>{
+      <Button attached={"left"} disabled={disabled} onClick={e=>{ 
         if (props.spell.isLimited === true) setDisabled(true);
         props.spell.castSpell()
       } }>
